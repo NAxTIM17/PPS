@@ -4,7 +4,7 @@ function App() {
 
   return (
     <>
-      <h1>PPS SERGIO ES RE GAY</h1>        
+      <h1 className='text-2xl text-red-500'>PPS SERGIO ES RE GAY</h1>        
     </>
   )
 }
