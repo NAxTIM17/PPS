@@ -7,10 +7,6 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Lock files (all but yarn's)
-package-lock.json
-pnpm-lock.yaml
-
 node_modules
 dist
 dist-ssr
@@ -26,6 +22,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-# Env vars
-.env

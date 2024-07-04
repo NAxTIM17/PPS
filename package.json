@@ -1,28 +1,38 @@
 {
-  "name": "pps",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "name": "PPS",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/NAxTIM17/PPS",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "contributors": [
+    {
+      "name": "Ignacio Cubo Timo",
+      "url": "https://github.com/NAxTIM17"
+    },
+    {
+      "name": "Joaquin Gonzalez",
+      "url": "https://github.com/joagz8"
+    },
+    {
+      "name": "Mateo González",
+      "url": "https://github.com/matugonzalez"
+    },
+    {
+      "name": "Sergio Yalux",
+      "url": "https://github.com/CrgioYalux"
+    }
+  ],
+  "license": "MIT",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "rsuite": "^5.65.0"
-  },
-  "devDependencies": {
-    "@types/react": "^18.2.66",
-    "@types/react-dom": "^18.2.22",
-    "@vitejs/plugin-react-swc": "^3.5.0",
-    "eslint": "^8.57.0",
-    "eslint-plugin-react": "^7.34.1",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.6",
-    "tailwindcss": "^3.4.4",
-    "vite": "^5.2.0"
+    "dev:front": "npm --prefix frontend run dev",
+    "dev:back": "npm --prefix backend run dev",
+    "build:front": "npm --prefix frontend run build",
+    "build:back": "npm --prefix backend run build",
+    "start:front": "npm --prefix frontend run start",
+    "start:back": "npm --prefix backend run start"
   }
 }
