@@ -1,7 +1,15 @@
+import { Button, ButtonToolbar } from 'rsuite';
+
 function App() {
   return (
-    <div className='min-h-screen grid place-items-center bg-white dark:bg-dark'>
-      <h1 className='text-black dark:text-white'>Hi there</h1>
+    <div className='min-h-screen grid place-items-center'>
+      <ButtonToolbar>
+        <Button appearance="default">Default</Button>
+        <Button appearance="primary">Primary</Button>
+        <Button appearance="link">Link</Button>
+        <Button appearance="subtle">Subtle</Button>
+        <Button appearance="ghost">Ghost</Button>
+      </ButtonToolbar>
     </div>
   );
 }
