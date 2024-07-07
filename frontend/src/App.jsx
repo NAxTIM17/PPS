@@ -1,17 +1,11 @@
-import { Button, ButtonToolbar } from 'rsuite';
+import BusinessRouter from './components/BusinessRouter';
 
 function App() {
-  return (
-    <div className='min-h-screen grid place-items-center'>
-      <ButtonToolbar>
-        <Button appearance="default">Default</Button>
-        <Button appearance="primary">Primary</Button>
-        <Button appearance="link">Link</Button>
-        <Button appearance="subtle">Subtle</Button>
-        <Button appearance="ghost">Ghost</Button>
-      </ButtonToolbar>
-    </div>
-  );
+    return (
+        <div className='min-h-screen grid place-items-center'>
+            <BusinessRouter />
+        </div>
+    );
 }
 
 export default App;
