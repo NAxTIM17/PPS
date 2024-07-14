@@ -1,22 +1,24 @@
 import http from 'http';
-import cors from 'cors';
-import express from 'express';
+import app from './app';
+import config from './config';
+import db from './db';
 
-const app = express();
+async function init(): Promise<void> {
+  const server = http.createServer(app);
 
-app.disable('x-powered-by');
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(cors());
+  db.getSession(async (_connection, db, end) => {
+    try {
+      console.log('Pinging Database');
+      await db.command({ ping: 1 });
+      console.log('Connection To Database Successful');
+    } finally {
+      server.listen(config.PORT, () => {
+        console.log(`Server Up And Running On Port :${config.PORT}`);
+      });
 
-const server = http.createServer(app);
+      end();
+    }
+  });
+}
 
-const port =process.env.PORT || '4000';
-
-app.get('/status', (_req, res) => {
-  return res.status(200).end('It\'s alive!');
-});
-
-server.listen(port, () => {
-  console.log(`Server up and running on port :${port}`);
-});
+init().catch(console.error);
