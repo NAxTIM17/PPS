@@ -1,9 +1,9 @@
-import isAuth from "./isAuth";
+import auth from "./auth";
 import logs from "./logs";
 import handleError from "./handleError";
 
 export default {
-  isAuth,
+  auth,
   logs,
   handleError,
 };

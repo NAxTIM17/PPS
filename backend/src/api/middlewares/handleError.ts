@@ -5,7 +5,7 @@ export default function (error: Error, _request: Request, response: Response, ne
   if (error) {
     !config.IS_PROD && console.log(error);
 
-    response.status(500).send({ message: 'Server Error' }).end();
+    response.status(500).send({ message: `Server Error: ${error.message}` }).end();
   }
 
   next();

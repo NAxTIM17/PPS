@@ -1,31 +1,15 @@
-import { Db, MongoClient } from 'mongodb';
+import mongoose, { ConnectOptions } from 'mongoose';
 import config from '../config';
 
-const client = new MongoClient(config.MONGODB_URI);
-
-type Session = {
-  connection: MongoClient;
-  db: Db;
+async function connectDB(): Promise<void> {
+  try {
+    await mongoose.connect(config.MONGODB_URI, {} as ConnectOptions);
+  } catch (e) {
+    const error = (e as { message?: string })?.message ?? '';
+    throw new Error(`Error While Attempting Connection To Database: ${error}`);
+  }
 };
 
-async function getSession(callback?: (connection: MongoClient, db: Db, end: () => void) => void): Promise<Session | undefined> {
-  let connection: MongoClient | undefined;
-  let db: Db | undefined;
-
-  try {
-    connection = await client.connect();
-    db = connection.db();
-  } catch (e) {
-    throw new Error(`Failed Connecting To Database: ${e}`);
-  }
-
-  callback?.(connection, db, () => {
-    connection.close();
-  });
-
-  return { connection, db };
-}
-
 export default {
-  getSession,
-}
+  connectDB,
+};
