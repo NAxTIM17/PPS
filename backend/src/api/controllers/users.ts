@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 
 import User from '../../models/User';
+import { UserSchema } from '../../validation/User';
 
 interface AuthRequest extends Request {
   user?: {
@@ -19,6 +20,15 @@ async function getUser(request: AuthRequest, response: Response) {
 };
 
 async function updateUser(request: AuthRequest, response: Response) {
+  const { name, email, password } = request.body;
+
+  const parseResult = UserSchema.safeParse({ name, email, password });
+
+  if (!parseResult.success) {
+    response.status(400).json({ messages: parseResult.error.errors.map((v) => `${v.path}: ${v.message}`) });
+    return;
+  }
+
   try {
     const user = await User.findByIdAndUpdate({ _id: request.user?.id }, request.body, { new: true }).select('-password');
     response.json({ user });

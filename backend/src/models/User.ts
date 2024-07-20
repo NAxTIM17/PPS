@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 import type { IUser } from '../interfaces/IUser';
 
@@ -7,7 +7,6 @@ const UserSchema = new mongoose.Schema(
     email: {
       type: String,
       trim: true,
-      lowercase: true,
       unique: true,
       required: true,
     },

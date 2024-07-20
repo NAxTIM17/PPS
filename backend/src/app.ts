@@ -22,5 +22,9 @@ export default function () {
 
   app.use(middlewares.handleError);
 
+  app.all('**', (_request, response) => {
+    response.status(404).json({ message: 'Resource Not Found' });
+  });
+
   return app;
 }

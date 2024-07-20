@@ -1,9 +1,8 @@
-import { Router } from "express";
+import { Router } from 'express';
 
-import health from "./health";
-import auth from "./auth";
-import users from "./users";
-import notFound from "./notFound";
+import health from './health';
+import auth from './auth';
+import users from './users';
 
 export default function (): Router {
   const app = Router();
@@ -11,7 +10,6 @@ export default function (): Router {
   health(app);
   auth(app);
   users(app);
-  notFound(app);
 
   return app;
 }

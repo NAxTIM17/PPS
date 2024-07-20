@@ -5,9 +5,17 @@ import type { Request, Response } from 'express';
 
 import User from '../../models/User';
 import config from '../../config';
+import { UserSchema } from '../../validation/User';
 
 async function registerUser(request: Request, response: Response): Promise<void> {
   const { name, email, password } = request.body;
+
+  const parseResult = UserSchema.safeParse({ name, email, password });
+
+  if (!parseResult.success) {
+    response.status(400).json({ messages: parseResult.error.errors.map((v) => `${v.path}: ${v.message}`) });
+    return;
+  }
 
   try {
     let user = await User.findOne({ email });
