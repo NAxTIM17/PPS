@@ -1,6 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-import ErrorPage from '../../pages/Error';
 const BusinessRouter = () => {
     return (
         <Routes>
@@ -10,11 +9,11 @@ const BusinessRouter = () => {
             </Route>
 
             <Route path='cuenta'>
-                <Route path='login' element={<div>log in</div>}/>
-                <Route path='recuperar' element={<div>recover password</div>}/>
+                <Route path='login' element={<div>log in page</div>}/>
+                <Route path='recuperar' element={<div>recover password page</div>}/>
             </Route>
             <Route path='/' element={<Navigate to='dashboard'/>}/>
-            <Route path='*' element={<ErrorPage />}/>
+            <Route path='*' element={<div>error 404 page</div>}/>
         </Routes>
     )
 }
