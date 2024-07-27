@@ -6,7 +6,11 @@ export default {
     "./src/**/*.{html,jsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        Catalish : ['Catalish Huntera']
+      }
+    }
   },
   darkMode: "class",
   plugins: [],
