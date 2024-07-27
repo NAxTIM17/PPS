@@ -10,7 +10,7 @@ import axios from './axios';
     * @param {Object} payload
     * @param {string} payload.email
     * @param {string} payload.password
-    * @returns {AuthResponse}
+    * @returns {Promise<AuthResponse>}
 */
 async function login(payload) {
     const res = await axios.post('/auth/login', payload, {});
