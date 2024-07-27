@@ -1,22 +1,9 @@
+import app from './app';
 import http from 'http';
-import cors from 'cors';
-import express from 'express';
+import config from './config';
 
-const app = express();
+const server = http.createServer(app());
 
-app.disable('x-powered-by');
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(cors());
-
-const server = http.createServer(app);
-
-const port =process.env.PORT || '4000';
-
-app.get('/status', (_req, res) => {
-  return res.status(200).end('It\'s alive!');
-});
-
-server.listen(port, () => {
-  console.log(`Server up and running on port :${port}`);
+server.listen(config.PORT, () => {
+  console.log(`Server Up And Running On Port :${config.PORT}`);
 });

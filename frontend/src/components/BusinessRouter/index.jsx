@@ -1,4 +1,6 @@
 import { Route, Navigate, createBrowserRouter, createRoutesFromElements, Outlet } from 'react-router-dom';
+import Error from '../../pages/error/index.jsx';
+import Login from '../../pages/login/index.jsx';
 
 const BusinessRouter = createBrowserRouter(
     createRoutesFromElements(
@@ -10,13 +12,13 @@ const BusinessRouter = createBrowserRouter(
                 <Route path='cuenta' element={<div>where there is account info</div>}>
                     <Route path='cambiar-contraseña' element={<div>where you change your password</div>}/>
                 </Route>
-                <Route path='login' element={<div>log in page</div>}/>
+                <Route path='login' element={<Login/>}/>
                 <Route path='recuperar-contraseña' element={<div>recover password page</div>}>
                     <Route path=':token' element={<div>recover password page</div>}/>
                 </Route>
                 <Route path='/' element={<Navigate to='inicio'/>}/>
             </Route>
-            <Route path='*' element={<div>error 404 page</div>}/>
+            <Route path='*' element={<Error/>}/>
         </>
     )
 )

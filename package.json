@@ -34,5 +34,12 @@
     "build:back": "npm --prefix backend run build",
     "start:front": "npm --prefix frontend run start",
     "start:back": "npm --prefix backend run start"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.1",
+    "@rive-app/react-canvas": "^4.13.3",
+    "@tabler/icons": "^3.10.0",
+    "@tabler/icons-react": "^3.10.0",
+    "gsap": "^3.12.5"
   }
 }
