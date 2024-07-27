@@ -1,26 +1,22 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "es6",
-    "outDir": "dist",
-    "strict": true,
-    "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "sourceMap": true,
-    "baseUrl": ".",
-    "resolveJsonModule": true,
-    "esModuleInterop": true
-  },
-  "include": [
-    "./src/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
-  "ts-node": {
-    "transpileOnly": true
-  }
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "es6",
+		"outDir": "dist",
+		"strict": true,
+		"noImplicitAny": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"sourceMap": true,
+		"baseUrl": ".",
+		"resolveJsonModule": true,
+		"esModuleInterop": true
+	},
+	"include": ["./src/**/*"],
+	"exclude": ["node_modules"],
+	"ts-node": {
+		"transpileOnly": true
+	}
 }

@@ -5,19 +5,18 @@
 @tailwind utilities;
 
 @layer base {
-  @font-face {
-    font-family: 'Catalish Huntera';
-    font-style: normal;
-    font-weight: normal;
-    font-display: swap;
-    src: url('Catalish Huntera.woff') format('woff2');
-  }
-  html {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: normal;
-    font-style: normal;
-    font-variation-settings:
-    "slnt" 0;
-  }
+	@font-face {
+		font-family: 'Catalish Huntera';
+		font-style: normal;
+		font-weight: normal;
+		font-display: swap;
+		src: url('Catalish Huntera.woff') format('woff2');
+	}
+	html {
+		font-family: 'Inter', sans-serif;
+		font-optical-sizing: auto;
+		font-weight: normal;
+		font-style: normal;
+		font-variation-settings: 'slnt' 0;
+	}
 }
