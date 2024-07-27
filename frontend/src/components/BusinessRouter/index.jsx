@@ -1,37 +1,59 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import {
+	Route,
+	Navigate,
+	createBrowserRouter,
+	createRoutesFromElements,
+	Outlet,
+} from 'react-router-dom';
 import Error from '../../pages/error/index.jsx';
 import Login from '../../pages/login/index.jsx';
 
-const BusinessRouter = () => {
-	return (
-		<Routes>
+const BusinessRouter = createBrowserRouter(
+	createRoutesFromElements(
+		<>
 			<Route
-				path="dashboard"
 				element={
 					<div>
-						where I should look to upload or visualize dashboards
+						<Outlet />
 					</div>
 				}
 			>
 				<Route
-					path=":dashboardId"
-					element={<div>where one dashboard should appear</div>}
+					path="inicio"
+					element={<div>where to upload or visualize dashboards</div>}
 				/>
 				<Route
 					path="carga"
-					element={
-						<div>where I should upload data to fill dashboards</div>
-					}
+					element={<div>where u upload data to fill dashboards</div>}
 				/>
-			</Route>
-
-			<Route path="cuenta">
+				<Route
+					path="historial/:dashboardId"
+					element={<div>each dashboard should appear</div>}
+				/>
+				<Route
+					path="cuenta"
+					element={<div>where there is account info</div>}
+				>
+					<Route
+						path="cambiar-contraseña"
+						element={<div>where you change your password</div>}
+					/>
+				</Route>
 				<Route path="login" element={<Login />} />
-				<Route path="recuperar" element={<div>recover password</div>} />
+				<Route
+					path="recuperar-contraseña"
+					element={<div>recover password page</div>}
+				>
+					<Route
+						path=":token"
+						element={<div>recover password page</div>}
+					/>
+				</Route>
+				<Route path="/" element={<Navigate to="inicio" />} />
 			</Route>
-			<Route path="/" element={<Navigate to="dashboard" />} />
 			<Route path="*" element={<Error />} />
-		</Routes>
-	);
-};
+		</>
+	)
+);
+
 export default BusinessRouter;
