@@ -1,11 +1,7 @@
 import { CustomProvider } from 'rsuite';
 
 const ProvidersWrapper = ({ children }) => {
-    return (
-        <CustomProvider>
-                {children}
-        </CustomProvider>
-    )
-}
+	return <CustomProvider>{children}</CustomProvider>;
+};
 
 export default ProvidersWrapper;

@@ -4,8 +4,8 @@ import controllers from '../controllers';
 const router = Router();
 
 export default function (app: Router) {
-  app.use('/auth', router);
+	app.use('/auth', router);
 
-  router.post('/login', controllers.auth.loginUser);
-  router.post('/register', controllers.auth.registerUser);
-};
+	router.post('/login', controllers.auth.loginUser);
+	router.post('/register', controllers.auth.registerUser);
+}
