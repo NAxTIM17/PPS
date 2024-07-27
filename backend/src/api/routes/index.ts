@@ -5,11 +5,11 @@ import auth from './auth';
 import users from './users';
 
 export default function (): Router {
-  const app = Router();
-  
-  health(app);
-  auth(app);
-  users(app);
+	const app = Router();
 
-  return app;
+	health(app);
+	auth(app);
+	users(app);
+
+	return app;
 }
