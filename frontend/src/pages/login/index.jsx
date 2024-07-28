@@ -1,17 +1,19 @@
-import { Input, Button, Checkbox, InputGroup } from 'rsuite';
+import { Input, InputGroup } from 'rsuite';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useRive, useStateMachineInput } from '@rive-app/react-canvas';
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
+import { AuthService } from '../../services/Auth';
 
 function Login() {
-	const [isLoggin, setIsLoggin] = useState(false);
+	const [isAttemptingLogin, setIsAttemptingLogin] = useState(false);
 	const [userInfo, setUserInfo] = useState();
-	const [visible, setVisible] = useState(false);
+	const [passwordInputType, setPasswordInputType] = useState('password');
 	const navigate = useNavigate();
-	//Gsap
+
+	////Gsap
 	gsap.registerPlugin(useGSAP);
 	const tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
 	const backgroundAnimation = () => {
@@ -24,11 +26,16 @@ function Login() {
 		tl.to('#box01', { y: '-10rem', duration: 5 }, '>');
 		tl.to('#box02', { y: '5rem', duration: 5 }, '>');
 	};
+	useGSAP(() => {
+		backgroundAnimation();
+	}, []);
+	//
+
 	const handleUserInfo = (e) => {
-		setUserInfo({
-			...userInfo,
+		setUserInfo((prev) => ({
+			...prev,
 			[e.target.name]: e.target.value,
-		});
+		}));
 	};
 
 	//Rive
@@ -54,27 +61,41 @@ function Login() {
 		INPUT_NAME_SUCCESS
 	);
 
-	const handleChange = () => {
-		setVisible(!visible);
-	};
-	const navigateAccount = (e) => {
-		e.preventDefault();
-		navigate('recuperar-cuenta');
-	};
-	useGSAP(() => {
-		backgroundAnimation();
-	}, []);
+	const handleLogin = async (event) => {
+		event.preventDefault();
 
-	const handleLogin = async () => {
-		//logic to login
+		setIsAttemptingLogin(true);
+		successAnimation.value = errorAnimation.value = false;
+
+		AuthService.login(userInfo)
+			.then((res) => {
+				if (successAnimation) {
+					successAnimation.value = true;
+				}
+
+				localStorage.setItem(
+					`${import.meta.env.VITE_LOCAL_STORAGE_KEY}_token`,
+					res.token
+				);
+
+				navigate('/inicio');
+			})
+			.catch((err) => {
+				if (errorAnimation) {
+					errorAnimation.value = true;
+				}
+			})
+			.finally(() => {
+				setIsAttemptingLogin(false);
+			});
 	};
 
 	return (
-		<div className="w-full h-full flex justify-center items-center relative">
+		<div className="w-full min-h-screen grid place-items-center relative">
 			<div className="w-[90%] h-[70%] absolute inset-x-0 inset-y-0 m-auto">
 				<RiveComponent />
 			</div>
-			<div className="absolute top-0 -z-10 h-full w-full bg-[#F2FFE9] overflow-hidden">
+			<div className="absolute top-0 -z-10 h-full w-full bg-[#F2FFE9] rounded-lg overflow-hidden">
 				<div
 					id="box01"
 					className="absolute bottom-auto left-auto right-0 top-0 h-[1000px] w-[1000px] -translate-x-[-10rem] translate-y-[-10rem] rounded-full bg-[#06D001] opacity-50 blur-[200px]"
@@ -88,49 +109,53 @@ function Login() {
 				id="box-form"
 				className="bg-white w-[350px] rounded-lg drop-shadow-md flex items-center flex-col p-5 dark:text-white"
 			>
-				<h2 className="font-Catalish text-5xl">ADvenir</h2>
+				<h1 className="font-brand text-5xl text-zinc-900">ADvenir</h1>
 				<form
 					onChange={handleUserInfo}
 					action="submit"
+					onSubmit={handleLogin}
 					className="w-full h-full flex gap-1 flex-col mt-10"
 				>
-					<h1 className="text-green-500 text-xl self-center">
+					<h1 className="text-brand-500 text-xl self-center">
 						Iniciar sesión
 					</h1>
-					<p className="text-zinc-500 ml-5">Nombre</p>
-					<Input name="userName" className="rounded-full h-10" />
+					<p className="text-zinc-500 ml-5">Usuario</p>
+					<Input name="username" className="rounded-full h-10" />
 					<p className="text-zinc-500 ml-5 mt-2">Contraseña</p>
 					<InputGroup className="rounded-full h-10">
 						<Input
 							name="password"
 							className="!rounded-full"
-							type={visible ? 'text' : 'password'}
+							type={passwordInputType}
 						/>
 						<InputGroup.Button
 							className="!rounded-r-full"
-							onClick={handleChange}
+							onClick={() => {
+								setPasswordInputType((prev) =>
+									prev === 'text' ? 'password' : 'text'
+								);
+							}}
 						>
-							{visible ? <IconEye /> : <IconEyeOff />}
+							{passwordInputType === 'text' ? (
+								<IconEye />
+							) : (
+								<IconEyeOff />
+							)}
 						</InputGroup.Button>
 					</InputGroup>
-					<a
-						className="text-green-500 hover:decoration-green-600 hover:text-green-600 cursor-pointer ml-5"
-						onClick={(e) => navigateAccount(e)}
+					<Link
+						className="text-brand-400 hover:decoration-brand-600 hover:text-brand-600 cursor-pointer ml-5 w-max"
+						to="/recuperar-contraseña"
 					>
 						Olvidaste tu contraseña?
-					</a>
-					<Checkbox color="green">Recordar usuario</Checkbox>
+					</Link>
 
-					<Button
-						onClick={() =>
-							(successAnimation.value = !successAnimation.value)
-						}
-						className="mt-auto w-full rounded-full h-12 text-2xl font-Catalish"
-						appearance="primary"
-						color="green"
+					<button
+						type="submit"
+						className="mt-4 w-full rounded-full text-2xl py-2 font-brand bg-brand-500 hover:bg-brand-600 cursor-pointer text-brand-50 transition-colors"
 					>
-						Entrar
-					</Button>
+						Ingresar
+					</button>
 				</form>
 			</div>
 		</div>
