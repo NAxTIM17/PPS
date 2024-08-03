@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
 const UserSchema = z.object({
-	name: z.string().min(1, 'Name Is Required'),
-	email: z.string().email('Invalid Email Address'),
+	username: z.string().min(1, 'Userame Is Required'),
+	email: z.string().email('Invalid Email Address').optional(),
 	password: z.string().min(6, 'Password Must Be At Least 6 Characters Long'),
 });
 

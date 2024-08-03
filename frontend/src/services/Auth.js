@@ -6,12 +6,13 @@ import axios from './axios';
  */
 
 /**
-    * Execute a login request
-    * @param {Object} payload
-    * @param {string} payload.email
-    * @param {string} payload.password
-    * @returns {Promise<AuthResponse>}
-*/
+ * Execute a login request
+ * @param {Object} payload
+ * @param {string} payload.username
+ * @param {string} payload.password
+ * @returns {Promise<AuthResponse>}
+ */
+
 async function login(payload) {
 	const res = await axios.post('/auth/login', payload, {});
 	return res.data;

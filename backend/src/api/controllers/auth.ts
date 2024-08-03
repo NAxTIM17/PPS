@@ -1,19 +1,20 @@
+import type { Request, Response } from 'express';
+import type { UserInput } from '../../validators/User';
+
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-
-import type { Request, Response } from 'express';
+import config from '../../config';
 
 import User from '../../models/User';
-import config from '../../config';
-import { UserSchema } from '../../validation/User';
+import { UserSchema } from '../../validators/User';
 
 async function registerUser(
-	request: Request,
+	request: Request<{}, {}, UserInput>,
 	response: Response
 ): Promise<void> {
-	const { name, email, password } = request.body;
+	const { username, email, password } = request.body;
 
-	const parseResult = UserSchema.safeParse({ name, email, password });
+	const parseResult = UserSchema.safeParse({ username, email, password });
 
 	if (!parseResult.success) {
 		response.status(400).json({
@@ -25,14 +26,14 @@ async function registerUser(
 	}
 
 	try {
-		let user = await User.findOne({ email });
+		let user = await User.findOne({ username });
 
 		if (user) {
 			response.status(400).json({ message: 'User already exists' });
 			return;
 		}
 
-		user = new User({ name, email, password });
+		user = new User({ username, email, password });
 
 		const salt = await bcrypt.genSalt(10);
 		user.password = await bcrypt.hash(password, salt);
@@ -56,11 +57,14 @@ async function registerUser(
 	}
 }
 
-async function loginUser(request: Request, response: Response): Promise<void> {
-	const { email, password } = request.body;
+async function loginUser(
+	request: Request<{}, {}, Omit<UserInput, 'email'>>,
+	response: Response
+): Promise<void> {
+	const { username, password } = request.body;
 
 	try {
-		const user = await User.findOne({ email });
+		const user = await User.findOne({ username });
 
 		if (!user) {
 			response.status(400).json({ message: 'Invalid Credentials' });
