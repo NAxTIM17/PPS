@@ -4,6 +4,7 @@ import type { UserInput } from '../../validators/User';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import config from '../../config';
+import nodemailer, { SentMessageInfo } from 'nodemailer';
 
 import User from '../../models/User';
 import { UserSchema } from '../../validators/User';
@@ -95,7 +96,73 @@ async function loginUser(
 	}
 }
 
+async function recoverPassword(
+	request: Request,
+	response: Response
+): Promise<void> {
+	const { email } = request.body;
+	if (!email) {
+		response.status(400).send({
+			message: 'Email is required',
+		});
+		return;
+	}
+	try {
+		const user = await User.findOne({ email });
+		if (!user) {
+			response.status(403).send({
+				message: 'Email not found',
+			});
+			return;
+		}
+		/*
+      const token = jwt.sign(
+        { id : user.id },  
+        config.JWT_SECRET_KEY, 
+        { expiresIn: '1h' },
+        (err, token) => {
+          if (err) throw err;
+          response.json( token )
+        }
+    )
+        */
+		const transporter = nodemailer.createTransport({
+			service: 'gmail',
+			auth: {
+				user: 'test@test.com', //process.env.EMAIL
+				pass: 'qwerty1234', //process.env.PASSWORD
+			},
+		});
+		const mailOptions = {
+			from: 'advenir@gmail.com', //advenir@gmail.com
+			to: user?.email,
+			subject: 'Recover password',
+			text: 'If you did not request this email, you can ignore it',
+		};
+		transporter.sendMail(
+			mailOptions,
+			function (err: Error | null, data: SentMessageInfo) {
+				if (err) {
+					console.log('Error: ' + err);
+					response
+						.status(500)
+						.json({ message: 'Failed to send email' });
+				} else {
+					data.status(200).json('Email sent successfully');
+					//response.status(200).json({ message: 'Email sent successfully' });
+				}
+			}
+		);
+	} catch (error) {
+		response.status(500).send({
+			message: 'An error has ocurred',
+			error,
+		});
+	}
+}
+
 export default {
 	registerUser,
 	loginUser,
+	recoverPassword,
 };
