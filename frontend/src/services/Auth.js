@@ -12,6 +12,7 @@ import axios from './axios';
  * @param {string} payload.password
  * @returns {Promise<AuthResponse>}
  */
+
 async function login(payload) {
 	const res = await axios.post('/auth/login', payload, {});
 	return res.data;
