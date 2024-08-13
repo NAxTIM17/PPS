@@ -1,4 +1,5 @@
 import axios from './axios';
+import { storeToken } from './utils';
 
 /**
  * @typedef {Object} AuthResponse
@@ -6,15 +7,17 @@ import axios from './axios';
  */
 
 /**
- * Execute a login request
+ * Execute a login request and stores token on local storage if found
  * @param {Object} payload
  * @param {string} payload.username
  * @param {string} payload.password
  * @returns {Promise<AuthResponse>}
  */
-
 async function login(payload) {
 	const res = await axios.post('/auth/login', payload, {});
+
+	storeToken(res?.data?.token);
+
 	return res.data;
 }
 

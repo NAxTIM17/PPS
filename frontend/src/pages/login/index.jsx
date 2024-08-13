@@ -6,6 +6,7 @@ import { useGSAP } from '@gsap/react';
 import { useRive, useStateMachineInput } from '@rive-app/react-canvas';
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
 import { AuthService } from '../../services/Auth';
+import { useAuth } from '../../providers/Auth';
 
 function Login() {
 	const [isAttemptingLogin, setIsAttemptingLogin] = useState(false);
@@ -61,6 +62,8 @@ function Login() {
 		INPUT_NAME_SUCCESS
 	);
 
+	const auth = useAuth();
+
 	const handleLogin = async (event) => {
 		event.preventDefault();
 
@@ -68,19 +71,15 @@ function Login() {
 		successAnimation.value = errorAnimation.value = false;
 
 		AuthService.login(userInfo)
-			.then((res) => {
+			.then(() => {
 				if (successAnimation) {
 					successAnimation.value = true;
 				}
 
-				localStorage.setItem(
-					`${import.meta.env.VITE_LOCAL_STORAGE_KEY}_token`,
-					res.token
-				);
-
-				navigate('/inicio');
+				auth?.action?.initSessionWithoutUser();
+				navigate('/');
 			})
-			.catch((err) => {
+			.catch(() => {
 				if (errorAnimation) {
 					errorAnimation.value = true;
 				}
