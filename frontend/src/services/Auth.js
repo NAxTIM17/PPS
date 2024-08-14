@@ -9,7 +9,7 @@ import { storeToken } from './utils';
 /**
  * Execute a login request and stores token on local storage if found
  * @param {Object} payload
- * @param {string} payload.username
+ * @param {string} payload.email
  * @param {string} payload.password
  * @returns {Promise<AuthResponse>}
  */
@@ -24,7 +24,6 @@ async function login(payload) {
 /**
  * Execute a login request
  * @param {Object} payload
- * @param {string} payload.username
  * @param {string} payload.email
  * @param {string} payload.password
  * @returns {Promise<AuthResponse>}

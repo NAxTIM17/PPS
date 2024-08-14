@@ -1,15 +1,19 @@
-import { useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../providers/Auth';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 const AuthGuardRoute = ({ children }) => {
 	const auth = useAuth();
-	const location = useLocation();
-	const navigate = useNavigate();
 
-	useEffect(() => {
-		navigate(auth?.state?.isLogged ? '/inicio' : '/login');
-	}, [location.pathname, auth?.state?.isLogged]);
+	if (auth?.state?.isAttemptingAuth)
+		return (
+			<div>
+				authenticating page / in-business main container layout loader
+			</div>
+		);
+
+	if (!auth?.state?.isLogged) {
+		return <Navigate to="/login" />;
+	}
 
 	return children;
 };

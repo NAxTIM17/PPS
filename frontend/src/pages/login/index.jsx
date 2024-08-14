@@ -119,7 +119,7 @@ function Login() {
 						Iniciar sesión
 					</h1>
 					<p className="text-zinc-500 ml-5">Usuario</p>
-					<Input name="username" className="rounded-full h-10" />
+					<Input name="email" className="rounded-full h-10" />
 					<p className="text-zinc-500 ml-5 mt-2">Contraseña</p>
 					<InputGroup className="rounded-full h-10">
 						<Input

@@ -1,13 +1,15 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { clearToken } from '../../services/utils';
+import { UsersService } from '../../services/Users';
 
 const Context = createContext({});
 
 export const useAuth = () => useContext(Context);
 
 export default function AuthContextProvider({ children }) {
-	const [isLogged, setIsLogged] = useState(false);
 	const [user, setUser] = useState(null);
+	const [isLogged, setIsLogged] = useState(false);
+	const [isAttemptingAuth, setIsAttemptingAuth] = useState(true);
 
 	const initSessionWithoutUser = () => {
 		setIsLogged(true);
@@ -24,9 +26,33 @@ export default function AuthContextProvider({ children }) {
 		clearToken();
 	};
 
+	const attemptAuth = () => {
+		setIsAttemptingAuth(true);
+
+		UsersService.getUser()
+			.then((user) => {
+				initSession(user);
+			})
+			.catch(() => {
+				endSession();
+			})
+			.finally(() => {
+				setIsAttemptingAuth(false);
+			});
+	};
+
+	useEffect(() => {
+		attemptAuth();
+	}, []);
+
 	const value = {
-		state: { isLogged, user },
-		action: { initSession, endSession, initSessionWithoutUser },
+		state: { isLogged, user, isAttemptingAuth },
+		action: {
+			initSession,
+			endSession,
+			initSessionWithoutUser,
+			attemptAuth,
+		},
 	};
 
 	return <Context.Provider value={value}>{children}</Context.Provider>;
