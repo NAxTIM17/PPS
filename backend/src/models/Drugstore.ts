@@ -7,7 +7,21 @@ interface IDrugstore extends Document {
 }
 
 const DrugstoreSchema = new Schema(
-	{},
+	{
+		name: {
+			type: String,
+			trim: true,
+			required: true,
+		},
+		address: {
+			type: String,
+			trim: true,
+		},
+		phone_number: {
+			type: String,
+			trim: true,
+		},
+	},
 	{
 		timestamps: true,
 	}
