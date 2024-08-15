@@ -15,6 +15,7 @@ import Login from '../pages/login';
 import AuthGuardRoute from '../components/AuthGuardRoute';
 import PageContainerLayout from '../components/Layouts/PageContainerLayout';
 import MainContentLayout from '../components/Layouts/MainContentLayout';
+import Registro from '../pages/registro';
 
 const BusinessRouter = createBrowserRouter(
 	createRoutesFromElements(
@@ -57,6 +58,7 @@ const BusinessRouter = createBrowserRouter(
 			</Route>
 
 			<Route path="login" element={<Login />} />
+			<Route path="registro" element={<Registro />} />
 
 			<Route
 				path="recuperar-cuenta"

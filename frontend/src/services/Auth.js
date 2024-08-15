@@ -22,7 +22,7 @@ async function login(payload) {
 }
 
 /**
- * Execute a login request
+ * Execute a register request and stores token on local storage if found
  * @param {Object} payload
  * @param {string} payload.email
  * @param {string} payload.password
@@ -30,6 +30,9 @@ async function login(payload) {
  */
 async function register(payload) {
 	const res = await axios.post('/auth/register', payload, {});
+
+	storeToken(res?.data?.token);
+
 	return res.data;
 }
 
