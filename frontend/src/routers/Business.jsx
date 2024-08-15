@@ -13,23 +13,25 @@ import {
 import Inicio from '../pages/inicio';
 import Login from '../pages/login';
 import AuthGuardRoute from '../components/AuthGuardRoute';
+import PageContainerLayout from '../components/Layouts/PageContainerLayout';
+import MainContentLayout from '../components/Layouts/MainContentLayout';
 
 const BusinessRouter = createBrowserRouter(
 	createRoutesFromElements(
 		<Route
 			path="/"
 			element={
-				<div role="page container layout">
+				<PageContainerLayout>
 					<Outlet />
-				</div>
+				</PageContainerLayout>
 			}
 		>
 			<Route
 				element={
 					<AuthGuardRoute>
-						<div role="main content layout">
+						<MainContentLayout>
 							<Outlet />
-						</div>
+						</MainContentLayout>
 					</AuthGuardRoute>
 				}
 			>
