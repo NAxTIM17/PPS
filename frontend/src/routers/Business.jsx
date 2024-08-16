@@ -11,6 +11,8 @@ import MainContentLayout from '../components/Layouts/MainContentLayout';
 import Home from '../pages/home';
 import Login from '../pages/login';
 import Register from '../pages/register';
+import RecoverPassword from '../pages/recoverPassword';
+import PasswordChange from '../pages/passwordChage';
 
 const BusinessRouter = createBrowserRouter(
 	createRoutesFromElements(
@@ -57,12 +59,11 @@ const BusinessRouter = createBrowserRouter(
 
 			<Route
 				path="recuperar-cuenta"
-				element={<div>recover password page</div>}
 			>
-				<Route index element={<div>recover password page</div>} />
+				<Route index element={<RecoverPassword />} />
 				<Route
-					path=":token"
-					element={<div>change password process</div>}
+					path="contraseña"
+					element={<PasswordChange />}
 				/>
 			</Route>
 

@@ -12,7 +12,7 @@ const Register = () => {
 
 	return (
 		<AuthForm
-			title="Register"
+			title="Registro"
 			buttonText="Registrarse"
 			links={[
 				{
