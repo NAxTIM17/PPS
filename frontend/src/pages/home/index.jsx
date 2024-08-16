@@ -1,4 +1,4 @@
-const Inicio = () => {
+const Home = () => {
 	return (
 		<div className="flex flex-row">
 			<div className="flex flex-col">
@@ -65,4 +65,4 @@ const Inicio = () => {
 	);
 };
 
-export default Inicio;
+export default Home;

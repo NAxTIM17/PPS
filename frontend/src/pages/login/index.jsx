@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import AuthForm from '../../components/Forms/Auth';
-import PasswordInput from '../../components/PasswordInput';
-import TextInput from '../../components/TextInput';
 import { useAuth } from '../../providers/Auth';
 import { AuthService } from '../../services/Auth';
 import { findUXErrorFromCatchError } from '../../services/utils';
+import AuthForm from '../../components/Forms/Auth';
+import PasswordInput from '../../components/PasswordInput';
+import TextInput from '../../components/TextInput';
 
 const Login = () => {
 	const auth = useAuth();
