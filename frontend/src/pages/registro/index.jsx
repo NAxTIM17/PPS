@@ -16,12 +16,12 @@ const Registro = () => {
 			buttonText="Registrarse"
 			links={[
 				{
-					to: '/recuperar-cuenta',
-					text: 'Recuperar cuenta',
+					to: '/login',
+					text: 'Ingresar',
 				},
 				{
-					to: '/login',
-					text: 'Ingrese con su cuenta',
+					to: '/recuperar-cuenta',
+					text: 'Recuperar cuenta',
 				},
 			]}
 			onSubmit={(event, endSubmitting) => {
