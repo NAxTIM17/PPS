@@ -1,13 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../providers/Auth';
 import { AuthService } from '../../services/Auth';
 import { findUXErrorFromCatchError } from '../../services/utils';
+
 import AuthForm from '../../components/Forms/Auth';
 import PasswordInput from '../../components/PasswordInput';
 import TextInput from '../../components/TextInput';
 
+import { ROUTES } from '../../router/config';
+
 const Login = () => {
-	const auth = useAuth();
 	const navigate = useNavigate();
 
 	return (
@@ -34,9 +35,8 @@ const Login = () => {
 
 				AuthService.login(payload)
 					.then(() => {
-						auth?.action?.initSessionWithoutUser();
 						setTimeout(() => {
-							navigate('/inicio');
+							navigate(ROUTES.AUTHED_ROUTES.ROOT);
 						}, 1000);
 					})
 					.catch((error) => {

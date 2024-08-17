@@ -1,4 +1,4 @@
-const MainContentLayout = ({ children }) => {
+const MainContent = ({ children }) => {
 	return (
 		<div className="bg-white dark:bg-black grid place-items-center rounded-brand-2 w-full h-full">
 			{children}
@@ -6,4 +6,4 @@ const MainContentLayout = ({ children }) => {
 	);
 };
 
-export default MainContentLayout;
+export default MainContent;
