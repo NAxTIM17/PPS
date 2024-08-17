@@ -1,11 +1,19 @@
 import { RouterProvider } from 'react-router-dom';
-import BusinessRouter from './components/BusinessRouter';
+import PageContainerLayout from './layouts/PageContainer';
+import BusinessRouter from './router';
+
+import { CustomProvider } from 'rsuite';
+import SessionContextProvider from './providers/Session';
 
 function App() {
 	return (
-		<div className="min-h-screen flex flex-col">
-			<RouterProvider router={BusinessRouter} />
-		</div>
+		<CustomProvider>
+			<SessionContextProvider>
+				<PageContainerLayout>
+					<RouterProvider router={BusinessRouter} />
+				</PageContainerLayout>
+			</SessionContextProvider>
+		</CustomProvider>
 	);
 }
 

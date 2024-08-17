@@ -3,7 +3,7 @@
 	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
-		"dev": "vite",
+		"dev": "vite --host",
 		"build": "vite build",
 		"preview": "vite preview"
 	},
@@ -12,7 +12,12 @@
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
 		"react-router-dom": "^6.24.1",
-		"rsuite": "^5.65.1"
+		"rsuite": "^5.65.1",
+		"@gsap/react": "^2.1.1",
+		"@rive-app/react-canvas": "^4.13.3",
+		"@tabler/icons": "^3.10.0",
+		"@tabler/icons-react": "^3.10.0",
+		"gsap": "^3.12.5"
 	},
 	"devDependencies": {
 		"@types/react": "^18.3.3",

@@ -3,7 +3,9 @@ import config from '../config';
 
 async function connectDB(): Promise<void> {
 	try {
-		await mongoose.connect(config.MONGODB_URI, {} as ConnectOptions);
+		await mongoose.connect(config.MONGODB_URI, {
+			dbName: config.MONGODB_DB_NAME,
+		} as ConnectOptions);
 	} catch (e) {
 		const error = (e as { message?: string })?.message ?? '';
 		throw new Error(

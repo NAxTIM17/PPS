@@ -1,10 +1,9 @@
-import type { Response } from 'express';
-import type { AuthedRequest } from './types';
-
-import User from '../../models/User';
+import { Response } from 'express';
 import { UserSchema } from '../../validators/User';
+import { AuthRequest } from './types';
+import { User } from '../../models/User';
 
-async function getUser(request: AuthedRequest, response: Response) {
+async function getUser(request: AuthRequest, response: Response) {
 	try {
 		const user = await User.findById({ _id: request.user?.id }).select(
 			'-password'
@@ -16,10 +15,15 @@ async function getUser(request: AuthedRequest, response: Response) {
 	}
 }
 
-async function updateUser(request: AuthedRequest, response: Response) {
-	const { name, email, password } = request.body;
+async function updateUser(request: AuthRequest, response: Response) {
+	const { firstName, lastName, email, password } = request.body;
 
-	const parseResult = UserSchema.safeParse({ name, email, password });
+	const parseResult = UserSchema.safeParse({
+		firstName,
+		lastName,
+		email,
+		password,
+	});
 
 	if (!parseResult.success) {
 		response.status(400).json({
@@ -43,7 +47,7 @@ async function updateUser(request: AuthedRequest, response: Response) {
 	}
 }
 
-async function deleteUser(request: AuthedRequest, response: Response) {
+async function deleteUser(request: AuthRequest, response: Response) {
 	try {
 		await User.findByIdAndDelete({ _id: request.user?.id });
 		response.json({ message: 'User deleted' });

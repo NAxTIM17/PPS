@@ -1,9 +1,10 @@
-import type { Request } from 'express';
+import { Request } from 'express';
+import { UserInput } from '../../validators/User';
 
-interface AuthedRequest extends Request {
+type AuthRequest<T = {}, J = {}> = Request<T, J, UserInput> & {
 	user?: {
 		id: string;
 	};
-}
+};
 
-export { AuthedRequest };
+export { AuthRequest };

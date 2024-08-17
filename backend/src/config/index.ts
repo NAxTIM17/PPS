@@ -7,6 +7,7 @@ const env = dotenv.config({ path: PATH_TO_ENV_FILE }).parsed;
 export default {
 	API_PREFIX: env?.API_PREFIX ?? '/api',
 	MONGODB_URI: env?.MONGODB_URI ?? '',
+	MONGODB_DB_NAME: env?.MONGODB_DB_NAME ?? 'test',
 	PORT: Number(env?.PORT) || 4000,
 	JWT_SECRET_KEY: env?.JWT_SECRET_KEY ?? '',
 	IS_PROD: env?.NODE_ENV === 'production',

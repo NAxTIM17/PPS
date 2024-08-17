@@ -20,3 +20,12 @@
 		font-variation-settings: 'slnt' 0;
 	}
 }
+
+@layer components {
+	.no-autofill {
+		-webkit-box-shadow: 0 0 0 30px transparent inset !important;
+		box-shadow: 0 0 0 30px transparent inset !important;
+		-webkit-background-clip: text;
+		background-clip: text;
+	}
+}

@@ -1,41 +1,38 @@
-import type { Document } from 'mongoose';
-
-import mongoose from 'mongoose';
+import { Document, model, Schema } from 'mongoose';
 
 interface IUser extends Document {
-	hasChangedDefaultPassword: boolean;
-	role: 'employee' | 'admin';
-	email?: string;
-	username: string;
+	firstName?: string;
+	lastName?: string;
+	role: 'basic' | 'subscribed';
+	email: string;
 	password: string;
 }
 
-const UserSchema = new mongoose.Schema(
+const UserSchema = new Schema(
 	{
-		hasChangedDefaultPassword: {
-			type: Boolean,
-			default: false,
+		firstName: {
+			type: String,
+			trim: true,
+		},
+		lastName: {
+			type: String,
+			trim: true,
 		},
 		role: {
 			type: String,
 			trim: true,
-			enum: ['employee', 'admin'],
-			default: 'employee',
+			enum: ['basic', 'subscribed'],
+			default: 'basic',
 		},
 		email: {
 			type: String,
 			trim: true,
 			unique: true,
+			required: true,
 		},
 		password: {
 			type: String,
 			trim: true,
-			required: true,
-		},
-		username: {
-			type: String,
-			trim: true,
-			unique: true,
 			required: true,
 		},
 	},
@@ -44,5 +41,6 @@ const UserSchema = new mongoose.Schema(
 	}
 );
 
-export type { IUser };
-export default mongoose.model<IUser>('User', UserSchema, 'users');
+const User = model<IUser>('User', UserSchema, 'users');
+
+export { IUser, UserSchema, User };
