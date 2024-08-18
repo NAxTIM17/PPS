@@ -1,10 +1,10 @@
 import { useState } from "react";
 import AuthForm from "../../components/Forms/Auth"
 import TextInput from "../../components/TextInput"
-import { useNavigate, Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-export default function RecoverPassword (){
-    const [isSend, setIsSend] = useState(false);
+const RecoverAccount = () => {
+	const [isSend, setIsSend] = useState(false);
 	const navigate = useNavigate();
 
 
@@ -38,4 +38,6 @@ export default function RecoverPassword (){
             </AuthForm>
         </>
     )
-}
+};
+
+export default RecoverAccount;

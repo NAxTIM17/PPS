@@ -1,4 +1,11 @@
+import { Link, useNavigate } from 'react-router-dom';
+import { useSession } from '../../providers/Session';
+import { ROUTES } from '../../router/config';
+
 const Home = () => {
+	const session = useSession();
+	const navigate = useNavigate();
+
 	return (
 		<div className="flex flex-row">
 			<div className="flex flex-col">
@@ -61,6 +68,20 @@ const Home = () => {
 				<div className="bg-grey-800 w-16 h-16 rounded-brand"></div>
 				<div className="bg-grey-900 w-16 h-16 rounded-brand"></div>
 			</div>
+			<Link to="/carga">carga</Link>
+			<Link to="/cuenta">cuenta</Link>
+			<button
+				className="border bg-green-500"
+				onClick={() => {
+					session.end();
+					navigate(ROUTES.UNAUTHED_ROUTES.LOGIN);
+				}}
+			>
+				{JSON.stringify(session.user, null, 2)}
+				<strong className="block w-max px-brand-4 mx-auto text-black border border-black rounded-brand-2">
+					log out
+				</strong>
+			</button>
 		</div>
 	);
 };

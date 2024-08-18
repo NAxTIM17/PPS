@@ -1,23 +1,24 @@
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../providers/Auth';
 import { AuthService } from '../../services/Auth';
 import { findUXErrorFromCatchError } from '../../services/utils';
+
 import AuthForm from '../../components/Forms/Auth';
 import PasswordInput from '../../components/PasswordInput';
 import TextInput from '../../components/TextInput';
 
-const Register = () => {
-	const auth = useAuth();
+import { ROUTES } from '../../router/config';
+
+const Login = () => {
 	const navigate = useNavigate();
 
 	return (
 		<AuthForm
-			title="Registro"
-			buttonText="Registrarse"
+			title="Iniciar Sesión"
+			buttonText="Entrar"
 			links={[
 				{
-					to: '/login',
-					text: 'Ingresar',
+					to: '/registro',
+					text: 'Registrarse',
 				},
 				{
 					to: '/recuperar-cuenta',
@@ -32,11 +33,10 @@ const Register = () => {
 					password: event.target.password.value,
 				};
 
-				AuthService.register(payload)
+				AuthService.login(payload)
 					.then(() => {
-						auth?.action?.initSessionWithoutUser();
 						setTimeout(() => {
-							navigate('/login');
+							navigate(ROUTES.AUTHED_ROUTES.ROOT);
 						}, 1000);
 					})
 					.catch((error) => {
@@ -62,4 +62,4 @@ const Register = () => {
 	);
 };
 
-export default Register;
+export default Login;

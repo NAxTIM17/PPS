@@ -19,7 +19,7 @@ import axios from './axios';
  */
 async function getUser() {
 	const res = await axios.get('/users');
-	return res.data;
+	return res.data?.user;
 }
 
 /**
@@ -33,7 +33,7 @@ async function getUser() {
  */
 async function updateUser(payload) {
 	const res = await axios.put('/users', payload);
-	return res.data;
+	return res.data?.user;
 }
 
 /**
@@ -41,7 +41,7 @@ async function updateUser(payload) {
  */
 async function deleteUser() {
 	const res = await axios.delete('/users');
-	return res.data;
+	return res.data?.user;
 }
 
 export const UsersService = {

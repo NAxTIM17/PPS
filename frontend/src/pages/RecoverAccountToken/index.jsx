@@ -4,10 +4,9 @@ import { useNavigate } from "react-router-dom";
 
 import AuthForm from "../../components/Forms/Auth"
 import PasswordInput from "../../components/PasswordInput"
-import { AuthService } from "../../services/Auth";
 
-export default function PasswordChange(){
-    const [password, setPassword] = useState({
+const RecoverAccountToken = () => {
+	const [password, setPassword] = useState({
         newPassword : undefined,
         confirmPassword : undefined
     });
@@ -42,4 +41,6 @@ export default function PasswordChange(){
             
         </AuthForm>
     )
-}
+};
+
+export default RecoverAccountToken;
