@@ -31,7 +31,7 @@ const AuthForm = ({
 	};
 
 	return (
-		<div className="bg-brand-50 flex flex-col pt-brand-8 pb-brand-4 px-brand-4 h-max rounded-brand-2">
+		<div className="bg-brand-50 flex flex-col items-center pt-brand-8 pb-brand-4 px-brand-4 h-max rounded-brand-2 drop-shadow-md">
 			<h1 className="text-[78px] font-brand text-grey-900">ADvenir</h1>
 			{!!title && (
 				<h3 className="text-[36px] font-inter font-bold text-brand-800 mt-brand-4 text-center">
@@ -44,7 +44,7 @@ const AuthForm = ({
 				</p>
 			)}
 			<form
-				className="flex flex-col mt-brand-8 gap-brand-2"
+				className="flex flex-col mt-brand-8 gap-brand-2 w-full"
 				onSubmit={handleSubmit}
 				{...restOfFormProps}
 			>
