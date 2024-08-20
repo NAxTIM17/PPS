@@ -36,7 +36,16 @@ async function register(payload) {
 	return res.data;
 }
 
+async function updatePassword(payload) {
+	const res = await axios.patch('/recover/password', payload, {});
+
+	storeToken(res?.data?.token);
+
+	return res.data;
+}
+
 export const AuthService = {
 	login,
 	register,
+	updatePassword,
 };
