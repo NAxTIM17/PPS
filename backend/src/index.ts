@@ -1,9 +1,9 @@
 import app from './app';
 import http from 'http';
-import config from './config';
+import env from './config/env';
 
 const server = http.createServer(app());
 
-server.listen(config.PORT, () => {
-	console.log(`Server Up And Running On Port :${config.PORT}`);
+server.listen(env.PORT, () => {
+	console.log(`Server Up And Running On Port :${env.PORT}`);
 });

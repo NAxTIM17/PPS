@@ -1,10 +1,10 @@
 import mongoose, { ConnectOptions } from 'mongoose';
-import config from '../config';
+import env from '../config/env';
 
 async function connectDB(): Promise<void> {
 	try {
-		await mongoose.connect(config.MONGODB_URI, {
-			dbName: config.MONGODB_DB_NAME,
+		await mongoose.connect(env.MONGODB_URI, {
+			dbName: env.MONGODB_DB_NAME,
 		} as ConnectOptions);
 	} catch (e) {
 		const error = (e as { message?: string })?.message ?? '';

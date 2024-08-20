@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import controllers from '../controllers';
+import middlewares from '../middlewares';
 
 const router = Router();
 
@@ -8,4 +9,11 @@ export default function (app: Router) {
 
 	router.post('/login', controllers.auth.loginUser);
 	router.post('/register', controllers.auth.registerUser);
+	router.post('/recover-account', controllers.auth.recoverAccount);
+	router.post(
+		'/recover-account/new-password',
+		middlewares.auth,
+		middlewares.attachUser,
+		controllers.auth.newPassword
+	);
 }

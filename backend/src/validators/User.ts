@@ -1,13 +1,21 @@
 import { z } from 'zod';
+import messages from '../config/messages';
 
 const UserSchema = z.object({
 	firstName: z.string().optional(),
 	lastName: z.string().optional(),
-	email: z.string().email('Invalid Email Address'),
-	password: z.string().min(6, 'Password Must Be At Least 6 Characters Long'),
+	email: z.string().email(messages.INVALID_EMAIL_ADDRESS),
+	password: z.string().min(6, messages.PASSWORD_CONSTRAINT),
+});
+
+const OptionalUserSchema = z.object({
+	firstName: z.string().optional(),
+	lastName: z.string().optional(),
+	email: z.string().email(messages.INVALID_EMAIL_ADDRESS).optional(),
+	password: z.string().min(6, messages.PASSWORD_CONSTRAINT).optional(),
 });
 
 type UserInput = z.infer<typeof UserSchema>;
+type OptionalUserInput = Partial<UserInput>;
 
-export type { UserInput };
-export { UserSchema };
+export { UserInput, UserSchema, OptionalUserInput, OptionalUserSchema };

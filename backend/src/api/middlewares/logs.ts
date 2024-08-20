@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import config from '../../config';
+import config from '../../config/env';
 
 export default function (
 	request: Request,

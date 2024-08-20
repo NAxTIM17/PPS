@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import config from '../../config';
+import env from '../../config/env';
+import messages from '../../config/messages';
 
 export default function (
 	error: Error,
@@ -8,11 +9,11 @@ export default function (
 	next: NextFunction
 ): void {
 	if (error) {
-		!config.IS_PROD && console.log(error);
+		!env.IS_PROD && console.log(error);
 
 		response
 			.status(500)
-			.send({ message: `Server Error: ${error.message}` })
+			.send({ message: messages.SERVER_ERROR, reason: error.message })
 			.end();
 	}
 

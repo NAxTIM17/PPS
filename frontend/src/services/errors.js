@@ -1,9 +1,11 @@
 const errors = {
-	'User already exists': 'El email ingresado ya está en uso.',
+	'User Already Exists': 'El email ingresado ya está en uso',
 	'password: Password Must Be At Least 6 Characters Long':
-		'La contraseña debe tener 6 caracteres como mínimo.',
+		'La contraseña debe tener 6 caracteres como mínimo',
 	'Invalid Credentials': 'Email y/o contraseña incorrectos',
 	'Server Error': 'Error crítico',
+	'Password Do Not Match': 'Las contraseñas no coinciden',
+	'User Deleted': 'El usuario fue eliminado',
 };
 
 export default errors;

@@ -2,9 +2,9 @@ import cors from 'cors';
 import express from 'express';
 
 import middlewares from './api/middlewares';
-import config from './config';
 import routes from './api/routes';
 import db from './db';
+import env from './config/env';
 
 export default function () {
 	const app = express();
@@ -18,7 +18,7 @@ export default function () {
 
 	app.use(middlewares.logs);
 
-	app.use(config.API_PREFIX, routes());
+	app.use(env.API_PREFIX, routes());
 
 	app.use(middlewares.handleError);
 
