@@ -25,13 +25,14 @@ const AuthForm = ({
 	};
 
 	const handleSubmit = (event) => {
+		if (isSubmitting) return;
 		setSubmitState(null);
 		startSubmitting();
 		onSubmit(event, endSubmitting);
 	};
 
 	return (
-		<div className="bg-brand-50 flex flex-col items-center pt-brand-8 pb-brand-4 px-brand-4 h-max rounded-brand-2 drop-shadow-md">
+		<div className="bg-brand-50 flex flex-col pt-brand-8 pb-brand-4 px-brand-4 h-max rounded-brand-2">
 			<h1 className="text-[78px] font-brand text-grey-900">ADvenir</h1>
 			{!!title && (
 				<h3 className="text-[36px] font-inter font-bold text-brand-800 mt-brand-4 text-center">
@@ -39,12 +40,12 @@ const AuthForm = ({
 				</h3>
 			)}
 			{!!description && (
-				<p className="mt-brand-8 font-medium text-center">
+				<p className="mt-brand-8 font-medium text-center mx-auto max-w-[40ch]">
 					{description}
 				</p>
 			)}
 			<form
-				className="flex flex-col mt-brand-8 gap-brand-2 w-full"
+				className="flex flex-col mt-brand-8 gap-brand-2"
 				onSubmit={handleSubmit}
 				{...restOfFormProps}
 			>

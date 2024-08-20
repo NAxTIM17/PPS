@@ -6,6 +6,7 @@ const errors = {
 	'Server Error': 'Error crítico',
 	'Password Do Not Match': 'Las contraseñas no coinciden',
 	'User Deleted': 'El usuario fue eliminado',
+	'Email Not Found': 'Email no encontrado',
 };
 
 export default errors;

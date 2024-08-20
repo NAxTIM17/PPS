@@ -1,43 +1,61 @@
 import { useState } from 'react';
 import AuthForm from '../../components/Forms/Auth';
 import TextInput from '../../components/TextInput';
-import { useNavigate } from 'react-router-dom';
+import { AuthService } from '../../services/Auth';
+import { findUXErrorFromCatchError } from '../../services/utils';
 
 const RecoverAccount = () => {
-	const [isSend, setIsSend] = useState(false);
-	const navigate = useNavigate();
+	const [isSent, setIsSent] = useState(false);
 
 	return (
-		<>
-			<AuthForm
-				title={isSend ? 'Email enviado' : 'Recuperar Cuenta'}
-				buttonText={isSend ? '' : 'Recuperar'}
-				onSubmit={(event, endSubmitting) => {
-					event.preventDefault();
-					//this is where the handsome logic to generate token needs to be.
-					setTimeout(() => {
-						setIsSend(true);
-						// navigate('/login');
-					}, 5000);
-				}}
-			>
-				{isSend ? (
-					<div className="text-center w-80 text-xl m-auto">
-						Se ha enviado un correo de recuperación a tu dirección
-						de correo electrónico. Por favor, revisa tu bandeja de
-						entrada y la carpeta de spam.
-					</div>
-				) : (
-					<TextInput
-						type="email"
-						name="email"
-						label="Email"
-						placeholder="Ingrese su email"
-						required
-					/>
-				)}
-			</AuthForm>
-		</>
+		<AuthForm
+			title={isSent ? 'Email enviado' : 'Recuperar Cuenta'}
+			buttonText={isSent ? '' : 'Recuperar'}
+			description={
+				isSent
+					? 'Te hemos enviado un email de recuperación a tu cuenta. Revisa tu bandeja de entrada y no olvides verificar la carpeta de spam.'
+					: ''
+			}
+			links={[
+				{
+					to: '/login',
+					text: 'Ingresar',
+				},
+				{
+					to: '/registro',
+					text: 'Registrarse',
+				},
+			]}
+			onSubmit={(event, endSubmitting) => {
+				event.preventDefault();
+
+				const payload = {
+					email: event.target.email.value,
+				};
+
+				AuthService.recoverAccount(payload)
+					.then(() => {
+						setTimeout(() => {
+							endSubmitting('');
+							setIsSent(true);
+						}, 1000);
+					})
+					.catch((error) => {
+						const message = findUXErrorFromCatchError(error);
+						endSubmitting(message, 'error');
+					});
+			}}
+		>
+			{!isSent && (
+				<TextInput
+					type="email"
+					name="email"
+					label="Email"
+					placeholder="Ingrese su email"
+					required
+				/>
+			)}
+		</AuthForm>
 	);
 };
 

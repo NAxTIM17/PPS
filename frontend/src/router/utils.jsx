@@ -5,4 +5,19 @@ const authCheck = async () => {
 	return { user };
 };
 
-export { authCheck };
+const recoverAccountTokenValidityCheck = async ({ params }) => {
+	const user = await UsersService.getUserWithPassedToken(params.token);
+	return { user };
+};
+
+const pipeLoaders = async (loaders = [], { request, params }) => {
+	let returns = {};
+
+	for (const loader of loaders) {
+		r = { ...r, ...loader?.({ request, params }) };
+	}
+
+	return returns;
+};
+
+export { authCheck, recoverAccountTokenValidityCheck, pipeLoaders };

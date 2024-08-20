@@ -36,10 +36,14 @@ async function register(payload) {
 	return res.data;
 }
 
-async function updatePassword(payload) {
-	const res = await axios.patch('/recover/password', payload, {});
-
-	storeToken(res?.data?.token);
+/**
+ * Execute a recover account request
+ * @param {Object} payload
+ * @param {string} payload.email
+ * @returns {Promise<AuthResponse>}
+ */
+async function recoverAccount(payload) {
+	const res = await axios.post('/auth/recover-account', payload, {});
 
 	return res.data;
 }
@@ -47,5 +51,5 @@ async function updatePassword(payload) {
 export const AuthService = {
 	login,
 	register,
-	updatePassword,
+	recoverAccount,
 };
