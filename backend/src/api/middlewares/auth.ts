@@ -1,35 +1,27 @@
-import jwt from 'jsonwebtoken';
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
+import { AuthRequest } from '../controllers/types';
 
+import jwt from 'jsonwebtoken';
 import env from '../../config/env';
 import messages from '../../config/messages';
+import { getTokenFromHeaders } from './utils';
 
-interface AuthRequest extends Request {
-	user?: string;
-}
-
-export default function (
+function validateToken(
 	request: AuthRequest,
 	response: Response,
-	next: NextFunction
+	next: NextFunction,
+	invalidTokenMessage: string
 ): void {
-	if (
-		!request.headers.authorization ||
-		(request.headers.authorization &&
-			request.headers.authorization.split(' ')?.[0] !== 'Bearer' &&
-			request.headers.authorization.split(' ')?.[0] !== 'Token')
-	) {
+	const token = getTokenFromHeaders(request);
+
+	if (!token) {
 		response.status(400).json({ message: messages.NO_AUTH_TOKEN_PROVIDED });
 		return;
 	}
 
-	const token = request.headers.authorization.split(' ')?.[1];
-
 	jwt.verify(token, env.JWT_SECRET_KEY, (err, decoded) => {
 		if (err) {
-			response
-				.status(401)
-				.send({ message: messages.WRONG_OR_EXPIRED_TOKEN });
+			response.status(401).send({ message: invalidTokenMessage });
 			return;
 		}
 
@@ -37,3 +29,23 @@ export default function (
 		next();
 	});
 }
+
+export default {
+	allPurpose: (
+		request: AuthRequest,
+		response: Response,
+		next: NextFunction
+	) =>
+		validateToken(request, response, next, messages.WRONG_OR_EXPIRED_TOKEN),
+	recoverAccountSession: (
+		request: AuthRequest,
+		response: Response,
+		next: NextFunction
+	) =>
+		validateToken(
+			request,
+			response,
+			next,
+			messages.RECOVER_ACCOUNT_SESSION_INVALID
+		),
+};

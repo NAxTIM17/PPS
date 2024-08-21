@@ -1,3 +1,4 @@
+import { AuthService } from '../services/Auth';
 import { UsersService } from '../services/Users';
 
 const authCheck = async () => {
@@ -5,9 +6,9 @@ const authCheck = async () => {
 	return { user };
 };
 
-const recoverAccountTokenValidityCheck = async ({ params }) => {
-	const user = await UsersService.getUserWithPassedToken(params.token);
-	return { user };
+const recoverAccountSessionValidityCheck = async ({ params }) => {
+	const user = await AuthService.validateRecoverAccountSession(params.token);
+	return { user, token: params.token };
 };
 
 const pipeLoaders = async (loaders = [], { request, params }) => {
@@ -20,4 +21,4 @@ const pipeLoaders = async (loaders = [], { request, params }) => {
 	return returns;
 };
 
-export { authCheck, recoverAccountTokenValidityCheck, pipeLoaders };
+export { authCheck, recoverAccountSessionValidityCheck, pipeLoaders };

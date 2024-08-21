@@ -9,8 +9,8 @@ import { timeToSeconds } from '../../utils';
 
 import env from '../../config/env';
 import messages from '../../config/messages';
-import { signJwt } from './utils';
 import users from './users';
+import { signJwt } from './utils';
 
 import recoverAccountEmailTemplate from '../../templates/recoverAccountEmailTemplate';
 import { AuthRequest } from './types';
@@ -126,7 +126,7 @@ async function recoverAccount(
 		const token = await signJwt(
 			payload,
 			env.JWT_SECRET_KEY as string,
-			timeToSeconds({ minutes: 15 })
+			timeToSeconds({ minutes: 10 })
 		);
 
 		const transporter = nodemailer.createTransport({
@@ -140,12 +140,12 @@ async function recoverAccount(
 		const mailOptions = {
 			from: env.NODEMAILER.USER,
 			to: user.email,
-			subject: 'Recover password',
+			subject: env.NODEMAILER_RECOVER_ACCOUNT_EMAIL_SUBJECT,
 			html: recoverAccountEmailTemplate({
-				mainLink: `${env.CLIENT_PATH}/recuperar-cuenta/${token}`,
-				fallbackLink: ``,
+				mainLink: `${env.CLIENT_BASE_PATH}${env.CLIENT_RECOVER_ACCOUNT_NEW_PASSWORD_PATH}/${token}`,
 				firstName: user.firstName,
 				lastName: user.lastName,
+				fallbackLink: ``,
 			}),
 		};
 

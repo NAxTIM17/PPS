@@ -12,4 +12,6 @@ export default {
 	INVALID_EMAIL_ADDRESS: 'Invalid Email Address',
 	PASSWORD_CONSTRAINT: 'Password Must Be At Least 6 Characters Long',
 	UNMATCHING_PASSWORDS: 'Password Do Not Match',
+	RECOVER_ACCOUNT_SESSION_INVALID:
+		'This Recover Account Session Is No Longer Valid',
 } as const;

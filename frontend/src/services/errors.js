@@ -7,6 +7,8 @@ const errors = {
 	'Password Do Not Match': 'Las contraseñas no coinciden',
 	'User Deleted': 'El usuario fue eliminado',
 	'Email Not Found': 'Email no encontrado',
+	'This Recover Account Session Is No Longer Valid':
+		'Esta petición de recuperación de cuenta ya no es válida',
 };
 
 export default errors;

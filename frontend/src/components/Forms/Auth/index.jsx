@@ -33,9 +33,11 @@ const AuthForm = ({
 
 	return (
 		<div className="bg-brand-50 flex flex-col pt-brand-8 pb-brand-4 px-brand-4 h-max rounded-brand-2">
-			<h1 className="text-[78px] font-brand text-grey-900">ADvenir</h1>
+			<h1 className="text-center text-[78px] font-brand text-grey-900">
+				ADvenir
+			</h1>
 			{!!title && (
-				<h3 className="text-[36px] font-inter font-bold text-brand-800 mt-brand-4 text-center">
+				<h3 className="text-[36px] font-inter font-bold text-brand-800 mt-brand-4 text-center max-w-[14ch]">
 					{title}
 				</h3>
 			)}

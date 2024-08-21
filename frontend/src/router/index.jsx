@@ -7,11 +7,7 @@ import {
 } from 'react-router-dom';
 
 import { ROUTES } from './config';
-import {
-	authCheck,
-	pipeLoaders,
-	recoverAccountTokenValidityCheck,
-} from './utils';
+import { authCheck, recoverAccountSessionValidityCheck } from './utils';
 import AttachSession from './AttachSession';
 
 import MainContentLayout from '../layouts/MainContent';
@@ -26,6 +22,7 @@ import LoginPage from '../pages/Login';
 import RegisterPage from '../pages/Register';
 import RecoverAccountPage from '../pages/RecoverAccount';
 import RecoverAccountTokenPage from '../pages/RecoverAccountToken';
+import RecoverAccountTokenErrorPage from '../pages/RecoverAccountToken/error';
 import NotFoundPage from '../pages/NotFound';
 
 const BusinessRouter = createBrowserRouter(
@@ -89,14 +86,9 @@ const BusinessRouter = createBrowserRouter(
 			/>
 			<Route
 				path={ROUTES.UNAUTHED_ROUTES.RECOVER_ACCOUNT_TOKEN}
-				loader={({ request, params }) =>
-					pipeLoaders([authCheck, recoverAccountTokenValidityCheck], {
-						request,
-						params,
-					})
-				}
-				element={<Navigate to={ROUTES.AUTHED_ROUTES.HOME} />}
-				errorElement={<RecoverAccountTokenPage />}
+				loader={recoverAccountSessionValidityCheck}
+				element={<RecoverAccountTokenPage />}
+				errorElement={<RecoverAccountTokenErrorPage />}
 			/>
 			<Route
 				path={ROUTES.UNAUTHED_ROUTES.NOT_FOUND}

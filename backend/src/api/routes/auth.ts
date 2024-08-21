@@ -10,9 +10,14 @@ export default function (app: Router) {
 	router.post('/login', controllers.auth.loginUser);
 	router.post('/register', controllers.auth.registerUser);
 	router.post('/recover-account', controllers.auth.recoverAccount);
+	router.get(
+		'/recover-account',
+		middlewares.auth.recoverAccountSession,
+		controllers.users.getUser
+	);
 	router.post(
 		'/recover-account/new-password',
-		middlewares.auth,
+		middlewares.auth.recoverAccountSession,
 		middlewares.attachUser,
 		controllers.auth.newPassword
 	);

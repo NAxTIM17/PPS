@@ -7,7 +7,11 @@ const router = Router();
 export default function (app: Router) {
 	app.use('/users', router);
 
-	router.get('/', middlewares.auth, controllers.users.getUser);
-	router.put('/', middlewares.auth, controllers.users.updateUser);
-	router.delete('/', middlewares.auth, controllers.users.deleteUser);
+	router.get('/', middlewares.auth.allPurpose, controllers.users.getUser);
+	router.put('/', middlewares.auth.allPurpose, controllers.users.updateUser);
+	router.delete(
+		'/',
+		middlewares.auth.allPurpose,
+		controllers.users.deleteUser
+	);
 }

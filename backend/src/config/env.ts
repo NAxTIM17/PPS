@@ -5,7 +5,6 @@ const PATH_TO_ENV_FILE = path.join(__dirname, '..', '..', '.env');
 const env = dotenv.config({ path: PATH_TO_ENV_FILE }).parsed;
 
 export default {
-	CLIENT_PATH: env?.CLIENT_PATH ?? 'http://localhost:5173',
 	API_PREFIX: env?.API_PREFIX ?? '/api',
 	MONGODB_URI: env?.MONGODB_URI ?? '',
 	MONGODB_DB_NAME: env?.MONGODB_DB_NAME ?? 'test',
@@ -17,4 +16,9 @@ export default {
 		USER: env?.NODEMAILER_USER,
 		PASS: env?.NODEMAILER_PASS,
 	},
+	CLIENT_BASE_PATH: env?.CLIENT_BASE_PATH ?? 'http://localhost:5173',
+	CLIENT_RECOVER_ACCOUNT_NEW_PASSWORD_PATH:
+		env?.CLIENT_RECOVER_ACCOUNT_NEW_PASSWORD_PATH ?? '/recover-account',
+	NODEMAILER_RECOVER_ACCOUNT_EMAIL_SUBJECT:
+		env?.NODEMAILER_RECOVER_ACCOUNT_EMAIL_SUBJECT ?? 'Recuperar Cuenta',
 } as const;
