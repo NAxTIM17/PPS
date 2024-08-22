@@ -1,12 +1,16 @@
+import BackButton from '../../components/BackButton';
 import Bentogrid from '../../components/Bentogrid';
 import Historial from '../../components/Historial';
 import NewDashboardButton from '../../components/NewDashboardButton';
 import Stats1 from '../../components/Stats1';
 import Stats2 from '../../components/Stats2';
+import UserBadge from '../../components/UserBadge';
 
 const Home = () => {
 	return (
 		<>
+            <BackButton/>
+            <UserBadge/>
 			<Bentogrid>
                 <NewDashboardButton className='col-span-1 row-span-1'/>
                 <Stats1 classname='col-span-1 row-span-4'/>
