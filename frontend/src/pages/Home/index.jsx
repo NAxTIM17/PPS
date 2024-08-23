@@ -9,9 +9,7 @@ import UserBadge from '../../components/UserBadge';
 const Home = () => {
 	return (
 		<>
-            <BackButton/>
-            <UserBadge/>
-			<Bentogrid>
+			<Bentogrid rows='8' cols='2'>
                 <NewDashboardButton className='col-span-1 row-span-1'/>
                 <Stats1 classname='col-span-1 row-span-4'/>
                 <Historial classname='col-span-1 row-span-7'/>
