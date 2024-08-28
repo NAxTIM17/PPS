@@ -1,16 +1,21 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useSession } from '../../providers/Session';
-import { ROUTES } from '../../router/config';
+import Bentogrid from '../../components/Bentogrid';
+import Historial from '../../components/Historial';
+import NewDashboardButton from '../../components/NewDashboardButton';
+import Stats1 from '../../components/Stats1';
+import Stats2 from '../../components/Stats2';
+import UserBadge from '../../components/UserBadge';
+import MainContentLayout from '../../layouts/MainContent';
 
 import PieChart from '../../components/pieChart';
 
 const Home = () => {
-	const session = useSession();
-	const navigate = useNavigate();
-
 	return (
-		<div className="flex flex-row w-full h-full">
-			<PieChart data={[
+		<>
+			<MainContentLayout.Header>
+				<h1 className="h-max text-grey-900 font-bold text-4xl tracking-tight">
+					Inicio
+				</h1>
+				<PieChart data={[
 				{
 					title : 'Margarita',
 					amount : 300
@@ -24,22 +29,15 @@ const Home = () => {
 					amount : 400
 				}
 			]}/>
-			
-			<Link to="/carga">carga</Link>
-			<Link to="/cuenta">cuenta</Link>
-			<button
-				className="border bg-green-100"
-				onClick={() => {
-					session.end();
-					navigate(ROUTES.UNAUTHED_ROUTES.LOGIN);
-				}}
-			>
-				{JSON.stringify(session.user, null, 2)}
-				<strong className="block w-max px-brand-4 mx-auto text-black border border-black rounded-brand-2">
-					log out
-				</strong>
-			</button>
-		</div>
+				<UserBadge />
+			</MainContentLayout.Header>
+			<Bentogrid rows='8' cols='2'>
+				<NewDashboardButton className="col-span-1 row-span-1" />
+				<Stats1 classname="col-span-1 row-span-4" />
+				<Historial classname="col-span-1 row-span-7" />
+				<Stats2 classname="col-span-1 row-span-4" />
+			</Bentogrid>
+		</>
 	);
 };
 
