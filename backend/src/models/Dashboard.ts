@@ -9,6 +9,7 @@ interface IDashboard extends Document {
 		products: Array<IProduct & { quantity: number }>;
 	};
 	drugstores: Array<IDrugstore & { products: Array<IProduct> }>;
+	registeredByUser: string;
 }
 
 const DashboardSchema = new Schema(
@@ -42,6 +43,11 @@ const DashboardSchema = new Schema(
 					...DrugstoreSchema.obj,
 				},
 			],
+		},
+		registeredByUser: {
+			type: Schema.Types.ObjectId,
+			ref: 'User',
+			required: true,
 		},
 	},
 	{

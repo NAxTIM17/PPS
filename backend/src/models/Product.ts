@@ -6,6 +6,7 @@ interface IProduct extends Document {
 	price: number;
 	details: string[];
 	laboratory: string;
+	registeredByUser: string;
 }
 
 const ProductSchema = new Schema(
@@ -31,6 +32,11 @@ const ProductSchema = new Schema(
 		laboratory: {
 			type: Schema.Types.ObjectId,
 			ref: 'Laboratory',
+			required: true,
+		},
+		registeredByUser: {
+			type: Schema.Types.ObjectId,
+			ref: 'User',
 			required: true,
 		},
 	},

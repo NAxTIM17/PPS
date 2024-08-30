@@ -4,6 +4,7 @@ interface IDrugstore extends Document {
 	name: string;
 	address?: string;
 	phone_number?: string;
+	registeredByUser: string;
 }
 
 const DrugstoreSchema = new Schema(
@@ -20,6 +21,11 @@ const DrugstoreSchema = new Schema(
 		phone_number: {
 			type: String,
 			trim: true,
+		},
+		registeredByUser: {
+			type: Schema.Types.ObjectId,
+			ref: 'User',
+			required: true,
 		},
 	},
 	{
