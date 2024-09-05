@@ -5,7 +5,7 @@ import Stats1 from '../../components/Stats1';
 import Stats2 from '../../components/Stats2';
 import UserBadge from '../../components/UserBadge';
 import MainContentLayout from '../../layouts/MainContent';
-
+import CardBento from '../../components/CardBento';
 import PieChart from '../../components/pieChart';
 
 const Home = () => {
@@ -15,6 +15,16 @@ const Home = () => {
 				<h1 className="h-max text-grey-900 font-bold text-4xl tracking-tight">
 					Inicio
 				</h1>
+				<UserBadge />
+			</MainContentLayout.Header>
+
+			<Bentogrid className={'grid-cols-2 grid-rows-8'}>
+				<CardBento title={'NUEVO'} className={'col-span-1 row-span-1 bg-green-300'}>
+				</CardBento>
+				<CardBento className={'col-span-1 row-span-7 bg-blue-300'}>
+					HISTORIAL
+				</CardBento>
+				<CardBento title={'Gasto por drogueria'} className={'col-span-1 row-span-4 bg-violet-300'}>
 				<PieChart data={[
 				{
 					title : 'Margarita',
@@ -29,13 +39,10 @@ const Home = () => {
 					amount : 400
 				}
 			]}/>
-				<UserBadge />
-			</MainContentLayout.Header>
-			<Bentogrid rows='8' cols='2'>
-				<NewDashboardButton className="col-span-1 row-span-1" />
-				<Stats1 classname="col-span-1 row-span-4" />
-				<Historial classname="col-span-1 row-span-7" />
-				<Stats2 classname="col-span-1 row-span-4" />
+				</CardBento>
+				<CardBento className={'col-span-1 row-span-4 bg-pink-300'}>
+					STATS02
+				</CardBento>
 			</Bentogrid>
 		</>
 	);
