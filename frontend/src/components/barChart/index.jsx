@@ -14,6 +14,7 @@ export default function BarChart({ data }) {
 			<svg
 				width={width}
 				height={height}
+				className='flex justify-center items-center'
 			>
 				{data.map((d, index) => {
 					const barHeight = (d.value / maxValue) * (height - 20); // Altura proporcional

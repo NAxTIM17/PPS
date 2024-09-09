@@ -14,13 +14,6 @@ import BarChart from '../../components/barChart';
 const Home = () => {
 	return (
 		<>
-			<MainContentLayout.Header>
-				<h1 className="h-max text-grey-900 font-bold text-4xl tracking-tight">
-					Inicio
-				</h1>
-				<UserBadge />
-			</MainContentLayout.Header>
-
 			<Bentogrid className={'grid-cols-2 grid-rows-8'}>
 				<CardBento
 					title={'NUEVO'}
@@ -31,7 +24,7 @@ const Home = () => {
 				<CardBento
 					title={"Historial"}
 					className={
-						'col-span-1 row-span-7'
+						'col-span-1 row-span-7 bg-white'
 					}
 				>
 					<History />
@@ -39,7 +32,7 @@ const Home = () => {
 				<CardBento
 					title={'Gasto por drogueria'}
 					className={
-						'col-span-1 row-span-5'
+						'col-span-1 row-span-5 bg-white'
 					}
 				>
 					<PieChart
@@ -69,7 +62,7 @@ const Home = () => {
 				</CardBento>
 				<CardBento
 					className={
-						'col-span-1 row-span-3'
+						'col-span-1 row-span-3 bg-white'
 					}
 					title={"Productos por drogueria"}
 				>
@@ -79,7 +72,8 @@ const Home = () => {
 							{ label: 'Febrero', value: 80 },
 							{ label: 'Marzo', value: 65 },
 							{ label: 'Abril', value: 100 },
-							{ label: 'Mayo', value: 90 },
+							{ label: 'Mayo', value: 10 },
+							
 						]}
 					/>
 				</CardBento>

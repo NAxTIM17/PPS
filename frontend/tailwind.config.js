@@ -87,7 +87,5 @@ export default {
 		},
 	},
 	darkMode: 'class',
-  	plugins: [
-    require('tailwindcss-bg-patterns'),
-  ],
+  	plugins: [],
 };
