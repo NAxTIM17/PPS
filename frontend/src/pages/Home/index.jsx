@@ -1,12 +1,15 @@
+
+
 import Bentogrid from '../../components/Bentogrid';
-import Historial from '../../components/Historial';
 import NewDashboardButton from '../../components/NewDashboardButton';
 import Stats1 from '../../components/Stats1';
 import Stats2 from '../../components/Stats2';
+import History from '../../components/Historial'
 import UserBadge from '../../components/UserBadge';
 import MainContentLayout from '../../layouts/MainContent';
 import CardBento from '../../components/CardBento';
 import PieChart from '../../components/pieChart';
+import BarChart from '../../components/barChart';
 
 const Home = () => {
 	return (
@@ -19,29 +22,66 @@ const Home = () => {
 			</MainContentLayout.Header>
 
 			<Bentogrid className={'grid-cols-2 grid-rows-8'}>
-				<CardBento title={'NUEVO'} className={'col-span-1 row-span-1 bg-green-300'}>
+				<CardBento
+					title={'NUEVO'}
+					className={
+						'col-span-1 row-span-1 text-[#487a4e] bg-[#5F9F66] cursor-pointer transition-all'
+					}
+				></CardBento>
+				<CardBento
+					title={"Historial"}
+					className={
+						'col-span-1 row-span-7'
+					}
+				>
+					<History />
 				</CardBento>
-				<CardBento className={'col-span-1 row-span-7 bg-blue-300'}>
-					HISTORIAL
+				<CardBento
+					title={'Gasto por drogueria'}
+					className={
+						'col-span-1 row-span-5'
+					}
+				>
+					<PieChart
+						data={[
+							{
+								title: 'Margarita',
+								amount: 300,
+							},
+							{
+								title: 'Garnica',
+								amount: 100,
+							},
+							{
+								title: 'Savencia',
+								amount: 400,
+							},
+							{
+								title: 'Soledad',
+								amount: 500,
+							},
+							{
+								title: 'Monte',
+								amount: 200,
+							},
+						]}
+					/>
 				</CardBento>
-				<CardBento title={'Gasto por drogueria'} className={'col-span-1 row-span-4 bg-violet-300'}>
-				<PieChart data={[
-				{
-					title : 'Margarita',
-					amount : 300
-				},
-				{
-					title : 'Garnica',
-					amount : 100
-				},
-				{
-					title : 'Savencia',
-					amount : 400
-				}
-			]}/>
-				</CardBento>
-				<CardBento className={'col-span-1 row-span-4 bg-pink-300'}>
-					STATS02
+				<CardBento
+					className={
+						'col-span-1 row-span-3'
+					}
+					title={"Productos por drogueria"}
+				>
+					<BarChart
+						data={[
+							{ label: 'Enero', value: 40 },
+							{ label: 'Febrero', value: 80 },
+							{ label: 'Marzo', value: 65 },
+							{ label: 'Abril', value: 100 },
+							{ label: 'Mayo', value: 90 },
+						]}
+					/>
 				</CardBento>
 			</Bentogrid>
 		</>
