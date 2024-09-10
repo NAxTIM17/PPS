@@ -1,12 +1,6 @@
-
-
 import Bentogrid from '../../components/Bentogrid';
-import NewDashboardButton from '../../components/NewDashboardButton';
-import Stats1 from '../../components/Stats1';
-import Stats2 from '../../components/Stats2';
 import History from '../../components/Historial'
 import UserBadge from '../../components/UserBadge';
-import MainContentLayout from '../../layouts/MainContent';
 import CardBento from '../../components/CardBento';
 import PieChart from '../../components/pieChart';
 import BarChart from '../../components/barChart';
@@ -18,7 +12,7 @@ const Home = () => {
 				<CardBento
 					title={'NUEVO'}
 					className={
-						'col-span-1 row-span-1 text-[#487a4e] bg-[#5F9F66] cursor-pointer transition-all'
+						'col-span-1 row-span-1 text-white bg-[#5F9F66] cursor-pointer transition-all'
 					}
 				></CardBento>
 				<CardBento

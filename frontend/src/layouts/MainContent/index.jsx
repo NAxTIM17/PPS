@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 
 const MainContent = ({ children }) => {
 	return (
-		<div className="bg-gray-100 dark:bg-zinc-900 rounded-brand-2 w-full h-full flex flex-col p-2 drop-shadow-md overflow-hidden">
+		<div className="bg-gray-100 dark:bg-zinc-900 rounded-brand-2 w-full h-full flex flex-col p-3 drop-shadow-md overflow-hidden">
 			<div
 				id="main_content_header"
 				className="flex justify-between items-center"

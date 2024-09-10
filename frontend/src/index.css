@@ -19,6 +19,20 @@
 		font-style: normal;
 		font-variation-settings: 'slnt' 0;
 	}
+
+	:root{
+		--rs-primary-50: #f2fff3;
+		--rs-primary-100: #ceebd0;
+		--rs-primary-200: #b0d9b2;
+		--rs-primary-300: #91c496;
+		--rs-primary-400: #78b37d;
+		--rs-primary-500: #5f9e66;
+		--rs-primary-600: #459950;
+		--rs-primary-700: #2b8f3a;
+		--rs-primary-800: #138025;
+		--rs-primary-900: #006b14;
+	}
+
 }
 
 @layer components {
