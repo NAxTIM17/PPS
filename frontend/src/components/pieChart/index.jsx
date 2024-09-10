@@ -32,7 +32,7 @@ export default function PieChart({ data }) {
     console.log(data)
 
 	return (
-		<div className="flex flex-col w-full h-full gap-5 items-center p-5">
+		<div className="flex flex-col w-full h-full gap-5 items-center p-3">
 			<div className="flex flex-col items-center relative">
 				<svg
 					viewBox="-1 -1 2 2"
