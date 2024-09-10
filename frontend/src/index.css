@@ -44,14 +44,14 @@
 	}
 }
 :root{
-	--rs-primary-50: #f2fff2;
-	--rs-primary-100: #d3f2d4;
-	--rs-primary-200: #b3e8b5;
-	--rs-primary-300: #93db98;
-	--rs-primary-400: #77d17f;
-	--rs-primary-500: #5cc467;
-	--rs-primary-600: #42bd50;
-	--rs-primary-700: #28ad3a;
-	--rs-primary-800: #119625;
-	--rs-primary-900: #007814;
+	--rs-primary-50: #f2fff3;
+--rs-primary-100: #ceebd0;
+--rs-primary-200: #b0d9b2;
+--rs-primary-300: #91c496;
+--rs-primary-400: #78b37d;
+--rs-primary-500: #5f9e66;
+--rs-primary-600: #459950;
+--rs-primary-700: #2b8f3a;
+--rs-primary-800: #138025;
+--rs-primary-900: #006b14;
 }

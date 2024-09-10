@@ -1,5 +1,5 @@
-import { DateRangePicker, Pagination, Dropdown } from 'rsuite';
-import { IconX, IconExternalLink } from '@tabler/icons-react';
+import { DateRangePicker, Pagination, Dropdown, Button } from 'rsuite';
+import { IconX, IconExternalLink, IconSearch, IconListDetails } from '@tabler/icons-react';
 import { useState } from 'react';
 
 const FILTERS = ['Drogueria', 'Productos', 'Precio', 'Fecha']
@@ -11,14 +11,15 @@ const History = () => {
 	return (
 		<div className="w-full h-full flex flex-col gap-2">
 			<div className="w-full h-10 flex items-center gap-3 p-3">
-				<DateRangePicker />
-				<Dropdown title="Filtrar">
+				<DateRangePicker className='w-full'/>
+				<Dropdown title="Filtrar" className='w-32'>
 					{
 						FILTERS.map((item, index) => (
 							<Dropdown.Item key={index} onClick={() => setArrayFilter([...arrayFilter, {name : item}])} >{item}</Dropdown.Item>
 						))
 					}
 				</Dropdown>
+				<Button appearance='primary' className='w-[20%]'><IconSearch /></Button>
 			</div>
 			<div className="w-full h-10 flex items-center pl-3 pr-3 gap-3">
 				{
@@ -33,8 +34,13 @@ const History = () => {
 			<div className="w-full flex flex-col grow gap-3 overflow-x-hidden p-3">
 				<div className="w-full h-20 drop-shadow-md bg-zinc-50 rounded-brand-2 p-2 flex flex-row items-center justify-between">
 					<h1 className="text-2xl font-bold">05/09/2024</h1>
-					<div className="w-20 h-10 bg-green-900 rounded-brand text-white flex justify-center items-center">
-						DelSOl
+					<div className='flex gap-2'>
+						<div className="w-20 h-10 bg-green-900 rounded-brand text-white flex justify-center items-center">
+							DelSOl
+						</div>
+						<div className="w-20 h-10 bg-green-600 rounded-brand text-white flex justify-center items-center">
+							
+						</div>
 					</div>
 					<h1 className="text-2xl font-bold">$12,300</h1>
 					<IconExternalLink />
