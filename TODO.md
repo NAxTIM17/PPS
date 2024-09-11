@@ -11,6 +11,7 @@
 * agregar los colores a tailwind y preparar las variables para hacer el tema claro y el oscuro.
 * agregar funcionalidad al componente "Nuevo"
     => el componente nuevo me redirije a la pagina de Carga manual y carga automatica.
+* cambiar lo visual del login.
 
 
 # FEELINGS
