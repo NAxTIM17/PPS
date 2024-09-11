@@ -1,15 +1,13 @@
 # TODO
 
--   crear el userBadge afuera del bento grid.
 -   agregar funcionalidad al componente history.
     => a los items.(No se bien cual es la funcionalidad de estos.)
     => paginacion de los elementos.
--   definir bien los colores para evitar problemas a futuro.
--   agregar los colores a tailwind y preparar las variables para hacer el tema claro y el oscuro.
--   agregar funcionalidad al componente "Nuevo"
-    => el componente nuevo me redirije a la pagina de Carga manual y carga automatica.
 -   cambiar lo visual del login.
--   declarar las variables para los cambios de colores.
+-   agregar los colores a tailwind y preparar las variables para hacer el tema claro y el oscuro.
+-   definir bien los colores para evitar problemas a futuro.
+-   implementar el logout.
+NaxUizard123@
 
 # FEELINGS
 
