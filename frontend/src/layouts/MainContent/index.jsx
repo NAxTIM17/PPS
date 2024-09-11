@@ -1,15 +1,22 @@
 import { useEffect, useReducer } from 'react';
 import { createPortal } from 'react-dom';
 
+import UserBadge from '../../components/UserBadge';
+
 const MainContent = ({ children }) => {
 	return (
-		<div className="bg-gray-100 dark:bg-zinc-900 rounded-brand-2 w-full h-full flex flex-col p-3 drop-shadow-md overflow-hidden">
+	<div className="absolute inset-0 bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] w-full flex justify-center items-center md:py-brand-2 md:px-brand-32">
+		<div className="bg-gray-100 rounded-brand-2 w-full h-full flex flex-col p-3 drop-shadow-md overflow-hidden">
 			<div
 				id="main_content_header"
 				className="flex justify-between items-center"
-			/>
+				/>
 			{children}
 		</div>
+			<div className="absolute right-5 top-5 bg-zinc-200 p-2 rounded-full">
+					<UserBadge />
+			</div>
+	</div>
 	);
 };
 
@@ -22,12 +29,13 @@ const MainContentHeader = ({ children }) => {
 
 	return (
 		<>
-			{document.getElementById('main_content_header') &&
+			{
 				createPortal(
 					children,
-					document.getElementById('main_content_header'),
+					document.getElementById('root'),
 					key
-				)}
+				)
+			}
 		</>
 	);
 };

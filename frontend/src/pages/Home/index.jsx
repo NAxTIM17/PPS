@@ -1,17 +1,16 @@
 import { useNavigate } from 'react-router-dom';
-import { useSession } from '../../providers/Session';
 
+import { useSession } from '../../providers/Session';
+import MainContent from '../../layouts/MainContent';
 import Bentogrid from '../../components/Bentogrid';
 import History from '../../components/Historial'
 import CardBento from '../../components/CardBento';
 import ReactECharts from 'echarts-for-react';
 import generateColors from '../../utils/colorGenerator';
-import { ROUTES } from '../../router/config';
-
+import New from '../../components/New';
+import UserBadge from '../../components/UserBadge';
 
 const Home = () => {
-	const session = useSession();
-	const navigate = useNavigate();
 	const handleColors = (data) => {
 		let newArray = [];
 		let COLORS = generateColors(data.length)
@@ -85,16 +84,17 @@ const Home = () => {
 			}
 		  ]
 	}
+
 	return (
 		<>
 			<Bentogrid className={'grid-cols-2 grid-rows-8'}>
 				<CardBento
-					title={'NUEVO'}
-					onClikc={() => navigate(ROUTES.AUTHED_ROUTES.ACCOUNT)}
 					className={
-						'col-span-1 row-span-1 text-white bg-[#5F9F66] hover:bg-[#528a59] cursor-pointer transition-all'
+						'col-span-1 row-span-1 '
 					}
-				></CardBento>
+				>
+				<New />
+				</CardBento>
 				<CardBento
 					title={"Historial"}
 					className={

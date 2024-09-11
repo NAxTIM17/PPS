@@ -1,19 +1,16 @@
 # TODO
 
-* crear el userBadge afuera del bento grid.
-* agregar funcionalidad al componente history.
-    => a la busqueda por fecha, tomar y guardar la fecha.
-    => a los filtos, agregarlos y quitarlos.
+-   crear el userBadge afuera del bento grid.
+-   agregar funcionalidad al componente history.
     => a los items.(No se bien cual es la funcionalidad de estos.)
     => paginacion de los elementos.
-* cambiar los colores de rsuite a verde.
-* definir bien los colores para evitar problemas a futuro.
-* agregar los colores a tailwind y preparar las variables para hacer el tema claro y el oscuro.
-* agregar funcionalidad al componente "Nuevo"
+-   definir bien los colores para evitar problemas a futuro.
+-   agregar los colores a tailwind y preparar las variables para hacer el tema claro y el oscuro.
+-   agregar funcionalidad al componente "Nuevo"
     => el componente nuevo me redirije a la pagina de Carga manual y carga automatica.
-* cambiar lo visual del login.
-
+-   cambiar lo visual del login.
+-   declarar las variables para los cambios de colores.
 
 # FEELINGS
 
-* se me hace que la version mobile va a ser mas usada ya que, pasar las fotos a la compu para despues cargarla al sistema será mucho para el usuario; Pero si tuviera la version mobile simplemente podria cargar desde ahi las fotos, pq le llegan al watsap.
+-   se me hace que la version mobile va a ser mas usada ya que, pasar las fotos a la compu para despues cargarla al sistema será mucho para el usuario; Pero si tuviera la version mobile simplemente podria cargar desde ahi las fotos, pq le llegan al watsap.
