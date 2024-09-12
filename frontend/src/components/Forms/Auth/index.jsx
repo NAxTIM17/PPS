@@ -32,23 +32,23 @@ const AuthForm = ({
 	};
 
 	return (
-		<div className="w-full h-screen flex justify-center items-center">
-			<div className="bg-brand-50 flex flex-col p-8 w-max h-max rounded-brand-2">
-				<h1 className="text-center text-[78px] font-brand text-grey-900">
+		<div className="w-full h-screen flex justify-center items-center bg-gradient-to-r from-lime-100 to-lime-300">
+			<div className="bg-white flex flex-col p-8 w-max h-max rounded-brand-2 drop-shadow-md">
+				<h1 className="text-center text-[68px] font-brand text-grey-900">
 					ADvenir
 				</h1>
 				{!!title && (
-					<h3 className="text-[36px] font-inter font-bold text-brand-800 mt-brand-4 text-center max-w-[14ch]">
+					<h3 className="text-[26px] font-inter font-bold text-lime-500 mt-brand-4 text-center w-full">
 						{title}
 					</h3>
 				)}
 				{!!description && (
-					<p className="mt-brand-8 font-medium text-center mx-auto max-w-[40ch]">
+					<p className="font-medium text-center max-w-[40ch]">
 						{description}
 					</p>
 				)}
 				<form
-					className="flex flex-col mt-brand-8 gap-brand-2"
+					className="flex flex-col mt-brand-3 gap-brand-2"
 					onSubmit={handleSubmit}
 					{...restOfFormProps}
 				>
@@ -58,13 +58,13 @@ const AuthForm = ({
 							dangerouslySetInnerHTML={{
 								__html: submitState?.text,
 							}}
-							className={`text-sm mt-brand-2 inline-block mx-auto ${submitState.type === 'error' ? 'text-red-500' : 'text-brand-700'}`}
+							className={`text-sm mt-brand-2 inline-block mx-auto ${submitState.type === 'error' ? 'text-red-500' : 'text-lime-500'}`}
 						/>
 					)}
 					{buttonText && (
 						<button
 							disabled={isSubmitting}
-							className={`bg-brand-800 text-brand-50 font-medium rounded-brand-2 px-brand-4 py-brand w-max mx-auto mt-brand-2 h-9 grid place-items-center transition-opacity ${isSubmitting ? 'cursor-progress opacity-75' : 'cursor-pointer'}`}
+							className={`bg-lime-500 text-brand-50 font-bold rounded-brand px-brand-4 py-brand w-full mx-auto mt-brand-2 h-9 grid place-items-center transition-opacity ${isSubmitting ? 'cursor-progress opacity-75' : 'cursor-pointer'}`}
 							type="submit"
 						>
 							{isSubmitting ? <Spinner /> : buttonText}
@@ -76,7 +76,7 @@ const AuthForm = ({
 						{links.map((link, index) => (
 							<Link
 								key={index}
-								className="text-sm text-grey-700 underline md:pl-brand md:first:pl-0 hover:text-brand-700"
+								className="text-sm text-grey-700 underline md:pl-brand md:first:pl-0 hover:text-lime-500"
 								to={link.to}
 							>
 								{link.text}
