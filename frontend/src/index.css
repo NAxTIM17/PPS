@@ -20,7 +20,7 @@
 		font-variation-settings: 'slnt' 0;
 	}
 
-	:root{
+	/* :root{
 		--rs-primary-50: #f2fff3;
 		--rs-primary-100: #ceebd0;
 		--rs-primary-200: #b0d9b2;
@@ -31,7 +31,14 @@
 		--rs-primary-700: #2b8f3a;
 		--rs-primary-800: #138025;
 		--rs-primary-900: #006b14;
-	}
+		#BAED82
+		#81C14B
+		#2E933C
+
+		#11270B
+		#71B340
+		#669D31
+	} */
 
 }
 
@@ -44,14 +51,17 @@
 	}
 }
 :root{
-	--rs-primary-50: #f2fff3;
---rs-primary-100: #ceebd0;
---rs-primary-200: #b0d9b2;
---rs-primary-300: #91c496;
---rs-primary-400: #78b37d;
---rs-primary-500: #5f9e66;
---rs-primary-600: #459950;
---rs-primary-700: #2b8f3a;
---rs-primary-800: #138025;
---rs-primary-900: #006b14;
+	--background : rgb(255, 255, 255);
+	--text-primary : rgb(255, 252, 232);
+	--text-secondary : rgb(43, 43, 43);
+	--rs-primary-50: rgb(251, 255, 242);
+	--rs-primary-100: rgb(228, 245, 193);
+	--rs-primary-200: rgb(203, 235, 145);
+	--rs-primary-300: rgb(179, 224, 101);
+	--rs-primary-400: rgb(155, 214, 60);
+	--rs-primary-500: rgb(131, 204, 22);
+	--rs-primary-600: rgb(121, 196, 16);
+	--rs-primary-700: rgb(107, 181, 9);
+	--rs-primary-800: rgb(88, 158, 3);
+	--rs-primary-900: rgb(68, 128, 0);
 }
