@@ -9,6 +9,7 @@ export default {
 				inter: '"Inter", sans-serif',
 			},
 			spacing: {
+				'spacing' : 'var(--spacing)',
 				brand: '7px',
 				'brand-2': '14px',
 				'brand-4': '28px',
@@ -19,14 +20,18 @@ export default {
 			borderRadius: {
 				brand: '7px',
 				'brand-2': '14px',
+				'outer-border': 'var(--outer-border)',
+				'inner-border': 'var(--inner-border)'
 			},
 			colors: {
-				'color-background' : 'var(--background)',
-				'color-brand-primary' : 'var(--rs-primary-500)',
-				'color-brand-secondary' : 'var(--rs-primary-200)',
+				'color-bg' : 'var(--background)',
+				'color-bg-surface' : 'var(--background-surface)',
+				'color-border' : 'var(--rs-primary-700)',
+				'color-fill-primary' : 'var(--rs-primary-500)',
+				'color-fill-secondary' : 'var(--rs-primary-200)',
 				'color-text-primary' : 'var(--text-primary)',
 				'color-text-secondary' : 'var(--text-secondary)',
-				'color-hover' : 'var(--rs-primary-700)'
+				'color-bg-surface-hover' : 'var(--rs-primary-700)'
 			},
 		},
 	},

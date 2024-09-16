@@ -23,15 +23,15 @@ const Home = () => {
 				<CardBento
 					title={"Historial"}
 					className={
-						'col-span-1 row-span-7 bg-white'
+						'col-span-1 row-span-7 bg-color-bg'
 					}
 				>
 					<History />
-				</CardBento>
+				</CardBento> 
 				<CardBento
 					title={'Gasto por drogueria'}
 					className={
-						'col-span-1 row-span-5 bg-white'
+						'col-span-1 row-span-5 bg-color-bg'
 					}
 				>
 					<PieChart data={[
@@ -59,7 +59,7 @@ const Home = () => {
 				</CardBento>
 				<CardBento
 					className={
-						'col-span-1 row-span-3 bg-white'
+						'col-span-1 row-span-3 bg-color-bg'
 					}
 					title={"Productos por drogueria"}
 				>
