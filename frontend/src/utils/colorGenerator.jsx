@@ -70,7 +70,6 @@ const generateColors = (n) => {
 
 
     let primary = getCssVariable('--rs-primary-500')
-    console.log(primary)
     let {h, l, s} = rgbToHsl(primary);
     l = l / n;
 

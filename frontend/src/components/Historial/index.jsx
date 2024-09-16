@@ -3,10 +3,8 @@ import {
 	IconX,
 	IconExternalLink,
 	IconSearch,
-	IconListDetails,
 } from '@tabler/icons-react';
 import { useState } from 'react';
-import { FAKE_DATA } from '../../utils/FAKE_DATA';
 
 const FILTERS = ['Drogueria', 'Productos', 'Precio', 'Fecha'];
 
@@ -14,8 +12,6 @@ const History = () => {
 	const [activePage, setActivePage] = useState(1);
 	const [arrayFilter, setArrayFilter] = useState([]);
 	const [arrayDates, setArrayDates] = useState({});
-
-	console.log(arrayDates);
 
 	return (
 		<div className="w-full h-full flex flex-col gap-2">

@@ -4,8 +4,6 @@ import handleColors from '../../utils/hadleColors';
 
 export default function PieChart({data}){
     const total = data.reduce((acc, el) => el.value + acc, 0);
-    console.log("data", total)
-
     const pieOption = {
 		tooltip: {
 		  trigger: 'item'
@@ -37,7 +35,6 @@ export default function PieChart({data}){
 		  }
 		]
 	}
-
     return(
             <ReactECharts className='w-full !h-[450px] relative' option={pieOption} />
     )
