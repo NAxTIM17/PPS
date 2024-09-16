@@ -1,89 +1,14 @@
-import { useNavigate } from 'react-router-dom';
-
-import { useSession } from '../../providers/Session';
-import MainContent from '../../layouts/MainContent';
 import Bentogrid from '../../components/Bentogrid';
 import History from '../../components/Historial'
 import CardBento from '../../components/CardBento';
 import ReactECharts from 'echarts-for-react';
-import generateColors from '../../utils/colorGenerator';
 import New from '../../components/New';
-import UserBadge from '../../components/UserBadge';
+import PieChart from '../../components/pieChart';
+import BarChart from '../../components/barChart';
+
 
 const Home = () => {
-	const handleColors = (data) => {
-		let newArray = [];
-		let COLORS = generateColors(data.length)
-		COLORS.map((item, index) => (
-			newArray = [...newArray, {
-				name : data[index]?.name,
-				value : data[index].value ? data[index].value : data[index],
-				itemStyle : {
-					color: item
-				}
-			}]
-		))
-		return newArray
-	}
-	const pieOption = {
-		tooltip: {
-		  trigger: 'item'
-		},
-		legend: {
-		  top: '2%',
-		  left: 'center'
-		},
-		series: [
-		  {
-			name: 'Drogueria',
-			type: 'pie',
-			radius: ['50%', '70%'],
-			avoidLabelOverlap: false,
-			itemStyle: {
-			  borderRadius: 10,
-			  borderColor: '#fff',
-			  borderWidth: 2
-			},
-			data: handleColors([
-				{
-					name: 'Margarita',
-					value: 300,
-				},
-				{
-					name: 'Garnica',
-					value: 100,
-				},
-				{
-					name: 'Savencia',
-					value: 400,
-				},
-				{
-					name: 'Soledad',
-					value: 500,
-				},
-				{
-					name: 'Monte',
-					value: 200,
-				},
-			])
-		  }
-		]
-	}
-	const barOption = {
-		xAxis: {
-			type: 'category',
-			data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-		  },
-		  yAxis: {
-			type: 'value'
-		  },
-		  series: [
-			{
-			  data: handleColors([120, 200, 150, 80, 70, 110, 130]),
-			  type: 'bar'
-			}
-		  ]
-	}
+	
 
 	return (
 		<>
@@ -109,8 +34,28 @@ const Home = () => {
 						'col-span-1 row-span-5 bg-white'
 					}
 				>
-					<ReactECharts className='w-full !h-[450px]' option={pieOption}/>
-					<h1 className='absolute font-bold text-4xl top-10 bottom-0 flex items-center'>$30.000</h1>
+					<PieChart data={[
+						{
+							name: 'Margarita',
+							value: 300,
+						},
+						{
+							name: 'Garnica',
+							value: 100,
+						},
+						{
+							name: 'Savencia',
+							value: 400,
+						},
+						{
+							name: 'Soledad',
+							value: 500,
+						},
+						{
+							name: 'Monte',
+							value: 200,
+						},
+					]}/>
 				</CardBento>
 				<CardBento
 					className={
@@ -118,7 +63,7 @@ const Home = () => {
 					}
 					title={"Productos por drogueria"}
 				>
-					<ReactECharts className='w-full h-full'  option={barOption}/>
+					<BarChart yAxisData={[100, 20, 300, 500, 100, 600, 100]} xAxisData={["mon", "tus", "wed", "tur", "fri", "sat", "sun"]}/>
 				</CardBento>
 			</Bentogrid>
 		</>

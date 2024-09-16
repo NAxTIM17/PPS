@@ -41,7 +41,7 @@ const History = () => {
 						</Dropdown.Item>
 					))}
 				</Dropdown>
-				<Button appearance="primary" className="w-[20%]">
+				<Button className="w-[20%] text-color-text-primary bg-color-brand-primary">
 					<IconSearch />
 				</Button>
 			</div>
@@ -49,7 +49,7 @@ const History = () => {
 				{arrayFilter.map((item, index) => (
 					<div
 						key={index}
-						className="min-w-20 h-7 bg-green-900 rounded-brand-2 text-white flex justify-center items-center p-2 gap-1 "
+						className="min-w-20 h-7 bg-color-brand-primary rounded-brand-2 text-color-text-primary flex justify-center items-center p-2 gap-1 "
 					>
 						{item.name}
 						<IconX
@@ -65,47 +65,15 @@ const History = () => {
 				))}
 			</div>
 			<div className="w-full flex flex-col grow gap-3 overflow-x-hidden p-3">
-				<div className="w-full h-20 drop-shadow-md bg-zinc-50 rounded-brand-2 p-2 flex flex-row items-center justify-between">
+				<div className="w-full h-20 drop-shadow-md bg-zinc-50 rounded-brand-2 p-2 flex flex-row items-center justify-between text-color-text-secondary">
 					<h1 className="text-2xl font-bold">05/09/2024</h1>
-					<div className="flex gap-2">
-						<div className="w-20 h-10 bg-green-900 rounded-brand text-white flex justify-center items-center">
+					<div className="flex gap-2 ">
+						<div className="w-20 h-10 bg-color-brand-primary rounded-brand text-color-text-primary flex justify-center items-center">
 							DelSOl
 						</div>
-						<div className="w-20 h-10 bg-green-600 rounded-brand text-white flex justify-center items-center"></div>
+						<div className="w-20 h-10 bg-color-brand-secondary rounded-brand flex justify-center items-center text-color-brand-primary">DelSol</div>
 					</div>
-					<h1 className="text-2xl font-bold">$12,300</h1>
-					<IconExternalLink />
-				</div>
-				<div className="w-full h-20 drop-shadow-md bg-zinc-50 rounded-brand-2 p-2 flex flex-row items-center justify-between">
-					<h1 className="text-2xl font-bold">05/09/2024</h1>
-					<div className="w-20 h-10 bg-green-900 rounded-brand text-white flex justify-center items-center">
-						DelSOl
-					</div>
-					<h1 className="text-2xl font-bold">$12,300</h1>
-					<IconExternalLink />
-				</div>
-				<div className="w-full h-20 drop-shadow-md bg-zinc-50 rounded-brand-2 p-2 flex flex-row items-center justify-between">
-					<h1 className="text-2xl font-bold">05/09/2024</h1>
-					<div className="w-20 h-10 bg-green-900 rounded-brand text-white flex justify-center items-center">
-						DelSOl
-					</div>
-					<h1 className="text-2xl font-bold">$12,300</h1>
-					<IconExternalLink />
-				</div>
-				<div className="w-full h-20 drop-shadow-md bg-zinc-50 rounded-brand-2 p-2 flex flex-row items-center justify-between">
-					<h1 className="text-2xl font-bold">05/09/2024</h1>
-					<div className="w-20 h-10 bg-green-900 rounded-brand text-white flex justify-center items-center">
-						DelSOl
-					</div>
-					<h1 className="text-2xl font-bold">$12,300</h1>
-					<IconExternalLink />
-				</div>
-				<div className="w-full h-20 drop-shadow-md bg-zinc-50 rounded-brand-2 p-2 flex flex-row items-center justify-between">
-					<h1 className="text-2xl font-bold">05/09/2024</h1>
-					<div className="w-20 h-10 bg-green-900 rounded-brand text-white flex justify-center items-center">
-						DelSOl
-					</div>
-					<h1 className="text-2xl font-bold">$12,300</h1>
+					<h1 className="text-2xl font-bold ">$12,300</h1>
 					<IconExternalLink />
 				</div>
 			</div>

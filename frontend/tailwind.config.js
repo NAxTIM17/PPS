@@ -23,10 +23,10 @@ export default {
 			colors: {
 				'color-background' : 'var(--background)',
 				'color-brand-primary' : 'var(--rs-primary-500)',
-				'color-brand-secondary' : 'var(--rs-primary-500)',
+				'color-brand-secondary' : 'var(--rs-primary-200)',
 				'color-text-primary' : 'var(--text-primary)',
 				'color-text-secondary' : 'var(--text-secondary)',
-				'color-bg-hover' : 'var(--rs-primary-700)'
+				'color-hover' : 'var(--rs-primary-700)'
 			},
 		},
 	},

@@ -33,7 +33,7 @@ const AuthForm = ({
 
 	return (
 		<div className="w-full h-screen flex justify-center items-center bg-gradient-to-r from-lime-100 to-lime-300">
-			<div className="bg-white flex flex-col p-8 w-max h-max rounded-brand-2 drop-shadow-md">
+			<div className="bg-color-background flex flex-col p-8 w-max h-max rounded-brand-2 drop-shadow-md">
 				<h1 className="text-center text-[68px] font-brand text-grey-900">
 					ADvenir
 				</h1>
@@ -64,7 +64,7 @@ const AuthForm = ({
 					{buttonText && (
 						<button
 							disabled={isSubmitting}
-							className={`bg-lime-500 text-brand-50 font-bold rounded-brand px-brand-4 py-brand w-full mx-auto mt-brand-2 h-9 grid place-items-center transition-opacity ${isSubmitting ? 'cursor-progress opacity-75' : 'cursor-pointer'}`}
+							className={`bg-lime-500 text-brand-50 text-color-text-primary font-bold rounded-brand px-brand-4 py-brand w-full mx-auto mt-brand-2 h-9 grid place-items-center transition-opacity ${isSubmitting ? 'cursor-progress opacity-75' : 'cursor-pointer'}`}
 							type="submit"
 						>
 							{isSubmitting ? <Spinner /> : buttonText}

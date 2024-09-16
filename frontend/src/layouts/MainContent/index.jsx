@@ -5,7 +5,7 @@ import UserBadge from '../../components/UserBadge';
 
 const MainContent = ({ children }) => {
 	return (
-	<div className="absolute inset-0 bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] w-full flex justify-center items-center md:py-brand-2 md:px-brand-32">
+	<div className="absolute inset-0 bg-color-background w-full flex justify-center items-center md:py-brand-2 md:px-brand-32">
 		<div className="bg-gray-100 rounded-brand-2 w-full h-full flex flex-col p-3 drop-shadow-md overflow-hidden">
 			<div
 				id="main_content_header"
@@ -13,9 +13,7 @@ const MainContent = ({ children }) => {
 				/>
 			{children}
 		</div>
-			<div className="absolute right-5 top-5 bg-zinc-200 p-2 rounded-full">
-					<UserBadge />
-			</div>
+			<UserBadge />
 	</div>
 	);
 };
