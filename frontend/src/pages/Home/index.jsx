@@ -1,3 +1,7 @@
+import { useState } from 'react';
+import { Modal, Button, Uploader } from 'rsuite';
+import { IconUpload, IconPhotoUp } from '@tabler/icons-react';
+
 import Bentogrid from '../../components/Bentogrid';
 import History from '../../components/Historial'
 import CardBento from '../../components/CardBento';
@@ -8,6 +12,14 @@ import BarChart from '../../components/barChart';
 
 
 const Home = () => {
+
+	const [openModal, setOpenModal] = useState(false);
+
+	const handleOpenModal = () => {
+		setOpenModal(!openModal)
+	}
+
+	console.log(openModal);
 	
 
 	return (
@@ -18,7 +30,7 @@ const Home = () => {
 						'col-span-1 row-span-1 '
 					}
 				>
-				<New />
+				<New handleOpen={handleOpenModal}/>
 				</CardBento>
 				<CardBento
 					title={"Historial"}
@@ -66,6 +78,40 @@ const Home = () => {
 					<BarChart yAxisData={[100, 20, 300, 500, 100, 600, 100]} xAxisData={["mon", "tus", "wed", "tur", "fri", "sat", "sun"]}/>
 				</CardBento>
 			</Bentogrid>
+			<Modal open={openModal} onClose={handleOpenModal} size={"lg"} backdrop={"static"}>
+				<Modal.Header>
+				<Modal.Title>Subir Archivos</Modal.Title>
+				</Modal.Header>
+				<Modal.Body className='flex gap-spacing items-center justify-center h-[600px]'>
+				<Uploader
+						className='w-full h-full flex'
+						style={{
+							gap: 'var(--spacing)'
+						}}
+						listType="picture-text"
+						action={() => {}}
+						draggable
+						shouldQueueUpdate={() => {
+						return true;
+						}}
+						shouldUpload={() => {
+						return true;
+						}}
+					>
+						<div className="w-full h-full" style={{ height: '100%', width: 500, display: 'flex', alignItems: 'center', justifyContent: 'center' , backgroundColor: 'var(--rs-primary-200)', borderRadius: 'var(--inner-border)'}}>
+							<IconPhotoUp size={150} className='text-color-fill-low-contrast w-full'/>
+						</div>
+					</Uploader>
+				</Modal.Body>
+				<Modal.Footer>
+				<Button onClick={handleOpenModal} appearance="subtle">
+					Cancel
+				</Button>
+				<Button onClick={handleOpenModal} appearance="primary">
+					Continuar
+				</Button>
+				</Modal.Footer>
+			</Modal>
 		</>
 	);
 };

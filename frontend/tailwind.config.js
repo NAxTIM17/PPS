@@ -29,6 +29,7 @@ export default {
 				'color-border' : 'var(--rs-primary-700)',
 				'color-fill-primary' : 'var(--rs-primary-500)',
 				'color-fill-secondary' : 'var(--rs-primary-200)',
+				'color-fill-low-contrast': 'var(--rs-primary-300)',
 				'color-text-primary' : 'var(--text-primary)',
 				'color-text-secondary' : 'var(--text-secondary)',
 				'color-bg-surface-hover' : 'var(--rs-primary-700)'
