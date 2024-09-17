@@ -1,9 +1,5 @@
 import { DateRangePicker, Pagination, Dropdown, Button } from 'rsuite';
-import {
-	IconX,
-	IconExternalLink,
-	IconSearch,
-} from '@tabler/icons-react';
+import { IconX, IconExternalLink, IconSearch } from '@tabler/icons-react';
 import { useState } from 'react';
 
 const FILTERS = ['Drogueria', 'Productos', 'Precio', 'Fecha'];
@@ -25,7 +21,7 @@ const History = () => {
 					}
 					className="w-full"
 				/>
-				<Dropdown title="Filtrar" className='!rounded-inner-borde'>
+				<Dropdown title="Filtrar" className="!rounded-inner-borde">
 					{FILTERS.map((item, index) => (
 						<Dropdown.Item
 							key={index}
@@ -37,7 +33,10 @@ const History = () => {
 						</Dropdown.Item>
 					))}
 				</Dropdown>
-				<Button appearance='primary' className="text-color-text-primary rounded-inner-border w-32">
+				<Button
+					appearance="primary"
+					className="text-color-text-primary rounded-md w-32"
+				>
 					<IconSearch />
 				</Button>
 			</div>
@@ -67,7 +66,9 @@ const History = () => {
 						<div className="w-20 h-7 bg-color-fill-primary rounded-brand text-color-text-primary flex justify-center items-center">
 							DelSOl
 						</div>
-						<div className="w-20 h-7 bg-color-fill-secondary rounded-brand flex justify-center items-center text-color-text-secondary">DelSol</div>
+						<div className="w-20 h-7 bg-color-fill-secondary rounded-brand flex justify-center items-center text-color-text-secondary">
+							DelSol
+						</div>
 					</div>
 					<h1 className="text-2xl font-bold ">$12,300</h1>
 					<IconExternalLink />

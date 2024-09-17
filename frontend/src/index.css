@@ -20,12 +20,12 @@
 		font-variation-settings: 'slnt' 0;
 	}
 
-	 :root{
-		--spacing : 10px;
-		--inner-border : 16px;
-		--outer-border : calc(var(--spacing) + var(--inner-border));
-	} 
-	
+	:root {
+		--spacing: 10px;
+		--inner-border: 16px;
+		--outer-border: calc(var(--spacing) + var(--inner-border));
+	}
+
 	/* 
 	#BAED82
 	#81C14B
@@ -45,11 +45,11 @@
 	}
 }
 
-.light{
-	--background : rgb(255, 255, 255);
-	--background-surface : rgb(246, 246, 246);
-	--text-primary : rgb(255, 252, 232);
-	--text-secondary : rgb(107, 181, 9);
+.light {
+	--background: rgb(255, 255, 255);
+	--background-surface: rgb(249, 249, 249);
+	--text-primary: rgb(255, 252, 232);
+	--text-secondary: rgb(107, 181, 9);
 	--rs-primary-50: rgb(251, 255, 242);
 	--rs-primary-100: rgb(228, 245, 193);
 	--rs-primary-200: rgb(203, 235, 145);
@@ -61,10 +61,10 @@
 	--rs-primary-800: rgb(88, 158, 3);
 	--rs-primary-900: rgb(68, 128, 0);
 }
-.dark{
-	--background : rgb(124, 124, 124);
-	--text-primary : rgb(255, 252, 232);
-	--text-secondary : rgb(43, 43, 43);
+.dark {
+	--background: rgb(124, 124, 124);
+	--text-primary: rgb(255, 252, 232);
+	--text-secondary: rgb(43, 43, 43);
 	--rs-primary-50: rgb(251, 255, 242);
 	--rs-primary-100: rgb(228, 245, 193);
 	--rs-primary-200: rgb(141, 141, 141);

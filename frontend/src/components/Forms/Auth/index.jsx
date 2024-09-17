@@ -32,13 +32,11 @@ const AuthForm = ({
 	};
 
 	return (
-		<div className="w-full h-screen flex justify-center items-center bg-gradient-to-r from-lime-100 to-lime-300">
-			<div className="bg-color-background flex flex-col p-8 w-max h-max rounded-brand-2 drop-shadow-md">
-				<h1 className="text-center text-[68px] font-brand text-grey-900">
-					ADvenir
-				</h1>
+		<div className="w-full h-screen flex justify-center items-center bg-gradient-to-r from-color-fill-secondary to-color-fill-primary">
+			<div className="bg-color-bg flex flex-col p-8 w-max h-max rounded-inner-border">
+				<h1 className="text-center text-[68px] font-brand">ADvenir</h1>
 				{!!title && (
-					<h3 className="text-[26px] font-inter font-bold text-lime-500 mt-brand-4 text-center w-full">
+					<h3 className="text-[26px] font-inter font-bold text-color-fill-primary mt-brand-4 text-center w-full">
 						{title}
 					</h3>
 				)}
@@ -58,13 +56,13 @@ const AuthForm = ({
 							dangerouslySetInnerHTML={{
 								__html: submitState?.text,
 							}}
-							className={`text-sm mt-brand-2 inline-block mx-auto ${submitState.type === 'error' ? 'text-red-500' : 'text-lime-500'}`}
+							className={`text-sm mt-brand-2 inline-block mx-auto ${submitState.type === 'error' ? 'text-red-500' : 'text-color-fill-primary'}`}
 						/>
 					)}
 					{buttonText && (
 						<button
 							disabled={isSubmitting}
-							className={`bg-lime-500 text-brand-50 text-color-text-primary font-bold rounded-brand px-brand-4 py-brand w-full mx-auto mt-brand-2 h-9 grid place-items-center transition-opacity ${isSubmitting ? 'cursor-progress opacity-75' : 'cursor-pointer'}`}
+							className={`bg-color-fill-primary text-brand-50 text-color-text-primary font-bold rounded-md px-brand-4 py-brand w-full mx-auto mt-brand-2 h-9 grid place-items-center transition-opacity ${isSubmitting ? 'cursor-progress opacity-75' : 'cursor-pointer'}`}
 							type="submit"
 						>
 							{isSubmitting ? <Spinner /> : buttonText}
@@ -76,7 +74,7 @@ const AuthForm = ({
 						{links.map((link, index) => (
 							<Link
 								key={index}
-								className="text-sm text-grey-700 underline md:pl-brand md:first:pl-0 hover:text-lime-500"
+								className="text-sm text-grey-700 underline md:pl-brand md:first:pl-0 hover:text-color-fill-primary"
 								to={link.to}
 							>
 								{link.text}
