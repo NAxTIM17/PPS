@@ -84,22 +84,26 @@ const Home = () => {
 				</Modal.Header>
 				<Modal.Body className='flex gap-spacing items-center justify-center h-[600px]'>
 				<Uploader
-						className='w-full h-full flex'
-						style={{
-							gap: 'var(--spacing)'
-						}}
+						timeout={2000}
+						className='w-full h-full flex gap-spacing'
 						listType="picture-text"
-						action={() => {}}
+						action={""}
+						onChange={(e) => console.log(e)}
 						draggable
 						shouldQueueUpdate={() => {
-						return true;
+							//fijarse si es pdf o img.
+							return true;
 						}}
 						shouldUpload={() => {
+							//comprobar la integridad de los archivos.
 						return true;
 						}}
 					>
-						<div className="w-full h-full" style={{ height: '100%', width: 500, display: 'flex', alignItems: 'center', justifyContent: 'center' , backgroundColor: 'var(--rs-primary-200)', borderRadius: 'var(--inner-border)'}}>
+						<div className="w-full h-full">
 							<IconPhotoUp size={150} className='text-color-fill-low-contrast w-full'/>
+							<h1 className='text-2xl font-bold text-color-fill-low-contrast'>Click para cargar</h1>
+							<p className='text-lg font-bold text-color-fill-low-contrast'>o</p>
+							<h1 className='text-lg font-bold text-color-fill-low-contrast'>Arrastre su archivo aqui</h1>
 						</div>
 					</Uploader>
 				</Modal.Body>

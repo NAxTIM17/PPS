@@ -35,6 +35,33 @@
 	#71B340
 	#669D31 */
 }
+.rs-uploader-file-items{
+	flex-grow: 1;
+	background-color: var(--background-surface);
+	border-radius: var(--inner-border);
+}
+.rs-uploader-trigger-btn{
+	height: 100%;
+	width: 500px;
+	display: flex !important;
+	align-items: center !important;
+	flex-direction: column !important;
+	justify-content: center !important;
+	background-color: var(--rs-primary-200) !important;
+	border-radius: var(--inner-border);
+	cursor: pointer;
+	transition: all 200ms;
+	svg{
+		transition: all 200ms;
+	}
+}
+.rs-uploader-trigger-btn:hover {
+	background-color: var(--rs-primary-300) !important;
+	svg {
+		color: var(--rs-primary-500) !important;
+	}
+	
+}
 
 @layer components {
 	.no-autofill {
