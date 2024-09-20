@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { AuthService } from '../../services/Auth';
 import { findUXErrorFromCatchError } from '../../services/utils';
+import { Input, InputGroup } from 'rsuite';
+import {  IconMail, IconLock } from '@tabler/icons-react';
 
 import AuthForm from '../../components/Forms/Auth';
 import PasswordInput from '../../components/PasswordInput';
@@ -45,19 +47,19 @@ const Login = () => {
 					});
 			}}
 		>
-			<TextInput
-				type="email"
-				name="email"
-				label="Email"
-				placeholder="Ingrese su email"
-				required
-			/>
-			<PasswordInput
-				name="password"
-				label="Contraseña"
-				placeholder="Ingrese su contraseña"
-				required
-			/>
+			<InputGroup className='w-full'>
+			<InputGroup.Addon>
+				<IconMail />
+			</InputGroup.Addon>
+			<Input type='email' placeholder='Gmail' name='email' required/>
+			</InputGroup>
+
+			<InputGroup className='w-full'>
+			<InputGroup.Addon>
+				<IconLock />
+			</InputGroup.Addon>
+			<Input type='password' placeholder='Contraseña' name='password' required/>
+			</InputGroup>
 		</AuthForm>
 	);
 };

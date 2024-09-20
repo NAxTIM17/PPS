@@ -1,14 +1,27 @@
 import { useEffect, useReducer } from 'react';
 import { createPortal } from 'react-dom';
 
+import { IconHomeMove } from '@tabler/icons-react';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+
+import UserBadge from '../../components/UserBadge';
+
 const MainContent = ({ children }) => {
+	const navigate = useNavigate();
+
 	return (
-		<div className="bg-white dark:bg-black rounded-brand-2 w-full h-full flex flex-col gap-brand-2 p-brand-4">
-			<div
-				id="main_content_header"
-				className="flex justify-between items-center"
-			/>
-			{children}
+		<div className="absolute inset-0 bg-color-background w-full flex justify-center items-center md:py-brand-2 md:px-brand-32">
+			<div className="bg-color-bg-surface rounded-outer-border w-full h-full flex flex-col p-spacing overflow-hidden z-10">
+				{children}
+			</div>
+			<UserBadge />
+			{window.location.pathname != '/inicio' && (
+				<div className="absolute h-12 w-20 bg-color-fill-secondary left-40 top-10 rounded-inner-border text-color-border border border-color-border flex justify-start items-center pl-spacing cursor-pointer" onClick={() => navigate('/inicio')}>
+					<IconHomeMove stroke={1} size={30}/>
+				</div>
+			)}
 		</div>
 	);
 };
@@ -20,16 +33,7 @@ const MainContentHeader = ({ children }) => {
 		rerender();
 	}, []);
 
-	return (
-		<>
-			{document.getElementById('main_content_header') &&
-				createPortal(
-					children,
-					document.getElementById('main_content_header'),
-					key
-				)}
-		</>
-	);
+	return <>{createPortal(children, document.getElementById('root'), key)}</>;
 };
 
 MainContent.Header = MainContentHeader;

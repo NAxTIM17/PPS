@@ -1,6 +1,6 @@
-const Bentogrid = ({rows, cols, children}) => {
+const Bentogrid = ({className, children}) => {
     return (
-        <div className={`grid grid-rows-${rows} grid-cols-${cols} w-full h-full gap-7`}>
+        <div  className={`grid grid-flow-col h-full gap-spacing ${className}`}>
             {children}
         </div>
     );
