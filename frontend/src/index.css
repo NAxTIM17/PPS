@@ -35,7 +35,23 @@
 	#71B340
 	#669D31 */
 }
-
+/**/
+.rs-uploader-file-items {
+	flex-grow: 1;
+}
+.rs-uploader-trigger-btn {
+	display: flex !important;
+	justify-content: center;
+	place-items: center;
+	height: 100%;
+	width: 500px !important;
+	border-radius: var(--inner-border);
+	transition: all 200ms;
+	background-color: var(--rs-primary-100) !important;
+}
+.rs-uploader-trigger-btn:hover {
+	background-color: var(--rs-primary-200) !important;
+}
 @layer components {
 	.no-autofill {
 		-webkit-box-shadow: 0 0 0 30px transparent inset !important;
