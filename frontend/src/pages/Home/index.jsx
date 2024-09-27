@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Modal, Button, Uploader } from 'rsuite';
 import { IconUpload, IconPhotoUp } from '@tabler/icons-react';
+import { useNavigate } from 'react-router-dom';
 
 import Bentogrid from '../../components/Bentogrid';
 import History from '../../components/Historial';
+import { ROUTES } from '../../router/config';
 import CardBento from '../../components/CardBento';
 import ReactECharts from 'echarts-for-react';
 import New from '../../components/New';
@@ -12,6 +14,7 @@ import BarChart from '../../components/barChart';
 
 const Home = () => {
 	const [openModal, setOpenModal] = useState(false);
+	const navigate = useNavigate();
 
 	const handleOpenModal = () => {
 		setOpenModal(!openModal);
@@ -100,22 +103,12 @@ const Home = () => {
 							return true;
 						}}
 					>
-						<div
-							className="w-full h-full"
-							style={{
-								height: '100%',
-								width: 500,
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'center',
-								backgroundColor: 'var(--rs-primary-200)',
-								borderRadius: 'var(--inner-border)',
-							}}
-						>
+						<div className="w-full h-full">
 							<IconPhotoUp
 								size={150}
 								className="text-color-fill-low-contrast w-full"
 							/>
+							<h1>Click para subir</h1>
 						</div>
 					</Uploader>
 				</Modal.Body>
@@ -123,7 +116,12 @@ const Home = () => {
 					<Button onClick={handleOpenModal} appearance="subtle">
 						Cancel
 					</Button>
-					<Button onClick={handleOpenModal} appearance="primary">
+					<Button
+						onClick={() =>
+							navigate(ROUTES.AUTHED_ROUTES.NEW_DASHBOARD)
+						}
+						appearance="primary"
+					>
 						Continuar
 					</Button>
 				</Modal.Footer>

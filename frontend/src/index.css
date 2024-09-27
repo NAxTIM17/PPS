@@ -41,6 +41,7 @@
 }
 .rs-uploader-trigger-btn {
 	display: flex !important;
+	flex-direction: column;
 	justify-content: center;
 	place-items: center;
 	height: 100%;
@@ -48,9 +49,23 @@
 	border-radius: var(--inner-border);
 	transition: all 200ms;
 	background-color: var(--rs-primary-100) !important;
+	color: var(--rs-primary-300) !important;
+	font-size: 20px;
 }
 .rs-uploader-trigger-btn:hover {
 	background-color: var(--rs-primary-200) !important;
+}
+.rs-uploader-file-items {
+	display: flex !important;
+	flex-direction: column !important;
+	background-color: var(--background-surface);
+	border-radius: var(--inner-border);
+	box-sizing: border-box;
+	padding: var(--spacing);
+	gap: var(--spacing) !important;
+}
+.rs-uploader-file-item {
+	margin: 0 !important;
 }
 @layer components {
 	.no-autofill {
