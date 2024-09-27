@@ -91,7 +91,7 @@ const Home = () => {
 					<Uploader
 						className="w-full h-full flex !gap-spacing"
 						listType="picture-text"
-						action={'//jsonplaceholder.typicode.com/posts/'}
+						action={() => {}}
 						draggable
 						shouldQueueUpdate={() => {
 							return true;
@@ -100,7 +100,18 @@ const Home = () => {
 							return true;
 						}}
 					>
-						<div className="!w-[500px] !h-full !flex !items-center !justify-center !bg-color-fill-secondary !rounded-inner-border">
+						<div
+							className="w-full h-full"
+							style={{
+								height: '100%',
+								width: 500,
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center',
+								backgroundColor: 'var(--rs-primary-200)',
+								borderRadius: 'var(--inner-border)',
+							}}
+						>
 							<IconPhotoUp
 								size={150}
 								className="text-color-fill-low-contrast w-full"
