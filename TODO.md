@@ -3,11 +3,9 @@
 -   agregar funcionalidad al componente history.
     => a los items.(No se bien cual es la funcionalidad de estos.)
     => paginacion de los elementos.
--   cambiar lo visual del login.
--   agregar los colores a tailwind y preparar las variables para hacer el tema claro y el oscuro.
--   definir bien los colores para evitar problemas a futuro.
--   implementar el logout.
 -   actualizar los cambios en las paginas de recuperar contraseña.
+-   agregar la funcion de copiar el mensaje.
+-   sacarle funcionalidad a history / simplificarlo.
 
 # FEELINGS
 

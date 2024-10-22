@@ -13,7 +13,7 @@ const UserBadge = () => {
 	const renderToggle = (props) => <IconUser {...props} className="" />;
 	const handleLogut = () => {
 		try {
-			localStorage.removeItem('Key_token');
+			localStorage.removeItem('SergioYalux_token');
 			navigate(ROUTES.UNAUTHED_ROUTES.LOGIN);
 		} catch (error) {
 			console.log('error en Logout...');

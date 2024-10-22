@@ -1,33 +1,45 @@
 import { DateRangePicker, Pagination, Dropdown, Button } from 'rsuite';
-import { IconX, IconExternalLink, IconSearch } from '@tabler/icons-react';
+import { IconX, IconSearch, IconListSearch } from '@tabler/icons-react';
 import { useState } from 'react';
+
+import HistoryItem from './elements/HistoryItem';
 
 const FILTERS = ['Drogueria', 'Productos', 'Precio', 'Fecha'];
 
 const History = () => {
 	const [activePage, setActivePage] = useState(1);
 	const [arrayFilter, setArrayFilter] = useState([]);
-	const [arrayDates, setArrayDates] = useState({});
+	const [arrayDates, setArrayDates] = useState([]);
 
 	return (
-		<div className="w-full h-full flex flex-col p-spacing gap-spacing">
+		<div className="w-full h-full flex flex-col p-spacing gap-spacing justify-between">
 			<div className="w-full flex items-center gap-spacing">
 				<DateRangePicker
 					onChange={(e) =>
-						setArrayDates({
-							dateFrom: e[0],
-							dateTo: e[1],
-						})
+						setArrayDates([
+							{
+								dateFrom: e[0],
+								dateTo: e[1],
+							},
+						])
 					}
-					className="w-full"
 				/>
 				<Dropdown title="Filtrar" className="!rounded-inner-borde">
 					{FILTERS.map((item, index) => (
 						<Dropdown.Item
 							key={index}
-							onClick={() =>
-								setArrayFilter([...arrayFilter, { name: item }])
-							}
+							onClick={() => {
+								if (
+									!arrayFilter.find(
+										(filter) => filter.name === item
+									)
+								) {
+									setArrayFilter([
+										...arrayFilter,
+										{ name: item },
+									]);
+								}
+							}}
 						>
 							{item}
 						</Dropdown.Item>
@@ -59,22 +71,20 @@ const History = () => {
 					</div>
 				))}
 			</div>
-			<div className="w-full flex flex-col grow gap-spacing overflow-hidden">
-				<div className="w-full h-14 rounded-inner-border p-spacing flex flex-row items-center justify-center gap-16 bg-color-bg-surface">
-					<h1 className="text-2xl font-bold">05/09/2024</h1>
-					<div className="flex gap-spacing ">
-						<div className="w-20 h-7 bg-color-fill-primary rounded-brand text-color-text-primary flex justify-center items-center">
-							DelSOl
-						</div>
-						<div className="w-20 h-7 bg-color-fill-secondary rounded-brand flex justify-center items-center text-color-text-secondary">
-							DelSol
-						</div>
+			<div className="w-full flex flex-col max-h-[600px] min-h-[600px] gap-spacing overflow-auto">
+				{arrayDates.length > 0 ? (
+					<>
+						{arrayDates.map((item) => (
+							<HistoryItem date={item.dateFrom} drugstore={[]} />
+						))}
+					</>
+				) : (
+					<div className="w-full h-full flex justify-center items-center text-color-icons">
+						<IconListSearch size={50} />
 					</div>
-					<h1 className="text-2xl font-bold ">$12,300</h1>
-					<IconExternalLink />
-				</div>
+				)}
 			</div>
-			<div className="w-full h-14 flex justify-center">
+			<div className="w-full h-10 flex justify-center">
 				<Pagination
 					activePage={activePage}
 					onChangePage={setActivePage}

@@ -1,33 +1,108 @@
 import { Table, Button, Steps, Input, InputGroup } from 'rsuite';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IconSearch } from '@tabler/icons-react';
 
+import fakeData from './fakeData';
+
 const NewDashboard = () => {
-	const { Column, HeaderCell, Cell } = Table;
 	const [currentStep, setCurrentStep] = useState(1);
+	const [arraySelected, setArraySelected] = useState([]);
+	const [arrayBestPrice, setArrayBestPrice] = useState([]);
 	const STEPS = 2;
+
 	const columns = [
 		{
-			key: 'pro',
+			key: 'nombre',
 			label: 'Producto',
 			flexGrow: 1.5,
 		},
 		{
-			key: 'lab',
+			key: 'laboratorio',
 			label: 'Laboratorio',
 			flexGrow: 1.25,
 		},
 		{
-			key: 'drg',
+			key: 'droguerias',
 			label: 'Drogerias',
 			flexGrow: 1.25,
 		},
+	];
+	const columnsBestPrice = [
 		{
-			key: 'prc',
-			label: 'Precio',
+			key: 'nombre',
+			label: 'Producto',
+			flexGrow: 1.5,
+		},
+		{
+			key: 'laboratorio',
+			label: 'Laboratorio',
+			flexGrow: 1.25,
+		},
+		{
+			key: 'droguerias',
+			label: 'Drogerias',
 			flexGrow: 0.5,
 		},
+		{
+			key: 'precio',
+			label: 'Mejor Precio',
+			flexGrow: 0.25,
+		},
 	];
+	const handleData = (data) => {
+		const productosUnicos = {};
+		data.forEach((items) => {
+			items.productos.forEach((item) => {
+				const nombreProducto = item.nombre;
+				if (productosUnicos[nombreProducto]) {
+					productosUnicos[nombreProducto] = {
+						...productosUnicos[nombreProducto],
+						droguerias: [
+							...productosUnicos[nombreProducto].droguerias,
+							items.drogeria,
+						],
+						precios: [
+							...productosUnicos[nombreProducto].precios,
+							item.precio,
+						],
+					};
+				} else {
+					productosUnicos[nombreProducto] = {
+						nombre: item.nombre,
+						laboratorio: item.laboratorio,
+						precios: [item.precio],
+						droguerias: [items.drogeria],
+					};
+				}
+			});
+		});
+
+		// Convertir el objeto de productos únicos en un array
+		const productosFinales = Object.values(productosUnicos);
+
+		return productosFinales;
+	};
+	const comparePrices = () => {
+		let array = [];
+		arraySelected.forEach((item) => {
+			if (item.droguerias.length >= 1 && item.precios.length >= 1) {
+				const bestPrice = Math.min(...item.precios);
+				const indexSlice = item.precios.indexOf(bestPrice);
+				array = [
+					...array,
+					{
+						nombre: item.nombre,
+						laboratorio: item.laboratorio,
+						precios: bestPrice,
+						droguerias: [item.droguerias[indexSlice]],
+					},
+				];
+			} else {
+				array = [...array, item];
+			}
+		});
+		setArrayBestPrice(array);
+	};
 
 	return (
 		<div className="w-full h-full flex flex-col items-center relative gap-spacing">
@@ -47,40 +122,110 @@ const NewDashboard = () => {
 							</InputGroup.Addon>
 						</InputGroup>
 					</div>
-					<div className="w-full grow flex justify-center items-center">
-						<Table className="!h-full !w-[80%]" data={[]}>
-							{columns.map((column) => {
-								const { key, label, ...rest } = column;
-								return (
-									<Column {...rest} key={key}>
-										<HeaderCell>{label}</HeaderCell>
-										<Cell dataKey={key} />
-									</Column>
-								);
-							})}
-						</Table>
+					<div className="w-full grow flex overflow-auto">
+						<table className="table-auto w-full overflow-auto bg-white">
+							<thead className="w-full">
+								<tr className="items-end">
+									{columns.map((item, index) => (
+										<th className="text-left" key={index}>
+											{item.label}
+										</th>
+									))}
+								</tr>
+							</thead>
+							<tbody className="!p-10">
+								{handleData(fakeData).map((items, index) => (
+									<tr
+										key={index}
+										onClick={() => {
+											if (
+												arraySelected.find(
+													(item) =>
+														item.nombre ===
+														items.nombre
+												)
+											) {
+												setArraySelected(
+													arraySelected.filter(
+														(product) =>
+															product.nombre !==
+															items.nombre
+													)
+												);
+											} else {
+												setArraySelected([
+													...arraySelected,
+													items,
+												]);
+											}
+										}}
+										className={`${arraySelected.find((item) => item.nombre === items.nombre) && 'bg-zinc-200'} gap-spacing border items-center transition-all cursor-pointer`}
+									>
+										<td className="pl-spacing">
+											{items.nombre}
+										</td>
+										<td>{items.laboratorio}</td>
+										<td className="flex w-auto gap-spacing">
+											{items.droguerias.map((drug) => (
+												<>
+													<div className="bg-color-fill-low-contrast p-1 rounded-md text-color-text-primary mt-spacing mb-spacing">
+														{drug}
+													</div>
+												</>
+											))}
+										</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
 					</div>
 				</>
 			) : (
-				<div className="h-full w-full justify-center items-center flex flex-col gap-spacing">
-					<h1 className="text-2xl font-bold">Los mejores precios</h1>
-					<Table className="!h-full !w-[80%]" data={[]}>
-						{columns.map((column) => {
-							const { key, label, ...rest } = column;
-							return (
-								<Column {...rest} key={key}>
-									<HeaderCell>{label}</HeaderCell>
-									<Cell dataKey={key} />
-								</Column>
-							);
-						})}
-					</Table>
+				<div className="h-full w-full flex flex-col overflow-auto gap-spacing">
+					<h1 className="text-2xl font-bold text-center">
+						Los mejores precios
+					</h1>
+					<table className="table-auto w-full overflow-auto bg-white">
+						<thead className="w-full">
+							<tr className="items-end">
+								{columnsBestPrice.map((item, index) => (
+									<th className="text-left" key={index}>
+										{item.label}
+									</th>
+								))}
+							</tr>
+						</thead>
+						<tbody className="!p-10">
+							{arrayBestPrice.map((items, index) => (
+								<tr
+									key={index}
+									className={`gap-spacing border items-center transition-all cursor-pointer`}
+								>
+									<td className="pl-spacing">
+										{items.nombre}
+									</td>
+									<td>{items.laboratorio}</td>
+									<td className="flex w-auto gap-spacing">
+										{items.droguerias.map((drug) => (
+											<>
+												<div className="bg-color-fill-low-contrast p-1 rounded-md text-color-text-primary mt-spacing mb-spacing">
+													{drug}
+												</div>
+											</>
+										))}
+									</td>
+									<td>${items.precios}</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
 				</div>
 			)}
 			<div className="flex justify-between w-full">
 				<Button
 					onClick={() => {
 						if (currentStep > 1) setCurrentStep(currentStep - 1);
+						setArrayBestPrice([]);
 					}}
 					appearance="default"
 					className="rounded-inner-border w-32"
@@ -91,6 +236,7 @@ const NewDashboard = () => {
 					onClick={() => {
 						if (currentStep < STEPS)
 							setCurrentStep(currentStep + 1);
+						comparePrices();
 					}}
 					appearance="primary"
 					className="w-32 rounded-inner-border"
