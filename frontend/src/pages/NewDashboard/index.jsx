@@ -8,6 +8,7 @@ const NewDashboard = () => {
 	const [currentStep, setCurrentStep] = useState(1);
 	const [arraySelected, setArraySelected] = useState([]);
 	const [arrayBestPrice, setArrayBestPrice] = useState([]);
+	const [search, setSearch] = useState();
 	const STEPS = 2;
 
 	const columns = [
@@ -103,7 +104,17 @@ const NewDashboard = () => {
 		});
 		setArrayBestPrice(array);
 	};
-
+	const handleSearch = (e) => {
+		setSearch(e);
+	};
+	console.log(search);
+	console.log(
+		handleData(fakeData).filter((item) =>
+			item.nombre
+				.toLocaleLowerCase()
+				.includes(search?.toLocaleLowerCase())
+		)
+	);
 	return (
 		<div className="w-full h-full flex flex-col items-center relative gap-spacing">
 			<div className="w-1/2">
@@ -116,68 +127,87 @@ const NewDashboard = () => {
 				<>
 					<div className="w-full flex justify-center">
 						<InputGroup className="w-1/2">
-							<Input />
+							<Input onChange={(e) => handleSearch(e)} />
 							<InputGroup.Addon>
 								<IconSearch />
 							</InputGroup.Addon>
 						</InputGroup>
 					</div>
 					<div className="w-full grow flex overflow-auto">
-						<table className="table-auto w-full overflow-auto bg-white">
-							<thead className="w-full">
-								<tr className="items-end">
-									{columns.map((item, index) => (
-										<th className="text-left" key={index}>
-											{item.label}
-										</th>
-									))}
-								</tr>
-							</thead>
-							<tbody className="!p-10">
-								{handleData(fakeData).map((items, index) => (
-									<tr
-										key={index}
-										onClick={() => {
-											if (
-												arraySelected.find(
-													(item) =>
-														item.nombre ===
-														items.nombre
-												)
-											) {
-												setArraySelected(
-													arraySelected.filter(
-														(product) =>
-															product.nombre !==
-															items.nombre
-													)
-												);
-											} else {
-												setArraySelected([
-													...arraySelected,
-													items,
-												]);
-											}
-										}}
-										className={`${arraySelected.find((item) => item.nombre === items.nombre) && 'bg-zinc-200'} gap-spacing border items-center transition-all cursor-pointer`}
-									>
-										<td className="pl-spacing">
-											{items.nombre}
-										</td>
-										<td>{items.laboratorio}</td>
-										<td className="flex w-auto gap-spacing">
-											{items.droguerias.map((drug) => (
-												<>
-													<div className="bg-color-fill-low-contrast p-1 rounded-md text-color-text-primary mt-spacing mb-spacing">
-														{drug}
-													</div>
-												</>
-											))}
-										</td>
+						<div className="w-full">
+							<table className="w-full overflow-auto bg-white">
+								<thead className="w-full">
+									<tr className="items-end">
+										{columns.map((item, index) => (
+											<th
+												className="text-left"
+												key={index}
+											>
+												{item.label}
+											</th>
+										))}
 									</tr>
-								))}
-							</tbody>
-						</table>
+								</thead>
+								<tbody>
+									{handleData(fakeData)
+										.filter((item) => {
+											if (search === undefined) {
+												return item;
+											} else {
+												return item.nombre
+													.toLocaleLowerCase()
+													.includes(
+														search?.toLocaleLowerCase()
+													);
+											}
+										})
+										.map((items, index) => (
+											<tr
+												key={index}
+												onClick={() => {
+													if (
+														arraySelected.find(
+															(item) =>
+																item.nombre ===
+																items.nombre
+														)
+													) {
+														setArraySelected(
+															arraySelected.filter(
+																(product) =>
+																	product.nombre !==
+																	items.nombre
+															)
+														);
+													} else {
+														setArraySelected([
+															...arraySelected,
+															items,
+														]);
+													}
+												}}
+												className={`${arraySelected.find((item) => item.nombre === items.nombre) && 'bg-zinc-200'} gap-spacing border items-center transition-all cursor-pointer h-auto`}
+											>
+												<td className="pl-spacing">
+													{items.nombre}
+												</td>
+												<td>{items.laboratorio}</td>
+												<td className="flex w-auto gap-spacing">
+													{items.droguerias.map(
+														(drug) => (
+															<>
+																<div className="bg-color-fill-low-contrast p-1 rounded-md text-color-text-primary mt-spacing mb-spacing">
+																	{drug}
+																</div>
+															</>
+														)
+													)}
+												</td>
+											</tr>
+										))}
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</>
 			) : (
