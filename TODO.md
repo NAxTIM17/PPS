@@ -6,6 +6,10 @@
 -   actualizar los cambios en las paginas de recuperar contraseña.
 -   agregar la funcion de copiar el mensaje.
 -   sacarle funcionalidad a history / simplificarlo.
+-   implementar la version mobile.
+-   relizar los endpoints para recibir la informacion de las imagenes del frontend y dejarlo para usar con la API de vision.
+-   darle proposito a los graficos.
+-   Corregir y organizar la carpeta.
 
 # FEELINGS
 

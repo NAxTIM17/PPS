@@ -17,6 +17,7 @@ export default function DropZone({ setFileList, listFiles }) {
 			const formatType = acceptedFiles[0].path.split('.')[1];
 			if (
 				formatType === 'jpeg' ||
+				formatType === 'jpg' ||
 				formatType === 'png' ||
 				formatType === 'pdf'
 			) {
