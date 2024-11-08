@@ -1,6 +1,7 @@
 import { Table, Button, Steps, Input, InputGroup } from 'rsuite';
 import { useEffect, useState } from 'react';
-import { IconSearch } from '@tabler/icons-react';
+import { IconSearch, IconCopy, IconCopyCheck } from '@tabler/icons-react';
+import CopyCheck from '../../components/CopyComponent';
 
 import fakeData from './fakeData';
 
@@ -9,7 +10,12 @@ const NewDashboard = () => {
 	const [arraySelected, setArraySelected] = useState([]);
 	const [arrayBestPrice, setArrayBestPrice] = useState([]);
 	const [search, setSearch] = useState();
+	const [selectDrugstore, setSelectDrugstore] = useState();
 	const STEPS = 2;
+
+	useEffect(() => {
+		handleDrugstore();
+	}, [arrayBestPrice]);
 
 	const columns = [
 		{
@@ -83,6 +89,15 @@ const NewDashboard = () => {
 
 		return productosFinales;
 	};
+	const handleDrugstore = () => {
+		let drugstore = [];
+		arrayBestPrice.forEach((element) => {
+			if (!drugstore.includes(...element.droguerias)) {
+				drugstore = [...drugstore, ...element.droguerias];
+			}
+		});
+		setSelectDrugstore(drugstore);
+	};
 	const comparePrices = () => {
 		let array = [];
 		arraySelected.forEach((item) => {
@@ -103,18 +118,14 @@ const NewDashboard = () => {
 			}
 		});
 		setArrayBestPrice(array);
+		handleDrugstore();
 	};
+	console.log(selectDrugstore);
+
 	const handleSearch = (e) => {
 		setSearch(e);
 	};
-	console.log(search);
-	console.log(
-		handleData(fakeData).filter((item) =>
-			item.nombre
-				.toLocaleLowerCase()
-				.includes(search?.toLocaleLowerCase())
-		)
-	);
+
 	return (
 		<div className="w-full h-full flex flex-col items-center relative gap-spacing">
 			<div className="w-1/2">
@@ -127,7 +138,10 @@ const NewDashboard = () => {
 				<>
 					<div className="w-full flex justify-center">
 						<InputGroup className="w-1/2">
-							<Input onChange={(e) => handleSearch(e)} />
+							<Input
+								value={search}
+								onChange={(e) => handleSearch(e)}
+							/>
 							<InputGroup.Addon>
 								<IconSearch />
 							</InputGroup.Addon>
@@ -215,40 +229,50 @@ const NewDashboard = () => {
 					<h1 className="text-2xl font-bold text-center">
 						Los mejores precios
 					</h1>
-					<table className="table-auto w-full overflow-auto bg-white">
-						<thead className="w-full">
-							<tr className="items-end">
-								{columnsBestPrice.map((item, index) => (
-									<th className="text-left" key={index}>
-										{item.label}
-									</th>
-								))}
-							</tr>
-						</thead>
-						<tbody className="!p-10">
-							{arrayBestPrice.map((items, index) => (
-								<tr
-									key={index}
-									className={`gap-spacing border items-center transition-all cursor-pointer`}
-								>
-									<td className="pl-spacing">
-										{items.nombre}
-									</td>
-									<td>{items.laboratorio}</td>
-									<td className="flex w-auto gap-spacing">
-										{items.droguerias.map((drug) => (
-											<>
-												<div className="bg-color-fill-low-contrast p-1 rounded-md text-color-text-primary mt-spacing mb-spacing">
-													{drug}
-												</div>
-											</>
-										))}
-									</td>
-									<td>${items.precios}</td>
+					<div className="w-full flex items-center gap-spacing">
+						<table className="table-auto w-full overflow-auto bg-white">
+							<thead className="w-full">
+								<tr className="items-end">
+									{columnsBestPrice.map((item, index) => (
+										<th className="text-left" key={index}>
+											{item.label}
+										</th>
+									))}
 								</tr>
+							</thead>
+							<tbody className="!p-10">
+								{arrayBestPrice.map((items, index) => (
+									<tr
+										key={index}
+										className={`gap-spacing border items-center transition-all cursor-pointer`}
+									>
+										<td className="pl-spacing">
+											{items.nombre}
+										</td>
+										<td>{items.laboratorio}</td>
+										<td className="flex w-auto gap-spacing">
+											{items.droguerias.map((drug) => (
+												<>
+													<div className="bg-color-fill-low-contrast p-1 rounded-md text-color-text-primary mt-spacing mb-spacing">
+														{drug}
+													</div>
+												</>
+											))}
+										</td>
+										<td>${items.precios}</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+						<div className="w-32 bg-color-bg rounded-outer-border flex flex-col items-center gap-spacing p-spacing">
+							{selectDrugstore.map((item) => (
+								<CopyCheck
+									name={item}
+									arrayBestPrice={arrayBestPrice}
+								/>
 							))}
-						</tbody>
-					</table>
+						</div>
+					</div>
 				</div>
 			)}
 			<div className="flex justify-between w-full">

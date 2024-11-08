@@ -43,7 +43,7 @@ const Home = () => {
 		setListFiles([
 			...listFiles,
 			{
-				name: 'Texto',
+				name: 'text',
 				text: text,
 			},
 		]);
@@ -52,6 +52,7 @@ const Home = () => {
 		try {
 			setIsSending(true);
 			//replace this with endpoint to send data;
+			//storage data in localstorage
 			setTimeout(() => {
 				navigate(ROUTES.AUTHED_ROUTES.NEW_DASHBOARD);
 			}, 3000);

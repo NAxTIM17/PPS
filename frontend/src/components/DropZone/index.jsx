@@ -14,7 +14,7 @@ export default function DropZone({ setFileList, listFiles }) {
 
 	const onDrop = useCallback(
 		(acceptedFiles) => {
-			const formatType = acceptedFiles[0].path.split('.')[1];
+			const formatType = acceptedFiles[0].type.split('/')[1];
 			if (
 				formatType === 'jpeg' ||
 				formatType === 'jpg' ||
