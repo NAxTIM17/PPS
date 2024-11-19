@@ -1,43 +1,27 @@
 import { Document, model, Schema } from 'mongoose';
 
 interface IProduct extends Document {
-	name: string;
-	code: string;
-	price: number;
-	details: string[];
-	laboratory: string;
+	nombre: string;
+	laboratorio: string;
+	precio: number;
 }
 
-const ProductSchema = new Schema(
-	{
-		name: {
-			type: String,
-			trim: true,
-			required: true,
-		},
-		code: {
-			type: String,
-			trim: true,
-		},
-		price: {
-			type: Number,
-			required: true,
-		},
-		details: {
-			type: [String],
-			default: [],
-			required: true,
-		},
-		laboratory: {
-			type: Schema.Types.ObjectId,
-			ref: 'Laboratory',
-			required: true,
-		},
+const ProductSchema = new Schema({
+	nombre: {
+		type: String,
+		trim: true,
+		required: true,
 	},
-	{
-		timestamps: true,
-	}
-);
+	laboratorio: {
+		type: String,
+		trim: true,
+		required: true,
+	},
+	precio: {
+		type: Number,
+		required: true,
+	},
+});
 
 const Product = model<IProduct>('Product', ProductSchema, 'products');
 

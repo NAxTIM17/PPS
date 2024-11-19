@@ -29,7 +29,7 @@ export default function DropZone({ setFileList, listFiles }) {
 							...listFiles,
 							{
 								name: acceptedFiles[0].name,
-								base64: base64,
+								image: base64,
 								type: formatType,
 							},
 						]);

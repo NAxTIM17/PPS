@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Modal, Button, Loader } from 'rsuite';
 import {
 	IconList,
@@ -7,6 +7,7 @@ import {
 	IconX,
 } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../services/axios';
 
 import Bentogrid from '../../components/Bentogrid';
 import History from '../../components/Historial';
@@ -22,6 +23,11 @@ const Home = () => {
 	const [listFiles, setListFiles] = useState([]);
 	const [text, setText] = useState();
 	const [isSending, setIsSending] = useState(false);
+	const [arrayDates, setArrayDates] = useState([]);
+
+	useEffect(() => {
+		getHistory();
+	}, []);
 
 	const navigate = useNavigate();
 	const handleOpenModal = () => {
@@ -39,6 +45,7 @@ const Home = () => {
 				break;
 		}
 	};
+	console.log(listFiles);
 	const handleText = () => {
 		setListFiles([
 			...listFiles,
@@ -48,14 +55,44 @@ const Home = () => {
 			},
 		]);
 	};
-	const sendInfo = () => {
+	const sendInfo = async () => {
 		try {
 			setIsSending(true);
-			//replace this with endpoint to send data;
-			//storage data in localstorage
-			setTimeout(() => {
+			const res = await axiosInstance.post('/openai', listFiles);
+			const { data } = res;
+			console.log(typeof JSON.parse(data.choices[0].message.content));
+			JSON.stringify(
+				localStorage.setItem(
+					'pharmacyData',
+					data.choices[0].message.content
+				)
+			);
+			//post para historial
+			if (res.status === 200) {
+				postHistory(JSON.parse(data.choices[0].message.content));
 				navigate(ROUTES.AUTHED_ROUTES.NEW_DASHBOARD);
-			}, 3000);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const getHistory = async () => {
+		try {
+			const { data } = await axiosInstance.get('/history/get');
+			console.log(data);
+			setArrayDates(data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const postHistory = async (data) => {
+		try {
+			const res = await axiosInstance.post('/history/post', {
+				history: data,
+			});
+			console.log(res);
 		} catch (error) {
 			console.log(error);
 		}
@@ -71,7 +108,7 @@ const Home = () => {
 					title={'Historial'}
 					className={'col-span-1 row-span-7 bg-color-bg'}
 				>
-					<History />
+					<History arrayDates={arrayDates} />
 				</CardBento>
 				<CardBento
 					title={'Gasto por drogueria'}

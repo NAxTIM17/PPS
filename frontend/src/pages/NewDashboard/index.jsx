@@ -11,9 +11,17 @@ const NewDashboard = () => {
 	const [arrayBestPrice, setArrayBestPrice] = useState([]);
 	const [search, setSearch] = useState();
 	const [selectDrugstore, setSelectDrugstore] = useState();
+	const [productData, setProductData] = useState();
 	const STEPS = 2;
 
+	console.log(productData);
+
+	// const PRODUCTS_DATA = JSON.parse(localStorage.getItem('products'));
+	// console.log(PRODUCTS_DATA);
+
 	useEffect(() => {
+		console.log('here');
+		getStoredData();
 		handleDrugstore();
 	}, [arrayBestPrice]);
 
@@ -55,10 +63,15 @@ const NewDashboard = () => {
 			label: 'Mejor Precio',
 			flexGrow: 0.25,
 		},
+		{
+			key: 'cantidad',
+			label: 'Cantidad',
+			flexGrow: 0.5,
+		},
 	];
 	const handleData = (data) => {
 		const productosUnicos = {};
-		data.forEach((items) => {
+		data?.forEach((items) => {
 			items.productos.forEach((item) => {
 				const nombreProducto = item.nombre;
 				if (productosUnicos[nombreProducto]) {
@@ -66,7 +79,7 @@ const NewDashboard = () => {
 						...productosUnicos[nombreProducto],
 						droguerias: [
 							...productosUnicos[nombreProducto].droguerias,
-							items.drogeria,
+							items.drogueria,
 						],
 						precios: [
 							...productosUnicos[nombreProducto].precios,
@@ -78,7 +91,7 @@ const NewDashboard = () => {
 						nombre: item.nombre,
 						laboratorio: item.laboratorio,
 						precios: [item.precio],
-						droguerias: [items.drogeria],
+						droguerias: [items.drogueria],
 					};
 				}
 			});
@@ -120,10 +133,23 @@ const NewDashboard = () => {
 		setArrayBestPrice(array);
 		handleDrugstore();
 	};
-	console.log(selectDrugstore);
-
 	const handleSearch = (e) => {
 		setSearch(e);
+	};
+	const getStoredData = () => {
+		const storedData = localStorage.getItem('pharmacyData');
+
+		if (storedData) {
+			try {
+				const parsedData = JSON.parse(storedData);
+				setProductData(parsedData);
+				console.log('parsed data', parsedData);
+			} catch (error) {
+				console.error('Error parsing JSON:', error);
+			}
+		} else {
+			console.log('No data found in localStorage');
+		}
 	};
 
 	return (
@@ -163,7 +189,7 @@ const NewDashboard = () => {
 									</tr>
 								</thead>
 								<tbody>
-									{handleData(fakeData)
+									{handleData(productData)
 										.filter((item) => {
 											if (search === undefined) {
 												return item;
@@ -260,6 +286,18 @@ const NewDashboard = () => {
 											))}
 										</td>
 										<td>${items.precios}</td>
+										<td className="flex">
+											<div className="bg-zinc-100 w-5 rounded-md flex justify-center font-semibold cursor-pointer hover:bg-zinc-200 transition-all">
+												-
+											</div>
+											<input
+												className="m-0 w-10"
+												type="number"
+											/>
+											<div className="bg-zinc-100 w-5 rounded-md flex justify-center font-semibold cursor-pointer hover:bg-zinc-200 transition-al">
+												+
+											</div>
+										</td>
 									</tr>
 								))}
 							</tbody>

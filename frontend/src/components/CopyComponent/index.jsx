@@ -38,7 +38,7 @@ export default function CopyCheck({ name, arrayBestPrice }) {
 			className="bg-color-bg-surface p-spacing rounded-inner-border w-full text-center flex justify-between gap-spacing items-center hover:bg-color-icons cursor-pointer transition-all"
 		>
 			{name}
-			{copyIcon}
+			<div className="w-32">{copyIcon}</div>
 		</div>
 	);
 }
