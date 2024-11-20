@@ -324,17 +324,19 @@ const NewDashboard = () => {
 				>
 					Atras
 				</Button>
-				<Button
-					onClick={() => {
-						if (currentStep < STEPS)
-							setCurrentStep(currentStep + 1);
-						comparePrices();
-					}}
-					appearance="primary"
-					className="w-32 rounded-inner-border"
-				>
-					Analizar
-				</Button>
+				{currentStep < STEPS && (
+					<Button
+						onClick={() => {
+							if (currentStep < STEPS)
+								setCurrentStep(currentStep + 1);
+							comparePrices();
+						}}
+						appearance="primary"
+						className="w-32 rounded-inner-border"
+					>
+						Analizar
+					</Button>
+				)}
 			</div>
 		</div>
 	);
