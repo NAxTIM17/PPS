@@ -1,9 +1,7 @@
-import { Table, Button, Steps, Input, InputGroup } from 'rsuite';
+import { Button, Steps, Input, InputGroup } from 'rsuite';
 import { useEffect, useState } from 'react';
-import { IconSearch, IconCopy, IconCopyCheck } from '@tabler/icons-react';
+import { IconSearch } from '@tabler/icons-react';
 import CopyCheck from '../../components/CopyComponent';
-
-import fakeData from './fakeData';
 
 const NewDashboard = () => {
 	const [currentStep, setCurrentStep] = useState(1);
@@ -14,13 +12,7 @@ const NewDashboard = () => {
 	const [productData, setProductData] = useState();
 	const STEPS = 2;
 
-	console.log(productData);
-
-	// const PRODUCTS_DATA = JSON.parse(localStorage.getItem('products'));
-	// console.log(PRODUCTS_DATA);
-
 	useEffect(() => {
-		console.log('here');
 		getStoredData();
 		handleDrugstore();
 	}, [arrayBestPrice]);
@@ -178,11 +170,8 @@ const NewDashboard = () => {
 							<table className="w-full overflow-auto bg-white">
 								<thead className="w-full">
 									<tr className="items-end">
-										{columns.map((item, index) => (
-											<th
-												className="text-left"
-												key={index}
-											>
+										{columns.map((item, i) => (
+											<th className="text-left" key={i}>
 												{item.label}
 											</th>
 										))}
@@ -201,9 +190,9 @@ const NewDashboard = () => {
 													);
 											}
 										})
-										.map((items, index) => (
+										.map((items, i) => (
 											<tr
-												key={index}
+												key={i}
 												onClick={() => {
 													if (
 														arraySelected.find(
@@ -234,12 +223,13 @@ const NewDashboard = () => {
 												<td>{items.laboratorio}</td>
 												<td className="flex w-auto gap-spacing">
 													{items.droguerias.map(
-														(drug) => (
-															<>
-																<div className="bg-color-fill-low-contrast p-1 rounded-md text-color-text-primary mt-spacing mb-spacing">
-																	{drug}
-																</div>
-															</>
+														(drug, j) => (
+															<div
+																className="bg-color-fill-low-contrast p-1 rounded-md text-color-text-primary mt-spacing mb-spacing"
+																key={j}
+															>
+																{drug}
+															</div>
 														)
 													)}
 												</td>
@@ -259,17 +249,17 @@ const NewDashboard = () => {
 						<table className="table-auto w-full overflow-auto bg-white">
 							<thead className="w-full">
 								<tr className="items-end">
-									{columnsBestPrice.map((item, index) => (
-										<th className="text-left" key={index}>
+									{columnsBestPrice.map((item, i) => (
+										<th className="text-left" key={i}>
 											{item.label}
 										</th>
 									))}
 								</tr>
 							</thead>
 							<tbody className="!p-10">
-								{arrayBestPrice.map((items, index) => (
+								{arrayBestPrice.map((items, i) => (
 									<tr
-										key={index}
+										key={i}
 										className={`gap-spacing border items-center transition-all cursor-pointer`}
 									>
 										<td className="pl-spacing">
@@ -277,12 +267,13 @@ const NewDashboard = () => {
 										</td>
 										<td>{items.laboratorio}</td>
 										<td className="flex w-auto gap-spacing">
-											{items.droguerias.map((drug) => (
-												<>
-													<div className="bg-color-fill-low-contrast p-1 rounded-md text-color-text-primary mt-spacing mb-spacing">
-														{drug}
-													</div>
-												</>
+											{items.droguerias.map((drug, j) => (
+												<div
+													className="bg-color-fill-low-contrast p-1 rounded-md text-color-text-primary mt-spacing mb-spacing"
+													key={j}
+												>
+													{drug}
+												</div>
 											))}
 										</td>
 										<td>${items.precios}</td>
@@ -303,8 +294,9 @@ const NewDashboard = () => {
 							</tbody>
 						</table>
 						<div className="w-32 bg-color-bg rounded-outer-border flex flex-col items-center gap-spacing p-spacing">
-							{selectDrugstore.map((item) => (
+							{selectDrugstore.map((item, i) => (
 								<CopyCheck
+									key={i}
 									name={item}
 									arrayBestPrice={arrayBestPrice}
 								/>
