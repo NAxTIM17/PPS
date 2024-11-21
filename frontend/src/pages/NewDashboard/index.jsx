@@ -15,7 +15,20 @@ const NewDashboard = () => {
 	useEffect(() => {
 		getStoredData();
 		handleDrugstore();
+		console.log({ arrayBestPrice });
 	}, [arrayBestPrice]);
+
+	const updateArrayBestPriceItemQuantityById = (id, updater) => {
+		setArrayBestPrice((prev) =>
+			prev.map((prevItem) => ({
+				...prevItem,
+				cantidad:
+					prevItem.id === id
+						? updater(prevItem.cantidad)
+						: prevItem.cantidad,
+			}))
+		);
+	};
 
 	const columns = [
 		{
@@ -105,17 +118,19 @@ const NewDashboard = () => {
 	};
 	const comparePrices = () => {
 		let array = [];
-		arraySelected.forEach((item) => {
+		arraySelected.forEach((item, index) => {
 			if (item.droguerias.length >= 1 && item.precios.length >= 1) {
 				const bestPrice = Math.min(...item.precios);
 				const indexSlice = item.precios.indexOf(bestPrice);
 				array = [
 					...array,
 					{
+						id: index,
 						nombre: item.nombre,
 						laboratorio: item.laboratorio,
 						precios: bestPrice,
 						droguerias: [item.droguerias[indexSlice]],
+						cantidad: 0,
 					},
 				];
 			} else {
@@ -277,17 +292,49 @@ const NewDashboard = () => {
 											))}
 										</td>
 										<td>${items.precios}</td>
-										<td className="flex">
-											<div className="bg-zinc-100 w-5 rounded-md flex justify-center font-semibold cursor-pointer hover:bg-zinc-200 transition-all">
+										<td className="flex w-max">
+											<button
+												className="bg-zinc-100 w-5 rounded-md flex justify-center font-semibold cursor-pointer hover:bg-zinc-200 transition-all"
+												onClick={() => {
+													updateArrayBestPriceItemQuantityById(
+														items.id,
+														(prev) =>
+															prev === 0
+																? 0
+																: prev - 1
+													);
+												}}
+											>
 												-
-											</div>
+											</button>
 											<input
-												className="m-0 w-10"
-												type="number"
+												className="m-0 w-10 text-center font-bold"
+												type="digit"
+												min={0}
+												value={items.cantidad}
+												onChange={(event) => {
+													const newQuantity = Number(
+														event.target.value
+													);
+													if (isNaN(newQuantity))
+														return;
+													updateArrayBestPriceItemQuantityById(
+														items.id,
+														() => newQuantity
+													);
+												}}
 											/>
-											<div className="bg-zinc-100 w-5 rounded-md flex justify-center font-semibold cursor-pointer hover:bg-zinc-200 transition-al">
+											<button
+												className="bg-zinc-100 w-5 rounded-md flex justify-center font-semibold cursor-pointer hover:bg-zinc-200 transition-al"
+												onClick={() => {
+													updateArrayBestPriceItemQuantityById(
+														items.id,
+														(prev) => prev + 1
+													);
+												}}
+											>
 												+
-											</div>
+											</button>
 										</td>
 									</tr>
 								))}

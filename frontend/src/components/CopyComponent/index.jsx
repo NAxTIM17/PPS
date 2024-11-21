@@ -3,9 +3,8 @@ import { useState } from 'react';
 
 export default function CopyCheck({ name, arrayBestPrice }) {
 	const [copyIcon, setCopyIcon] = useState(<IconCopy size={15} />);
-	const [productoCopy, setProductCopy] = useState([]);
 
-	const changeIcon = (event) => {
+	const changeIcon = () => {
 		setCopyIcon(<IconCopyCheck size={15} />);
 		setTimeout(() => {
 			setCopyIcon(<IconCopy size={15} />);
@@ -18,11 +17,12 @@ export default function CopyCheck({ name, arrayBestPrice }) {
 				(item) => item.droguerias[0] === event.target.textContent
 			);
 			await navigator.clipboard.writeText(
-				`Buenos días ${event.target.textContent} quiero realizar el pedido de los siguientes medicamentos: ${array.map(
-					(item) => {
-						return `*${item.nombre}\n`;
-					}
-				)}`
+				`Buenos días ${event.target.textContent} quiero realizar el pedido de los siguientes medicamentos: \n${array
+					.filter((item) => item.cantidad > 0)
+					.map((item) => {
+						return `- ${item.nombre} | ${item.cantidad > 1 ? `${item.cantidad} unidades` : '1 unidad'}`;
+					})
+					.join('\n')}`
 			);
 		} catch (error) {
 			console.log(error);
