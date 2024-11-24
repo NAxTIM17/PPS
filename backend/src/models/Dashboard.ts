@@ -1,54 +1,25 @@
 import { Document, model, Schema } from 'mongoose';
 
-import { DrugstoreSchema, IDrugstore } from './Drugstore';
-import { ProductSchema, IProduct } from './Product';
+import { ProductSchema } from './Product';
 
-interface IDashboard extends Document {
-	shopcart: {
-		total: number;
-		products: Array<IProduct & { quantity: number }>;
-	};
-	drugstores: Array<IDrugstore & { products: Array<IProduct> }>;
-}
-
-const DashboardSchema = new Schema(
-	{
-		shopcart: {
-			type: {
-				total: {
-					type: Number,
-					required: true,
-				},
-				products: {
-					type: [
-						{
-							quantity: Number,
-							...ProductSchema.obj,
-						},
-					],
-					required: true,
-					default: [],
-				},
-			},
+const DashboardSchema = new Schema({
+	drogueria: {
+		type: String,
+		required: true,
+	},
+	productos: [ProductSchema],
+	oferta_valida: {
+		inicio: {
+			type: String,
+			required: true,
 		},
-		drugstores: {
-			type: [
-				{
-					products: {
-						type: [ProductSchema],
-						required: true,
-						default: [],
-					},
-					...DrugstoreSchema.obj,
-				},
-			],
+		fin: {
+			type: String,
+			required: true,
 		},
 	},
-	{
-		timestamps: true,
-	}
-);
+});
 
-const Dashboard = model<IDashboard>('Dashboard', DashboardSchema, 'dashboards');
+const Dashboard = model('Dashboard', DashboardSchema);
 
-export { IDashboard, DashboardSchema, Dashboard };
+export { DashboardSchema, Dashboard };

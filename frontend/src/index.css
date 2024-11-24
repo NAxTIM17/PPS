@@ -19,8 +19,63 @@
 		font-style: normal;
 		font-variation-settings: 'slnt' 0;
 	}
-}
 
+	:root {
+		--spacing: 10px;
+		--inner-border: 16px;
+		--outer-border: calc(var(--spacing) + var(--inner-border));
+	}
+
+	/* 
+	#BAED82
+	#81C14B
+	#2E933C
+	
+	#11270B
+	#71B340
+	#669D31 */
+}
+/**/
+.rs-uploader-file-items {
+	flex-grow: 1;
+}
+.rs-uploader-trigger-btn {
+	display: flex !important;
+	flex-direction: column;
+	justify-content: center;
+	place-items: center;
+	height: 100%;
+	width: 500px !important;
+	border-radius: var(--inner-border);
+	transition: all 200ms;
+	background-color: var(--rs-primary-100) !important;
+	color: var(--rs-primary-300) !important;
+	font-size: 20px;
+}
+.rs-uploader-trigger-btn:hover {
+	background-color: var(--rs-primary-200) !important;
+}
+.rs-uploader-file-items {
+	display: flex !important;
+	flex-direction: column !important;
+	background-color: var(--background-surface);
+	border-radius: var(--inner-border);
+	box-sizing: border-box;
+	padding: var(--spacing);
+	gap: var(--spacing) !important;
+}
+.rs-uploader-file-item {
+	margin: 0 !important;
+}
+.rs-table-row {
+	transition: all 200ms;
+	cursor: pointer;
+}
+.rs-table-hover .rs-table-row:hover .rs-table-cell,
+.rs-table-hover .rs-table-row:hover .rs-table-cell-group,
+.rs-table-hover .rs-table-row:not(.rs-table-row-header):hover {
+	background-color: var(--rs-primary-200) !important;
+}
 @layer components {
 	.no-autofill {
 		-webkit-box-shadow: 0 0 0 30px transparent inset !important;
@@ -28,4 +83,38 @@
 		-webkit-background-clip: text;
 		background-clip: text;
 	}
+}
+
+.light {
+	--background: rgb(255, 255, 255);
+	--background-surface: rgb(249, 249, 249);
+	--icons: rgb(216, 216, 216);
+	--text-primary: rgb(255, 252, 232);
+	--text-secondary: rgb(107, 181, 9);
+	--rs-primary-50: rgb(251, 255, 242);
+	--rs-primary-100: rgb(228, 245, 193);
+	--rs-primary-200: rgb(203, 235, 145);
+	--rs-primary-300: rgb(179, 224, 101);
+	--rs-primary-400: rgb(155, 214, 60);
+	--rs-primary-500: rgb(131, 204, 22);
+	--rs-primary-600: rgb(121, 196, 16);
+	--rs-primary-700: rgb(107, 181, 9);
+	--rs-primary-800: rgb(88, 158, 3);
+	--rs-primary-900: rgb(68, 128, 0);
+}
+.dark {
+	--background: rgb(124, 124, 124);
+	--background-surface: rgb(110, 110, 110);
+	--text-primary: rgb(255, 252, 232);
+	--text-secondary: rgb(43, 43, 43);
+	--rs-primary-50: rgb(242, 243, 255);
+	--rs-primary-100: rgb(201, 202, 212);
+	--rs-primary-200: rgb(160, 160, 168);
+	--rs-primary-300: rgb(121, 121, 128);
+	--rs-primary-400: rgb(80, 80, 84);
+	--rs-primary-500: rgb(48, 48, 51);
+	--rs-primary-600: rgb(29, 29, 41);
+	--rs-primary-700: rgb(20, 19, 41);
+	--rs-primary-800: rgb(11, 9, 41);
+	--rs-primary-900: rgb(3, 0, 41);
 }
