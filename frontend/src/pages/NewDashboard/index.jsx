@@ -15,7 +15,6 @@ const NewDashboard = () => {
 	useEffect(() => {
 		getStoredData();
 		handleDrugstore();
-		console.log({ arrayBestPrice });
 	}, [arrayBestPrice]);
 
 	const updateArrayBestPriceItemQuantityById = (id, updater) => {
@@ -150,7 +149,6 @@ const NewDashboard = () => {
 			try {
 				const parsedData = JSON.parse(storedData);
 				setProductData(parsedData);
-				console.log('parsed data', parsedData);
 			} catch (error) {
 				console.error('Error parsing JSON:', error);
 			}

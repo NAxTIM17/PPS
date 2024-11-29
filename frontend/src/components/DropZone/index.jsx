@@ -2,43 +2,45 @@ import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { IconFileUpload } from '@tabler/icons-react';
 
+const ACCEPTED_FILE_FORMATS = ['jpeg', 'jpg', 'png' /* 'pdf' */]; // not sure how pdf would be handled
+
 export default function DropZone({ setFileList, listFiles }) {
 	function fileToBase64(file) {
 		return new Promise((resolve, reject) => {
 			const reader = new FileReader();
-			reader.onloadend = () => resolve(reader.result);
+			reader.onloadend = () =>
+				resolve({
+					name: file.name,
+					type: file.type,
+					image: reader.result,
+				});
 			reader.onerror = reject;
 			reader.readAsDataURL(file);
 		});
 	}
 
 	const onDrop = useCallback(
-		(acceptedFiles) => {
-			const formatType = acceptedFiles[0].type.split('/')[1];
+		async (acceptedFiles) => {
 			if (
-				formatType === 'jpeg' ||
-				formatType === 'jpg' ||
-				formatType === 'png' ||
-				formatType === 'pdf'
+				!acceptedFiles.some(({ type }) =>
+					ACCEPTED_FILE_FORMATS.includes(type.split('/')[1])
+				)
 			) {
-				const file = acceptedFiles[0];
-				fileToBase64(file)
-					.then((base64) => {
-						console.log(base64); // Logs the Base64 string representation of the file
-						setFileList([
-							...listFiles,
-							{
-								name: acceptedFiles[0].name,
-								image: base64,
-								type: formatType,
-							},
-						]);
-					})
-					.catch((error) => {
-						console.error('Error converting file to Base64', error);
-					});
-			} else {
-				console.log('Formato incorrecto...');
+				console.error('Formato incorrecto.'); // TODO: could use some toast
+				return;
+			}
+
+			try {
+				const filesAsBase64 = (
+					await Promise.allSettled(
+						acceptedFiles.map((file) => fileToBase64(file))
+					)
+				)
+					.filter((promise) => promise.status === 'fulfilled')
+					.map((promise) => promise.value);
+				setFileList((prev) => [...prev, ...filesAsBase64]);
+			} catch (err) {
+				consle.error('Error convirtiendo a Base64'); // TODO: could use some toast
 			}
 		},
 		[listFiles]
