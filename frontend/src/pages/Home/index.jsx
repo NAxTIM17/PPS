@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Modal, Button, Loader } from 'rsuite';
-import {
-	IconList,
-	IconFileTypePdf,
-	IconFileTypePng,
-	IconX,
-} from '@tabler/icons-react';
+import { IconList, IconFileTypePng, IconX } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../services/axios';
 
@@ -36,16 +31,12 @@ const Home = () => {
 	const handleIcons = (type) => {
 		switch (type) {
 			case 'jpeg':
-				return <IconFileTypePng />;
 			case 'png':
 				return <IconFileTypePng />;
-			case 'pdf':
-				return <IconFileTypePdf />;
 			default:
 				break;
 		}
 	};
-	console.log(listFiles);
 	const handleText = () => {
 		setListFiles([
 			...listFiles,
@@ -60,40 +51,16 @@ const Home = () => {
 		try {
 			setIsSending(true);
 			const res = await axiosInstance.post('/openai', listFiles);
-			const { data } = res;
-			console.log('OpenAI', data.choices[0].message.content);
-			JSON.stringify(
-				localStorage.setItem(
-					'pharmacyData',
-					data.choices[0].message.content
-				)
-			);
-			//post para historial
-			if (res.status === 200) {
-				postHistory(JSON.parse(data.choices[0].message.content));
-				navigate(ROUTES.AUTHED_ROUTES.NEW_DASHBOARD);
-			}
+			localStorage.setItem(`pharmacyData`, JSON.stringify(res.data));
+			navigate(ROUTES.AUTHED_ROUTES.NEW_DASHBOARD);
 		} catch (error) {
 			console.log(error);
 		}
 	};
-
 	const getHistory = async () => {
 		try {
 			const { data } = await axiosInstance.get('/history/get');
-			console.log('get history', data);
 			setArrayDates(data);
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	const postHistory = async (data) => {
-		try {
-			const res = await axiosInstance.post('/history/post', {
-				history: data,
-			});
-			console.log(res);
 		} catch (error) {
 			console.log(error);
 		}
@@ -184,13 +151,15 @@ const Home = () => {
 						>
 							<textarea
 								onChange={(e) => setText(e.target.value)}
-								className="w-full h-full rounded-md p-spacing"
+								className="w-full h-full rounded-md p-spacing resize-none"
 								placeholder="Ingrese aqui su texto..."
+								disabled={isSending}
 							></textarea>
 							<Button
 								onClick={handleText}
 								appearance="primary"
 								className="w-full !rounded-md"
+								disabled={isSending}
 							>
 								Agregar
 							</Button>
@@ -214,7 +183,7 @@ const Home = () => {
 												<p>{item.name}</p>
 											</div>
 											<IconX
-												onClick={(e) =>
+												onClick={() =>
 													setListFiles(
 														listFiles.filter(
 															(item) =>
@@ -236,10 +205,18 @@ const Home = () => {
 					)}
 				</Modal.Body>
 				<Modal.Footer>
-					<Button onClick={handleOpenModal} appearance="subtle">
-						Cancel
+					<Button
+						onClick={handleOpenModal}
+						appearance="subtle"
+						disabled={isSending}
+					>
+						Cancelar
 					</Button>
-					<Button onClick={sendInfo} appearance="primary">
+					<Button
+						onClick={sendInfo}
+						appearance="primary"
+						disabled={isSending}
+					>
 						Continuar
 					</Button>
 				</Modal.Footer>

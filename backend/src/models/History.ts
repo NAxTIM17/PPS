@@ -1,4 +1,4 @@
-import { Document, model, Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 
 const HistorySchema = new Schema(
 	{
@@ -12,6 +12,11 @@ const HistorySchema = new Schema(
 				ref: 'Dashboard', // Referencia al modelo Dashboard
 			},
 		],
+		tokens_used: {
+			type: Number,
+			required: true,
+			default: 0,
+		},
 	},
 	{
 		timestamps: true,

@@ -1,30 +1,29 @@
-import Icons from '../Icons';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../router/config';
 import { useSession } from '../../providers/Session';
-import { Dropdown, Avatar } from 'rsuite';
+import { Dropdown } from 'rsuite';
 import { IconUser, IconLogout } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 
 const UserBadge = () => {
-	const { user, end } = useSession();
+	const session = useSession();
+
 	const navigate = useNavigate();
 
 	const renderToggle = (props) => <IconUser {...props} className="" />;
+
 	const handleLogut = () => {
-		try {
-			localStorage.removeItem('SergioYalux_token');
-			navigate(ROUTES.UNAUTHED_ROUTES.LOGIN);
-		} catch (error) {
-			console.log('error en Logout...');
-		}
+		session.end();
+		navigate(ROUTES.UNAUTHED_ROUTES.LOGIN);
 	};
-	console.log(user);
+
 	return (
 		<div className="absolute text-color-text-primary right-5 top-5 bg-color-fill-primary p-2 rounded-full">
 			<Dropdown placement="bottomEnd" renderToggle={renderToggle}>
 				<Dropdown.Item className="p-spacing w-32" panel>
-					<strong className="text-black">{user?.name}</strong>
+					<strong className="text-black">
+						{session.user?.name ?? 'Usuario'}
+					</strong>
 				</Dropdown.Item>
 				<Dropdown.Separator />
 				<Dropdown.Item>

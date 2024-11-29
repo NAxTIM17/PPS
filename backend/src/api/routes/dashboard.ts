@@ -13,10 +13,4 @@ export default function (app: Router) {
 		middlewares.attachUser,
 		controllers.dashboard.getAllDashboard
 	);
-	router.post(
-		'/post',
-		middlewares.auth.allPurpose,
-		middlewares.attachUser,
-		controllers.dashboard.postDashboard
-	);
 }

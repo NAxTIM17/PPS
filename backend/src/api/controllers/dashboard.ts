@@ -1,46 +1,42 @@
 import { Dashboard } from '../../models/Dashboard';
 import { History } from '../../models/History';
-import { Request, Response } from 'express';
+import { Response } from 'express';
+import { AuthRequest } from './types';
 
-async function postDashboard(request: Request, response: Response) {
-	try {
-		const body = request.body;
-		const { user } = request;
-		const { history } = body; // 'history' es un array de objetos completos de 'Dashboard'
+async function createDashboard(
+	history: History[],
+	consumption: { tokens_used: number },
+	auth: { userId: string }
+) {
+	const savedDashboards = [];
 
-		// 1. Guardar los objetos 'Dashboard' y obtener sus IDs
-		const savedDashboards = [];
-
-		for (let dashboardData of history) {
-			const newDashboard = new Dashboard(dashboardData); // Crear un nuevo documento Dashboard con los datos
-			const savedDashboard = await newDashboard.save(); // Guardar el documento Dashboard
-			savedDashboards.push(savedDashboard._id); // Almacenar los IDs de los dashboards guardados
-		}
-
-		// 2. Crear un nuevo documento 'History' con los IDs de los dashboards guardados
-		const newHistory = new History({
-			userId: user.id,
-			history: savedDashboards, // Los IDs de los dashboards que acabamos de guardar
-		});
-
-		await newHistory.save(); // Guardar el documento History
-
-		// 3. Enviar la respuesta con el documento History recién creado
-		response.status(201).send(newHistory);
-	} catch (error: any) {
-		response.status(400).json({ message: error.message });
+	for (let dashboardData of history) {
+		const newDashboard = new Dashboard(dashboardData); // Crear un nuevo documento Dashboard con los datos
+		const savedDashboard = await newDashboard.save(); // Guardar el documento Dashboard
+		savedDashboards.push(savedDashboard._id); // Almacenar los IDs de los dashboards guardados
 	}
+
+	// 2. Crear un nuevo documento 'History' con los IDs de los dashboards guardados
+	const newHistory = new History({
+		userId: auth.userId,
+		tokens_used: consumption.tokens_used,
+		history: savedDashboards, // Los IDs de los dashboards que acabamos de guardar,
+	});
+
+	await newHistory.save(); // Guardar el documento History
+
+	return newHistory;
 }
-async function getAllDashboard(request: Request, response: Response) {
+
+async function getAllDashboard(request: AuthRequest, response: Response) {
 	try {
 		const { user } = request;
-		const userId = user.id;
+		if (!user?.id) throw new Error('Could not find user id attached');
 
 		// Obtenemos todas las droguerías de la base de datos
-		const allDashboard = await History.find({ userId })
+		const allDashboard = await History.find({ userId: user.id })
 			.populate('history')
 			.exec();
-		console.log(allDashboard);
 
 		// Respondemos con la lista de droguerías
 		response.status(200).json(allDashboard);
@@ -50,6 +46,6 @@ async function getAllDashboard(request: Request, response: Response) {
 }
 
 export default {
-	postDashboard,
+	createDashboard,
 	getAllDashboard,
 };
