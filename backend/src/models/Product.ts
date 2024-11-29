@@ -15,7 +15,6 @@ const ProductSchema = new Schema({
 	laboratorio: {
 		type: String,
 		trim: true,
-		required: true,
 	},
 	precio: {
 		type: Number,

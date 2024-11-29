@@ -8,23 +8,34 @@ async function getData(request: Request, response: Response) {
 	});
 	try {
 		const body = request.body;
+		console.log(request.body);
 		let array: any[] = [
 			{
 				type: 'text',
 				text: ` 
-        Cree un objeto JSON para cada imagen que represente una lista de productos de una farmacia y añádalos a un array. El objeto debe incluir el nombre de la farmacia("drogueria"), una lista de productos y el periodo de validez de la oferta. Cada producto de la lista debe tener estas propiedades «nombre» (nombre del producto con detalles de presentación), “laboratorio” (nombre del fabricante) y “precio” (formato numérico). Además, incluya «ofeta_valida» con las fechas de inicio y fin de la promoción en formato día y mes. Asegúrese de que la estructura se sigue con precisión, con detalles precisos en cada campo. si la imagen no coincide simplemente ignorar y sólo me dan el resultado json y sin sintaxis de bloque de código.`,
+        Cree un objeto JSON para cada imagen o texto que represente una lista de productos de una farmacia y agregalos a un unico array. El objeto debe incluir el nombre de la farmacia("drogueria"), una lista de productos y el periodo de validez de la oferta. Cada producto de la lista debe tener estas propiedades «nombre» (nombre del producto con detalles de presentación), “laboratorio” (nombre del fabricante) y “precio” (formato numérico). Además, incluya «ofeta_valida» con las fechas de inicio y fin de la promoción en formato día y mes. Asegúrese de que la estructura se sigue con precisión, con detalles precisos en cada campo. si la imagen no coincide simplemente ignorar y solo devolveme el resultado json y sin sintaxis de bloque de código (devolver un array con el objeto/contenido adentro) (si encontras productos repetidos entre droguerias no omitir)(no omitir ningun producto devolver todo lo analizado).`,
 			},
 		];
 		for (let i = 0; i < body.length; i++) {
-			array = [
-				...array,
-				{
-					type: 'image_url',
-					image_url: {
-						url: body[i].image,
+			if (body[i].type === 'text') {
+				array = [
+					...array,
+					{
+						type: 'text',
+						text: body[i].text,
 					},
-				},
-			];
+				];
+			} else if (body[i].type === 'image') {
+				array = [
+					...array,
+					{
+						type: 'image_url',
+						image_url: {
+							url: body[i].image,
+						},
+					},
+				];
+			}
 		}
 		// console.log(array);
 		const res = await openai.chat.completions.create({

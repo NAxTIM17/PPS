@@ -1,7 +1,7 @@
 import { Document, model, Schema } from 'mongoose';
 
 interface IUser extends Document {
-	firstName?: string;
+	name?: string;
 	lastName?: string;
 	role: 'basic' | 'subscribed';
 	email: string;
@@ -10,7 +10,7 @@ interface IUser extends Document {
 
 const UserSchema = new Schema(
 	{
-		firstName: {
+		name: {
 			type: String,
 			trim: true,
 		},

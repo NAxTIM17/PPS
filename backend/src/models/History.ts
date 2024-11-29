@@ -1,9 +1,11 @@
 import { Document, model, Schema } from 'mongoose';
 
-import { Dashboard, DashboardSchema } from './Dashboard';
-
 const HistorySchema = new Schema(
 	{
+		userId: {
+			type: String,
+			require: true,
+		},
 		history: [
 			{
 				type: Schema.Types.ObjectId,

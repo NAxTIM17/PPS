@@ -7,7 +7,7 @@ import { IconUser, IconLogout } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 
 const UserBadge = () => {
-	const session = useSession();
+	const { user, end } = useSession();
 	const navigate = useNavigate();
 
 	const renderToggle = (props) => <IconUser {...props} className="" />;
@@ -19,16 +19,12 @@ const UserBadge = () => {
 			console.log('error en Logout...');
 		}
 	};
-
+	console.log(user);
 	return (
 		<div className="absolute text-color-text-primary right-5 top-5 bg-color-fill-primary p-2 rounded-full">
 			<Dropdown placement="bottomEnd" renderToggle={renderToggle}>
 				<Dropdown.Item className="p-spacing w-32" panel>
-					<strong className="text-black">
-						{session?.user?.firstname
-							? session.user.firstname
-							: 'User'}
-					</strong>
+					<strong className="text-black">{user?.name}</strong>
 				</Dropdown.Item>
 				<Dropdown.Separator />
 				<Dropdown.Item>

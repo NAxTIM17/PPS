@@ -50,7 +50,8 @@ const Home = () => {
 		setListFiles([
 			...listFiles,
 			{
-				name: 'text',
+				type: 'text',
+				name: 'Texto',
 				text: text,
 			},
 		]);
@@ -60,7 +61,7 @@ const Home = () => {
 			setIsSending(true);
 			const res = await axiosInstance.post('/openai', listFiles);
 			const { data } = res;
-			console.log(typeof JSON.parse(data.choices[0].message.content));
+			console.log('OpenAI', data.choices[0].message.content);
 			JSON.stringify(
 				localStorage.setItem(
 					'pharmacyData',
@@ -80,7 +81,7 @@ const Home = () => {
 	const getHistory = async () => {
 		try {
 			const { data } = await axiosInstance.get('/history/get');
-			console.log(data);
+			console.log('get history', data);
 			setArrayDates(data);
 		} catch (error) {
 			console.log(error);

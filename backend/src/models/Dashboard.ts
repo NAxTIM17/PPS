@@ -11,11 +11,9 @@ const DashboardSchema = new Schema({
 	oferta_valida: {
 		inicio: {
 			type: String,
-			required: true,
 		},
 		fin: {
 			type: String,
-			required: true,
 		},
 	},
 });
