@@ -1,4 +1,4 @@
-import { Document, model, Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 
 import { ProductSchema } from './Product';
 
@@ -11,11 +11,9 @@ const DashboardSchema = new Schema({
 	oferta_valida: {
 		inicio: {
 			type: String,
-			required: true,
 		},
 		fin: {
 			type: String,
-			required: true,
 		},
 	},
 });

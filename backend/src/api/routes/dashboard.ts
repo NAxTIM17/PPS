@@ -12,9 +12,4 @@ export default function (app: Router) {
 		middlewares.auth.allPurpose,
 		controllers.dashboard.getAllDashboard
 	);
-	router.post(
-		'/post',
-		middlewares.auth.allPurpose,
-		controllers.dashboard.postDashboard
-	);
 }

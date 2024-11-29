@@ -45,7 +45,6 @@ const Home = () => {
 				break;
 		}
 	};
-	console.log(listFiles);
 	const handleText = () => {
 		setListFiles([
 			...listFiles,
@@ -59,19 +58,8 @@ const Home = () => {
 		try {
 			setIsSending(true);
 			const res = await axiosInstance.post('/openai', listFiles);
-			const { data } = res;
-			console.log(typeof JSON.parse(data.choices[0].message.content));
-			JSON.stringify(
-				localStorage.setItem(
-					'pharmacyData',
-					data.choices[0].message.content
-				)
-			);
-			//post para historial
-			if (res.status === 200) {
-				postHistory(JSON.parse(data.choices[0].message.content));
-				navigate(ROUTES.AUTHED_ROUTES.NEW_DASHBOARD);
-			}
+			localStorage.setItem('pharmacyData', JSON.stringify(res.data));
+			navigate(ROUTES.AUTHED_ROUTES.NEW_DASHBOARD);
 		} catch (error) {
 			console.log(error);
 		}
@@ -80,19 +68,7 @@ const Home = () => {
 	const getHistory = async () => {
 		try {
 			const { data } = await axiosInstance.get('/history/get');
-			console.log(data);
 			setArrayDates(data);
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	const postHistory = async (data) => {
-		try {
-			const res = await axiosInstance.post('/history/post', {
-				history: data,
-			});
-			console.log(res);
 		} catch (error) {
 			console.log(error);
 		}
@@ -185,11 +161,13 @@ const Home = () => {
 								onChange={(e) => setText(e.target.value)}
 								className="w-full h-full rounded-md p-spacing"
 								placeholder="Ingrese aqui su texto..."
+								disabled={isSending}
 							></textarea>
 							<Button
 								onClick={handleText}
 								appearance="primary"
 								className="w-full !rounded-md"
+								disabled={isSending}
 							>
 								Agregar
 							</Button>
@@ -235,10 +213,18 @@ const Home = () => {
 					)}
 				</Modal.Body>
 				<Modal.Footer>
-					<Button onClick={handleOpenModal} appearance="subtle">
-						Cancel
+					<Button
+						onClick={handleOpenModal}
+						appearance="subtle"
+						disabled={isSending}
+					>
+						Cancelar
 					</Button>
-					<Button onClick={sendInfo} appearance="primary">
+					<Button
+						onClick={sendInfo}
+						appearance="primary"
+						disabled={isSending}
+					>
 						Continuar
 					</Button>
 				</Modal.Footer>
