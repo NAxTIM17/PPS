@@ -13,7 +13,7 @@ export default function HistoryItem({ date, drugstore }) {
 	return (
 		<div className="w-full h-14 rounded-inner-border p-spacing flex flex-row items-center justify-center gap-16 bg-color-bg-surface">
 			<h1 className="text-xl grow">
-				{new Date(date).toLocaleDateString()}
+				{new Date(date).toLocaleDateString('es-ES')}
 			</h1>
 			<IconExternalLink
 				size={20}

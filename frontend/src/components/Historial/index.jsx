@@ -6,7 +6,7 @@ const History = ({ arrayDates }) => {
 	return (
 		<div className="w-full h-full flex flex-col p-spacing overflow-auto overflow-x-hidden">
 			<div className="w-full flex">
-				{arrayDates.length > 0 ? (
+				{arrayDates?.length > 0 ? (
 					<div className="overflow-auto flex flex-col gap-spacing w-full">
 						{arrayDates.map((item, index) => (
 							<HistoryItem

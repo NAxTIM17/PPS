@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Modal, Button, Loader } from 'rsuite';
-import {
-	IconList,
-	IconFileTypePdf,
-	IconFileTypePng,
-	IconX,
-} from '@tabler/icons-react';
+import { IconList, IconFileTypePng, IconX } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../services/axios';
 
@@ -36,11 +31,8 @@ const Home = () => {
 	const handleIcons = (type) => {
 		switch (type) {
 			case 'jpeg':
-				return <IconFileTypePng />;
 			case 'png':
 				return <IconFileTypePng />;
-			case 'pdf':
-				return <IconFileTypePdf />;
 			default:
 				break;
 		}
@@ -49,7 +41,8 @@ const Home = () => {
 		setListFiles([
 			...listFiles,
 			{
-				name: 'text',
+				type: 'text',
+				name: 'Texto',
 				text: text,
 			},
 		]);
@@ -58,13 +51,12 @@ const Home = () => {
 		try {
 			setIsSending(true);
 			const res = await axiosInstance.post('/openai', listFiles);
-			localStorage.setItem('pharmacyData', JSON.stringify(res.data));
+			localStorage.setItem(`pharmacyData`, JSON.stringify(res.data));
 			navigate(ROUTES.AUTHED_ROUTES.NEW_DASHBOARD);
 		} catch (error) {
 			console.log(error);
 		}
 	};
-
 	const getHistory = async () => {
 		try {
 			const { data } = await axiosInstance.get('/history/get');
@@ -159,7 +151,7 @@ const Home = () => {
 						>
 							<textarea
 								onChange={(e) => setText(e.target.value)}
-								className="w-full h-full rounded-md p-spacing"
+								className="w-full h-full rounded-md p-spacing resize-none"
 								placeholder="Ingrese aqui su texto..."
 								disabled={isSending}
 							></textarea>
@@ -191,7 +183,7 @@ const Home = () => {
 												<p>{item.name}</p>
 											</div>
 											<IconX
-												onClick={(e) =>
+												onClick={() =>
 													setListFiles(
 														listFiles.filter(
 															(item) =>

@@ -11,7 +11,8 @@ export default function DropZone({ setFileList, listFiles }) {
 			reader.onloadend = () =>
 				resolve({
 					name: file.name,
-					type: file.type,
+					type: 'image',
+					// instead of file.type as the backend only requires either 'image' or 'text'
 					image: reader.result,
 				});
 			reader.onerror = reject;

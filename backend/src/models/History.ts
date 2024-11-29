@@ -2,6 +2,10 @@ import { model, Schema } from 'mongoose';
 
 const HistorySchema = new Schema(
 	{
+		userId: {
+			type: String,
+			require: true,
+		},
 		history: [
 			{
 				type: Schema.Types.ObjectId,
