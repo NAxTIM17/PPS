@@ -20,7 +20,8 @@
 		"react-dom": "^18.3.1",
 		"react-dropzone": "^14.2.3",
 		"react-router-dom": "^6.24.1",
-		"rsuite": "^5.65.1"
+		"rsuite": "^5.65.1",
+		"xlsx": "^0.18.5"
 	},
 	"devDependencies": {
 		"@types/react": "^18.3.3",

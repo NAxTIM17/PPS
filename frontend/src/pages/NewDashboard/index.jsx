@@ -1,7 +1,9 @@
 import { Button, Steps, Input, InputGroup } from 'rsuite';
 import { useEffect, useState } from 'react';
-import { IconSearch } from '@tabler/icons-react';
+import { IconFileTypeXls, IconSearch } from '@tabler/icons-react';
 import CopyCheck from '../../components/CopyComponent';
+
+import { utils, writeFile } from 'xlsx';
 
 const NewDashboard = () => {
 	const [currentStep, setCurrentStep] = useState(1);
@@ -157,6 +159,21 @@ const NewDashboard = () => {
 		}
 	};
 
+	const exportSelectedAsXlsx = () => {
+		const workbook = utils.book_new();
+		const worksheet = utils.json_to_sheet(
+			arraySelected.map((i) => ({
+				product: i.nombre,
+				laboratorio: i.laboratorio,
+				precio: i.precios[0] ?? 'Sin precio',
+				drogueria: i.droguerias[0] ?? '',
+			}))
+		);
+		utils.book_append_sheet(workbook, worksheet);
+		const today = new Date().toLocaleDateString('es-ES');
+		writeFile(workbook, `productos_seleccionados_${today}.xlsx`);
+	};
+
 	return (
 		<div className="w-full h-full flex flex-col items-center relative gap-spacing">
 			<div className="w-1/2">
@@ -167,7 +184,7 @@ const NewDashboard = () => {
 			</div>
 			{currentStep === 1 ? (
 				<>
-					<div className="w-full flex justify-center">
+					<div className="w-full flex justify-center items-center gap-2">
 						<InputGroup className="w-1/2">
 							<Input
 								value={search}
@@ -177,6 +194,14 @@ const NewDashboard = () => {
 								<IconSearch />
 							</InputGroup.Addon>
 						</InputGroup>
+						<button
+							className="bg-green-200 pr-2 pl-1.5 py-1 rounded-brand flex items-center gap-0.5 disabled:opacity-50"
+							disabled={!arraySelected.length}
+							onClick={exportSelectedAsXlsx}
+						>
+							<IconFileTypeXls />
+							<span className="font-bold">Exportar</span>
+						</button>
 					</div>
 					<div className="w-full grow flex overflow-auto">
 						<div className="w-full">
