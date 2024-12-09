@@ -87,6 +87,7 @@ const Home = () => {
 	};
 
 	const analysis = barChartAnalysis(); // """analysis"""
+	const last5DaysAnalysis = analysis.slice(0, 5); // doing this cuz no idea how the graph grows on more bars to show
 
 	return (
 		<>
@@ -107,10 +108,10 @@ const Home = () => {
 					}
 				>
 					<BarChart
-						yAxisData={analysis.map((v) =>
+						yAxisData={last5DaysAnalysis.map((v) =>
 							v[1].reduce((acc, arr) => acc + arr.tokens_used, 0)
 						)}
-						xAxisData={analysis.map((v) => v[0])}
+						xAxisData={last5DaysAnalysis.map((v) => v[0])}
 					/>
 				</CardBento>
 			</Bentogrid>
