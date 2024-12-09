@@ -9,7 +9,6 @@ import History from '../../components/Historial';
 import { ROUTES } from '../../router/config';
 import CardBento from '../../components/CardBento';
 import New from '../../components/New';
-import PieChart from '../../components/pieChart';
 import BarChart from '../../components/barChart';
 import DropZone from '../../components/DropZone';
 
@@ -66,62 +65,52 @@ const Home = () => {
 		}
 	};
 
+	const arrayDatesSortedByDate = arrayDates.sort(
+		(curr, next) =>
+			new Date(curr.createdAt).getTime() <
+			new Date(next.createdAt).getTime()
+	);
+
+	const barChartAnalysis = () => {
+		const historialsInTheSameDay = Map.groupBy(
+			arrayDates,
+			({ createdAt }) => {
+				return new Date(createdAt).toLocaleDateString('es-ES');
+			}
+		);
+
+		return Array.from(historialsInTheSameDay).sort(
+			(curr, next) =>
+				new Date(curr[1][0].createdAt).getTime() >
+				new Date(next[1][0].createdAt).getTime()
+		);
+	};
+
+	const analysis = barChartAnalysis(); // """analysis"""
+
 	return (
 		<>
-			<Bentogrid className={'grid-cols-2 grid-rows-8'}>
-				<CardBento className={'col-span-1 row-span-1 '}>
+			<Bentogrid className={'grid-cols-3 grid-rows-8'}>
+				<CardBento className={'col-span-1 row-span-1'}>
 					<New handleOpen={handleOpenModal} />
 				</CardBento>
 				<CardBento
 					title={'Historial'}
-					className={'col-span-1 row-span-7 bg-color-bg'}
+					className={'col-span-1 row-start-2 row-end-7 bg-color-bg'}
 				>
-					<History arrayDates={arrayDates} />
+					<History arrayDates={arrayDatesSortedByDate} />
 				</CardBento>
 				<CardBento
-					title={'Gasto por drogueria'}
-					className={'col-span-1 row-span-5 bg-color-bg'}
-				>
-					<PieChart
-						data={[
-							{
-								name: 'Margarita',
-								value: 300,
-							},
-							{
-								name: 'Garnica',
-								value: 100,
-							},
-							{
-								name: 'Savencia',
-								value: 400,
-							},
-							{
-								name: 'Soledad',
-								value: 500,
-							},
-							{
-								name: 'Monte',
-								value: 200,
-							},
-						]}
-					/>
-				</CardBento>
-				<CardBento
-					className={'col-span-1 row-span-3 bg-color-bg'}
-					title={'Productos por drogueria'}
+					title={'Consumo'}
+					className={
+						'col-span-2 h-max row-start-2 row-end-7 bg-color-bg'
+					}
 				>
 					<BarChart
-						yAxisData={[100, 20, 300, 500, 100, 600, 100]}
-						xAxisData={[
-							'mon',
-							'tus',
-							'wed',
-							'tur',
-							'fri',
-							'sat',
-							'sun',
-						]}
+						yAxisData={analysis.map((v) =>
+							v[1].reduce((acc, arr) => acc + arr.tokens_used, 0)
+						)}
+						xAxisData={analysis.map((v) => v[0])}
 					/>
 				</CardBento>
 			</Bentogrid>
