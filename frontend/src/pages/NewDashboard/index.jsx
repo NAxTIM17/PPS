@@ -363,7 +363,7 @@ const NewDashboard = () => {
 								))}
 							</tbody>
 						</table>
-						<div className="w-32 bg-color-bg rounded-outer-border flex flex-col items-center gap-spacing p-spacing">
+						<div className="w-32 rounded-outer-border flex flex-col items-center gap-spacing p-spacing">
 							{selectDrugstore.map((item, i) => (
 								<CopyCheck
 									key={i}
