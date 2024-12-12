@@ -23,6 +23,15 @@
 
 -   se me hace que la version mobile va a ser mas usada ya que, pasar las fotos a la compu para despues cargarla al sistema será mucho para el usuario; Pero si tuviera la version mobile simplemente podria cargar desde ahi las fotos, pq le llegan al watsap.
 
+## frontend TODO:
+
+-   poner el nombre del usuario en el userBadge. :check
+-   arreglar los inputs de cambiar contraseña y de registrarse. :check
+-   poner que cada usuario tenga su propio historial.:check
+-   agregar el texto a la informacion que se le pasa a chatgpt.:ckeck
+-   agregar la opcion de eliminar en la lista de "mejores precios".
+-   crear el grafico de muestre el cosumo de tokens.
+
 # RESOURSES
 
 ### About the chat gpt vision

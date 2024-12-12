@@ -1,9 +1,9 @@
-import { Table, Button, Steps, Input, InputGroup } from 'rsuite';
+import { Button, Steps, Input, InputGroup } from 'rsuite';
 import { useEffect, useState } from 'react';
-import { IconSearch, IconCopy, IconCopyCheck } from '@tabler/icons-react';
+import { IconFileTypeXls, IconSearch } from '@tabler/icons-react';
 import CopyCheck from '../../components/CopyComponent';
 
-import fakeData from './fakeData';
+import { utils, writeFile } from 'xlsx';
 
 const NewDashboard = () => {
 	const [currentStep, setCurrentStep] = useState(1);
@@ -14,16 +14,22 @@ const NewDashboard = () => {
 	const [productData, setProductData] = useState();
 	const STEPS = 2;
 
-	console.log(productData);
-
-	// const PRODUCTS_DATA = JSON.parse(localStorage.getItem('products'));
-	// console.log(PRODUCTS_DATA);
-
 	useEffect(() => {
-		console.log('here');
 		getStoredData();
 		handleDrugstore();
 	}, [arrayBestPrice]);
+
+	const updateArrayBestPriceItemQuantityById = (id, updater) => {
+		setArrayBestPrice((prev) =>
+			prev.map((prevItem) => ({
+				...prevItem,
+				cantidad:
+					prevItem.id === id
+						? updater(prevItem.cantidad)
+						: prevItem.cantidad,
+			}))
+		);
+	};
 
 	const columns = [
 		{
@@ -113,17 +119,19 @@ const NewDashboard = () => {
 	};
 	const comparePrices = () => {
 		let array = [];
-		arraySelected.forEach((item) => {
+		arraySelected.forEach((item, index) => {
 			if (item.droguerias.length >= 1 && item.precios.length >= 1) {
 				const bestPrice = Math.min(...item.precios);
 				const indexSlice = item.precios.indexOf(bestPrice);
 				array = [
 					...array,
 					{
+						id: index,
 						nombre: item.nombre,
 						laboratorio: item.laboratorio,
 						precios: bestPrice,
 						droguerias: [item.droguerias[indexSlice]],
+						cantidad: 0,
 					},
 				];
 			} else {
@@ -143,13 +151,27 @@ const NewDashboard = () => {
 			try {
 				const parsedData = JSON.parse(storedData);
 				setProductData(parsedData);
-				console.log('parsed data', parsedData);
 			} catch (error) {
 				console.error('Error parsing JSON:', error);
 			}
 		} else {
 			console.log('No data found in localStorage');
 		}
+	};
+
+	const exportSelectedAsXlsx = () => {
+		const workbook = utils.book_new();
+		const worksheet = utils.json_to_sheet(
+			arraySelected.map((i) => ({
+				product: i.nombre,
+				laboratorio: i.laboratorio,
+				precio: i.precios[0] ?? 'Sin precio',
+				drogueria: i.droguerias[0] ?? '',
+			}))
+		);
+		utils.book_append_sheet(workbook, worksheet);
+		const today = new Date().toLocaleDateString('es-ES');
+		writeFile(workbook, `productos_seleccionados_${today}.xlsx`);
 	};
 
 	return (
@@ -162,7 +184,7 @@ const NewDashboard = () => {
 			</div>
 			{currentStep === 1 ? (
 				<>
-					<div className="w-full flex justify-center">
+					<div className="w-full flex justify-center items-center gap-2">
 						<InputGroup className="w-1/2">
 							<Input
 								value={search}
@@ -172,17 +194,22 @@ const NewDashboard = () => {
 								<IconSearch />
 							</InputGroup.Addon>
 						</InputGroup>
+						<button
+							className="bg-green-200 pr-2 pl-1.5 py-1 rounded-brand flex items-center gap-0.5 disabled:opacity-50"
+							disabled={!arraySelected.length}
+							onClick={exportSelectedAsXlsx}
+						>
+							<IconFileTypeXls />
+							<span className="font-bold">Exportar</span>
+						</button>
 					</div>
 					<div className="w-full grow flex overflow-auto">
 						<div className="w-full">
 							<table className="w-full overflow-auto bg-white">
 								<thead className="w-full">
 									<tr className="items-end">
-										{columns.map((item, index) => (
-											<th
-												className="text-left"
-												key={index}
-											>
+										{columns.map((item, i) => (
+											<th className="text-left" key={i}>
 												{item.label}
 											</th>
 										))}
@@ -201,9 +228,9 @@ const NewDashboard = () => {
 													);
 											}
 										})
-										.map((items, index) => (
+										.map((items, i) => (
 											<tr
-												key={index}
+												key={i}
 												onClick={() => {
 													if (
 														arraySelected.find(
@@ -234,12 +261,13 @@ const NewDashboard = () => {
 												<td>{items.laboratorio}</td>
 												<td className="flex w-auto gap-spacing">
 													{items.droguerias.map(
-														(drug) => (
-															<>
-																<div className="bg-color-fill-low-contrast p-1 rounded-md text-color-text-primary mt-spacing mb-spacing">
-																	{drug}
-																</div>
-															</>
+														(drug, j) => (
+															<div
+																className="bg-color-fill-low-contrast p-1 rounded-md text-color-text-primary mt-spacing mb-spacing"
+																key={j}
+															>
+																{drug}
+															</div>
 														)
 													)}
 												</td>
@@ -259,17 +287,17 @@ const NewDashboard = () => {
 						<table className="table-auto w-full overflow-auto bg-white">
 							<thead className="w-full">
 								<tr className="items-end">
-									{columnsBestPrice.map((item, index) => (
-										<th className="text-left" key={index}>
+									{columnsBestPrice.map((item, i) => (
+										<th className="text-left" key={i}>
 											{item.label}
 										</th>
 									))}
 								</tr>
 							</thead>
 							<tbody className="!p-10">
-								{arrayBestPrice.map((items, index) => (
+								{arrayBestPrice.map((items, i) => (
 									<tr
-										key={index}
+										key={i}
 										className={`gap-spacing border items-center transition-all cursor-pointer`}
 									>
 										<td className="pl-spacing">
@@ -277,34 +305,68 @@ const NewDashboard = () => {
 										</td>
 										<td>{items.laboratorio}</td>
 										<td className="flex w-auto gap-spacing">
-											{items.droguerias.map((drug) => (
-												<>
-													<div className="bg-color-fill-low-contrast p-1 rounded-md text-color-text-primary mt-spacing mb-spacing">
-														{drug}
-													</div>
-												</>
+											{items.droguerias.map((drug, j) => (
+												<div
+													className="bg-color-fill-low-contrast p-1 rounded-md text-color-text-primary mt-spacing mb-spacing"
+													key={j}
+												>
+													{drug}
+												</div>
 											))}
 										</td>
 										<td>${items.precios}</td>
-										<td className="flex">
-											<div className="bg-zinc-100 w-5 rounded-md flex justify-center font-semibold cursor-pointer hover:bg-zinc-200 transition-all">
+										<td className="flex w-max">
+											<button
+												className="bg-zinc-100 w-5 rounded-md flex justify-center font-semibold cursor-pointer hover:bg-zinc-200 transition-all"
+												onClick={() => {
+													updateArrayBestPriceItemQuantityById(
+														items.id,
+														(prev) =>
+															prev === 0
+																? 0
+																: prev - 1
+													);
+												}}
+											>
 												-
-											</div>
+											</button>
 											<input
-												className="m-0 w-10"
-												type="number"
+												className="m-0 w-10 text-center font-bold"
+												type="digit"
+												min={0}
+												value={items.cantidad}
+												onChange={(event) => {
+													const newQuantity = Number(
+														event.target.value
+													);
+													if (isNaN(newQuantity))
+														return;
+													updateArrayBestPriceItemQuantityById(
+														items.id,
+														() => newQuantity
+													);
+												}}
 											/>
-											<div className="bg-zinc-100 w-5 rounded-md flex justify-center font-semibold cursor-pointer hover:bg-zinc-200 transition-al">
+											<button
+												className="bg-zinc-100 w-5 rounded-md flex justify-center font-semibold cursor-pointer hover:bg-zinc-200 transition-al"
+												onClick={() => {
+													updateArrayBestPriceItemQuantityById(
+														items.id,
+														(prev) => prev + 1
+													);
+												}}
+											>
 												+
-											</div>
+											</button>
 										</td>
 									</tr>
 								))}
 							</tbody>
 						</table>
-						<div className="w-32 bg-color-bg rounded-outer-border flex flex-col items-center gap-spacing p-spacing">
-							{selectDrugstore.map((item) => (
+						<div className="w-32 rounded-outer-border flex flex-col items-center gap-spacing p-spacing">
+							{selectDrugstore.map((item, i) => (
 								<CopyCheck
+									key={i}
 									name={item}
 									arrayBestPrice={arrayBestPrice}
 								/>
@@ -324,17 +386,19 @@ const NewDashboard = () => {
 				>
 					Atras
 				</Button>
-				<Button
-					onClick={() => {
-						if (currentStep < STEPS)
-							setCurrentStep(currentStep + 1);
-						comparePrices();
-					}}
-					appearance="primary"
-					className="w-32 rounded-inner-border"
-				>
-					Analizar
-				</Button>
+				{currentStep < STEPS && (
+					<Button
+						onClick={() => {
+							if (currentStep < STEPS)
+								setCurrentStep(currentStep + 1);
+							comparePrices();
+						}}
+						appearance="primary"
+						className="w-32 rounded-inner-border"
+					>
+						Analizar
+					</Button>
+				)}
 			</div>
 		</div>
 	);

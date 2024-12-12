@@ -7,5 +7,10 @@ const router = Router();
 export default function (app: Router) {
 	app.use('/openai', router);
 
-	router.post('/', middlewares.auth.allPurpose, controllers.openai.getData);
+	router.post(
+		'/',
+		middlewares.auth.allPurpose,
+		middlewares.attachUser,
+		controllers.openai.getData
+	);
 }

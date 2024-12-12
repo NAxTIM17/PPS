@@ -19,9 +19,9 @@ async function registerUser(
 	request: Request<{}, {}, UserInput>,
 	response: Response
 ): Promise<void> {
-	const { email, password } = request.body;
+	const { email, password, name } = request.body;
 
-	const parseResult = UserSchema.safeParse({ email, password });
+	const parseResult = UserSchema.safeParse({ email, password, name });
 
 	if (!parseResult.success) {
 		response.status(400).json({
@@ -42,7 +42,7 @@ async function registerUser(
 			return;
 		}
 
-		user = new User({ email, password });
+		user = new User({ email, password, name });
 
 		const salt = await bcrypt.genSalt(10);
 		user.password = await bcrypt.hash(password, salt);

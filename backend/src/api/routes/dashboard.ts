@@ -10,11 +10,7 @@ export default function (app: Router) {
 	router.get(
 		'/get',
 		middlewares.auth.allPurpose,
+		middlewares.attachUser,
 		controllers.dashboard.getAllDashboard
-	);
-	router.post(
-		'/post',
-		middlewares.auth.allPurpose,
-		controllers.dashboard.postDashboard
 	);
 }

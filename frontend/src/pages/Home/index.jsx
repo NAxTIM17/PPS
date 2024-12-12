@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Modal, Button, Loader } from 'rsuite';
-import {
-	IconList,
-	IconFileTypePdf,
-	IconFileTypePng,
-	IconX,
-} from '@tabler/icons-react';
+import { IconList, IconFileTypePng, IconX } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../services/axios';
 
@@ -14,7 +9,6 @@ import History from '../../components/Historial';
 import { ROUTES } from '../../router/config';
 import CardBento from '../../components/CardBento';
 import New from '../../components/New';
-import PieChart from '../../components/pieChart';
 import BarChart from '../../components/barChart';
 import DropZone from '../../components/DropZone';
 
@@ -36,21 +30,18 @@ const Home = () => {
 	const handleIcons = (type) => {
 		switch (type) {
 			case 'jpeg':
-				return <IconFileTypePng />;
 			case 'png':
 				return <IconFileTypePng />;
-			case 'pdf':
-				return <IconFileTypePdf />;
 			default:
 				break;
 		}
 	};
-	console.log(listFiles);
 	const handleText = () => {
 		setListFiles([
 			...listFiles,
 			{
-				name: 'text',
+				type: 'text',
+				name: 'Texto',
 				text: text,
 			},
 		]);
@@ -59,101 +50,66 @@ const Home = () => {
 		try {
 			setIsSending(true);
 			const res = await axiosInstance.post('/openai', listFiles);
-			const { data } = res;
-			console.log(typeof JSON.parse(data.choices[0].message.content));
-			JSON.stringify(
-				localStorage.setItem(
-					'pharmacyData',
-					data.choices[0].message.content
-				)
-			);
-			//post para historial
-			if (res.status === 200) {
-				postHistory(JSON.parse(data.choices[0].message.content));
-				navigate(ROUTES.AUTHED_ROUTES.NEW_DASHBOARD);
-			}
+			localStorage.setItem(`pharmacyData`, JSON.stringify(res.data));
+			navigate(ROUTES.AUTHED_ROUTES.NEW_DASHBOARD);
 		} catch (error) {
 			console.log(error);
 		}
 	};
-
 	const getHistory = async () => {
 		try {
 			const { data } = await axiosInstance.get('/history/get');
-			console.log(data);
 			setArrayDates(data);
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
-	const postHistory = async (data) => {
-		try {
-			const res = await axiosInstance.post('/history/post', {
-				history: data,
-			});
-			console.log(res);
-		} catch (error) {
-			console.log(error);
-		}
+	const arrayDatesSortedByDate = arrayDates.sort(
+		(curr, next) =>
+			new Date(curr.createdAt).getTime() <
+			new Date(next.createdAt).getTime()
+	);
+
+	const barChartAnalysis = () => {
+		const historialsInTheSameDay = Map.groupBy(
+			arrayDates,
+			({ createdAt }) => {
+				return new Date(createdAt).toLocaleDateString('es-ES');
+			}
+		);
+
+		return Array.from(historialsInTheSameDay).sort(
+			(curr, next) =>
+				new Date(curr[1][0].createdAt).getTime() >
+				new Date(next[1][0].createdAt).getTime()
+		);
 	};
+
+	const analysis = barChartAnalysis(); // """analysis"""
+	const last5DaysAnalysis = analysis.slice(0, 5); // doing this cuz no idea how the graph grows on more bars to show
 
 	return (
 		<>
-			<Bentogrid className={'grid-cols-2 grid-rows-8'}>
-				<CardBento className={'col-span-1 row-span-1 '}>
+			<Bentogrid className={'grid-cols-3 grid-rows-8'}>
+				<CardBento className={'col-span-3 row-span-1'}>
 					<New handleOpen={handleOpenModal} />
 				</CardBento>
 				<CardBento
 					title={'Historial'}
-					className={'col-span-1 row-span-7 bg-color-bg'}
+					className={'col-span-1 row-span-8 row-start-2 bg-color-bg'}
 				>
-					<History arrayDates={arrayDates} />
+					<History arrayDates={arrayDatesSortedByDate} />
 				</CardBento>
 				<CardBento
-					title={'Gasto por drogueria'}
-					className={'col-span-1 row-span-5 bg-color-bg'}
-				>
-					<PieChart
-						data={[
-							{
-								name: 'Margarita',
-								value: 300,
-							},
-							{
-								name: 'Garnica',
-								value: 100,
-							},
-							{
-								name: 'Savencia',
-								value: 400,
-							},
-							{
-								name: 'Soledad',
-								value: 500,
-							},
-							{
-								name: 'Monte',
-								value: 200,
-							},
-						]}
-					/>
-				</CardBento>
-				<CardBento
-					className={'col-span-1 row-span-3 bg-color-bg'}
-					title={'Productos por drogueria'}
+					title={'Consumo'}
+					className={'col-span-2 row-start-2 row-span-8 bg-color-bg'}
 				>
 					<BarChart
-						yAxisData={[100, 20, 300, 500, 100, 600, 100]}
-						xAxisData={[
-							'mon',
-							'tus',
-							'wed',
-							'tur',
-							'fri',
-							'sat',
-							'sun',
-						]}
+						yAxisData={last5DaysAnalysis.map((v) =>
+							v[1].reduce((acc, arr) => acc + arr.tokens_used, 0)
+						)}
+						xAxisData={last5DaysAnalysis.map((v) => v[0])}
 					/>
 				</CardBento>
 			</Bentogrid>
@@ -183,13 +139,15 @@ const Home = () => {
 						>
 							<textarea
 								onChange={(e) => setText(e.target.value)}
-								className="w-full h-full rounded-md p-spacing"
+								className="w-full h-full rounded-md p-spacing resize-none"
 								placeholder="Ingrese aqui su texto..."
+								disabled={isSending}
 							></textarea>
 							<Button
 								onClick={handleText}
 								appearance="primary"
 								className="w-full !rounded-md"
+								disabled={isSending}
 							>
 								Agregar
 							</Button>
@@ -213,7 +171,7 @@ const Home = () => {
 												<p>{item.name}</p>
 											</div>
 											<IconX
-												onClick={(e) =>
+												onClick={() =>
 													setListFiles(
 														listFiles.filter(
 															(item) =>
@@ -235,10 +193,18 @@ const Home = () => {
 					)}
 				</Modal.Body>
 				<Modal.Footer>
-					<Button onClick={handleOpenModal} appearance="subtle">
-						Cancel
+					<Button
+						onClick={handleOpenModal}
+						appearance="subtle"
+						disabled={isSending}
+					>
+						Cancelar
 					</Button>
-					<Button onClick={sendInfo} appearance="primary">
+					<Button
+						onClick={sendInfo}
+						appearance="primary"
+						disabled={isSending}
+					>
 						Continuar
 					</Button>
 				</Modal.Footer>
