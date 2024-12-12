@@ -92,20 +92,18 @@ const Home = () => {
 	return (
 		<>
 			<Bentogrid className={'grid-cols-3 grid-rows-8'}>
-				<CardBento className={'col-span-1 row-span-1'}>
+				<CardBento className={'col-span-3 row-span-1'}>
 					<New handleOpen={handleOpenModal} />
 				</CardBento>
 				<CardBento
 					title={'Historial'}
-					className={'col-span-1 row-start-2 row-end-7 bg-color-bg'}
+					className={'col-span-1 row-span-8 row-start-2 bg-color-bg'}
 				>
 					<History arrayDates={arrayDatesSortedByDate} />
 				</CardBento>
 				<CardBento
 					title={'Consumo'}
-					className={
-						'col-span-2 h-max row-start-2 row-end-7 bg-color-bg'
-					}
+					className={'col-span-2 row-start-2 row-span-8 bg-color-bg'}
 				>
 					<BarChart
 						yAxisData={last5DaysAnalysis.map((v) =>
