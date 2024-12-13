@@ -12,7 +12,9 @@ export default function CardBento({
 			<div
 				onDragLeave={onDragLeave}
 				onDragOver={onDragOver}
-				onDrop={() => onDrop}
+				onDrop={() => {
+					onDrop;
+				}}
 				onClick={onClick}
 				className={`flex items-center w-full h-full rounded-inner-border relative ${className}`}
 			>

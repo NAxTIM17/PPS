@@ -5,6 +5,7 @@ import {
 } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function CopyCheck({ name, arrayBestPrice }) {
 	const [copyIcon, setCopyIcon] = useState(<IconCopy size={15} />);
@@ -51,8 +52,10 @@ export default function CopyCheck({ name, arrayBestPrice }) {
 					})
 					.join('\n')}`
 			);
+			toast('Texto copiado');
 		} catch (error) {
 			console.log(error);
+			toast.error('Error al copiar');
 		}
 	};
 

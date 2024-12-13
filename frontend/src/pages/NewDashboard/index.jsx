@@ -5,6 +5,8 @@ import CopyCheck from '../../components/CopyComponent';
 
 import { utils, writeFile } from 'xlsx';
 
+import toast, { Toaster } from 'react-hot-toast';
+
 const NewDashboard = () => {
 	const [currentStep, setCurrentStep] = useState(1);
 	const [arraySelected, setArraySelected] = useState([]);
@@ -137,6 +139,7 @@ const NewDashboard = () => {
 			} else {
 				array = [...array, item];
 			}
+			toast.success('Análisis completado');
 		});
 		setArrayBestPrice(array);
 		handleDrugstore();
@@ -400,6 +403,7 @@ const NewDashboard = () => {
 					</Button>
 				)}
 			</div>
+			<Toaster />
 		</div>
 	);
 };

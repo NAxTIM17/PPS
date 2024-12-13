@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { IconFileUpload } from '@tabler/icons-react';
+import toast, { Toaster } from 'react-hot-toast';
 
 const ACCEPTED_FILE_FORMATS = ['jpeg', 'jpg', 'png' /* 'pdf' */]; // not sure how pdf would be handled
 
@@ -28,6 +29,7 @@ export default function DropZone({ setFileList, listFiles }) {
 				)
 			) {
 				console.error('Formato incorrecto.'); // TODO: could use some toast
+				toast.error('Formato incorrecto');
 				return;
 			}
 
@@ -40,8 +42,10 @@ export default function DropZone({ setFileList, listFiles }) {
 					.filter((promise) => promise.status === 'fulfilled')
 					.map((promise) => promise.value);
 				setFileList((prev) => [...prev, ...filesAsBase64]);
+				toast.success('Archivo cargado');
 			} catch (err) {
 				consle.error('Error convirtiendo a Base64'); // TODO: could use some toast
+				toast.error('Error importando el archivo');
 			}
 		},
 		[listFiles]

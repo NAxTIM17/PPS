@@ -3,6 +3,7 @@ import { Modal, Button, Loader } from 'rsuite';
 import { IconList, IconFileTypePng, IconX } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../services/axios';
+import toast, { Toaster } from 'react-hot-toast';
 
 import Bentogrid from '../../components/Bentogrid';
 import History from '../../components/Historial';
@@ -45,6 +46,7 @@ const Home = () => {
 				text: text,
 			},
 		]);
+		toast.success('Texto agregado');
 	};
 	const sendInfo = async () => {
 		try {
@@ -52,8 +54,10 @@ const Home = () => {
 			const res = await axiosInstance.post('/openai', listFiles);
 			localStorage.setItem(`pharmacyData`, JSON.stringify(res.data));
 			navigate(ROUTES.AUTHED_ROUTES.NEW_DASHBOARD);
+			toast.success('Procesamiento listo');
 		} catch (error) {
 			console.log(error);
+			toast.error('Error de procesamiento. Por favor intente más tarde');
 		}
 	};
 	const getHistory = async () => {
@@ -151,6 +155,7 @@ const Home = () => {
 							>
 								Agregar
 							</Button>
+							<Toaster />
 						</CardBento>
 						<CardBento
 							className={

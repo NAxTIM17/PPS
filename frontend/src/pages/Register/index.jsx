@@ -3,6 +3,7 @@ import { AuthService } from '../../services/Auth';
 import { findUXErrorFromCatchError } from '../../services/utils';
 import { Input, InputGroup } from 'rsuite';
 import { IconMail, IconLock, IconUser } from '@tabler/icons-react';
+import toast, { Toaster } from 'react-hot-toast';
 
 import AuthForm from '../../components/Forms/Auth';
 import PasswordInput from '../../components/PasswordInput';
@@ -41,10 +42,12 @@ const Register = () => {
 						setTimeout(() => {
 							navigate(ROUTES.AUTHED_ROUTES.ROOT);
 						}, 1000);
+						toast.success('Registro exitoso');
 					})
 					.catch((error) => {
 						const message = findUXErrorFromCatchError(error);
 						endSubmitting(message, 'error');
+						toast.error('Error al registrarse');
 					});
 			}}
 		>
@@ -73,6 +76,7 @@ const Register = () => {
 					required
 				/>
 			</InputGroup>
+			<Toaster />
 		</AuthForm>
 	);
 };
