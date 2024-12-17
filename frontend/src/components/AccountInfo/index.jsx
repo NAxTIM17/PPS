@@ -11,13 +11,15 @@ const AccountInfo = ({ onClick }) => {
 			<div className="flex gap-brand-8 items-center m-4">
 				<div className="flex flex-col">
 					<span className="text-lg font-semibold">Nombre</span>
-					<span className="font-thin">{session.user.name}</span>
+					<span className="font-thin">
+						{session.user.name ? session.user.name : 'Usuario'}
+					</span>
 				</div>
 				<div className="flex flex-col">
 					<span className="text-lg font-semibold">
 						Correo Electronico
 					</span>
-					<span className="font-thin">mateo@gmail.com</span>
+					<span className="font-thin">{session.user.email}</span>
 				</div>
 				<div className="flex flex-col">
 					<span className="text-lg font-semibold">Cuenta desde</span>

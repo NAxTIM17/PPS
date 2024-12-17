@@ -45,10 +45,12 @@ const AccountStats = ({ onClick }) => {
 							Cantidad de tokens promedio por uso
 						</span>
 						<span className="font-thin">
-							{stats.reduce(
-								(sum, item) => sum + item.tokens_used,
-								0
-							) / stats.length}
+							{(
+								stats.reduce(
+									(sum, item) => sum + item.tokens_used,
+									0
+								) / stats.length
+							).toFixed(0)}
 						</span>
 					</div>
 					<div className="flex flex-col">

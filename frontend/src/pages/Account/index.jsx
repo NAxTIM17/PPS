@@ -32,7 +32,7 @@ const Account = () => {
 			console.log(error);
 		}
 	};
-	console.log(stats);
+
 	return (
 		<div className="flex flex-col p-brand-2 gap-4">
 			<h1 className="text-4xl font-extrabold">Cuenta</h1>
@@ -44,7 +44,9 @@ const Account = () => {
 						</span>
 						<div className="flex flex-col justify-center">
 							<span className="font-semibold text-2xl capitalize">
-								{session.user.name}
+								{session.user.name
+									? session.user.name
+									: 'Usuario'}
 							</span>
 							<span className="text-md">
 								{session.user.email}
