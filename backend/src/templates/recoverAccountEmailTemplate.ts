@@ -1,15 +1,13 @@
 interface TemplateValues {
 	mainLink: string;
 	fallbackLink: string;
-	firstName?: string;
-	lastName?: string;
+	name?: string;
 }
 
 export default function ({
 	mainLink,
 	fallbackLink,
-	firstName,
-	lastName,
+	name,
 }: TemplateValues): string {
 	return `
         <body style="font-family: sans-serif;">
@@ -21,7 +19,7 @@ export default function ({
             </div>
             <div>
                 <p style="color: #1e1e1e">
-                ${!firstName || !lastName ? `Hola,` : `Hola ${firstName} ${lastName},`}
+                ${!name ? `Hola,` : `Hola ${name},`}
                 </p>
                 <p style="color: #1e1e1e">
                 ingrese a

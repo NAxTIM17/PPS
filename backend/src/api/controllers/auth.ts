@@ -143,8 +143,7 @@ async function recoverAccount(
 			subject: env.NODEMAILER_RECOVER_ACCOUNT_EMAIL_SUBJECT,
 			html: recoverAccountEmailTemplate({
 				mainLink: `${env.CLIENT_BASE_PATH}${env.CLIENT_RECOVER_ACCOUNT_NEW_PASSWORD_PATH}/${token}`,
-				firstName: user.firstName,
-				lastName: user.lastName,
+				name: user.name,
 				fallbackLink: ``,
 			}),
 		};

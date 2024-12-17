@@ -21,15 +21,13 @@ async function getUser(request: AuthRequest, response: Response) {
 
 async function updateUser(request: AuthRequest, response: Response) {
 	const {
-		firstName: newFirstName,
-		lastName: newLastName,
+		name: newName,
 		email: newEmail,
 		password: newPassword,
 	} = request.body;
 
 	const parseResult = OptionalUserSchema.safeParse({
-		firstname: newFirstName,
-		lastName: newLastName,
+		name: newName,
 		email: newEmail,
 		password: newPassword,
 	});
@@ -44,8 +42,7 @@ async function updateUser(request: AuthRequest, response: Response) {
 	}
 
 	const newUser: OptionalUserInput = {
-		firstName: request.body.firstName ?? request.user?.firstName,
-		lastName: request.body.lastName ?? request.user?.lastName,
+		name: request.body.name ?? request.user?.name,
 		email: request.body.email ?? request.user?.email,
 	};
 

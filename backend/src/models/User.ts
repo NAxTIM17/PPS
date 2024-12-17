@@ -2,7 +2,6 @@ import { Document, model, Schema } from 'mongoose';
 
 interface IUser extends Document {
 	name?: string;
-	lastName?: string;
 	role: 'basic' | 'subscribed';
 	email: string;
 	password: string;
@@ -11,10 +10,6 @@ interface IUser extends Document {
 const UserSchema = new Schema(
 	{
 		name: {
-			type: String,
-			trim: true,
-		},
-		lastName: {
 			type: String,
 			trim: true,
 		},
