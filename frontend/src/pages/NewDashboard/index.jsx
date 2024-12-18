@@ -46,7 +46,7 @@ const NewDashboard = () => {
 		},
 		{
 			key: 'droguerias',
-			label: 'Drogerias',
+			label: 'Droguerias',
 			flexGrow: 1.25,
 		},
 	];
@@ -63,7 +63,7 @@ const NewDashboard = () => {
 		},
 		{
 			key: 'droguerias',
-			label: 'Drogerias',
+			label: 'Droguerias',
 			flexGrow: 0.5,
 		},
 		{
@@ -139,7 +139,6 @@ const NewDashboard = () => {
 			} else {
 				array = [...array, item];
 			}
-			toast.success('Análisis completado');
 		});
 		setArrayBestPrice(array);
 		handleDrugstore();
@@ -395,6 +394,7 @@ const NewDashboard = () => {
 							if (currentStep < STEPS)
 								setCurrentStep(currentStep + 1);
 							comparePrices();
+							toast.success('Análisis completado');
 						}}
 						appearance="primary"
 						className="w-32 rounded-inner-border"
