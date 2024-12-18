@@ -11,10 +11,16 @@ const DashboardSchema = new Schema({
 	oferta_valida: {
 		inicio: {
 			type: String,
+			default: null,
 		},
 		fin: {
 			type: String,
+			default: null,
 		},
+	},
+	numero_celular: {
+		type: String,
+		default: null,
 	},
 });
 
