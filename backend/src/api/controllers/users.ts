@@ -27,9 +27,9 @@ async function updateUser(request: AuthRequest, response: Response) {
 	} = request.body;
 
 	const parseResult = OptionalUserSchema.safeParse({
-		name: newName,
-		email: newEmail,
-		password: newPassword,
+		name: newName === '' ? undefined : newName,
+		email: newEmail === '' ? undefined : newEmail,
+		password: newPassword === '' ? undefined : newPassword,
 	});
 
 	if (!parseResult.success) {

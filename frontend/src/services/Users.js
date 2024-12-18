@@ -26,7 +26,7 @@ async function getUser() {
 /**
  * Execute an update user request
  * @param {Object} payload
- * @property {string} name
+ * @property {string} payload.name
  * @param {string} payload.email
  * @param {string} payload.password
  * @returns {Promise<UserResponse>}
