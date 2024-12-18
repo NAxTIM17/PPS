@@ -4,8 +4,7 @@ import axios from './axios';
  * @typedef {Object} UserResponse
  * @property {number} _id
  * @property {string} email
- * @property {string} firstName
- * @property {string} lastName
+ * @property {string} name
  * @property {string} createdAt
  * @property {string} updatedAt
  */
@@ -27,8 +26,7 @@ async function getUser() {
 /**
  * Execute an update user request
  * @param {Object} payload
- * @param {string} payload.firstName
- * @param {string} payload.lastName
+ * @param {string} payload.name
  * @param {string} payload.email
  * @param {string} payload.password
  * @returns {Promise<UserResponse>}

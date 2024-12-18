@@ -16,7 +16,6 @@ const AccountStats = ({ onClick }) => {
 			console.log(error);
 		}
 	};
-	console.log(stats);
 
 	return (
 		<div

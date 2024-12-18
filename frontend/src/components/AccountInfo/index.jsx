@@ -1,8 +1,12 @@
 import { useSession } from '../../providers/Session';
 import ChevronUp from '../Icons/ChevronUp';
-const AccountInfo = ({ onClick }) => {
+const AccountInfo = ({ onClick, setOpen }) => {
 	const session = useSession();
 	const date = new Date(session.user.createdAt);
+	const handleOpen = (e) => {
+		e.stopPropagation();
+		setOpen(true);
+	};
 	return (
 		<div
 			className="min-h-40 p-4 flex border rounded-brand bg-white gap-4 hover:bg-lime-200 items-center justify-between"
@@ -27,7 +31,9 @@ const AccountInfo = ({ onClick }) => {
 						{date.toLocaleString('en-US', { timeZone: 'UTC' })}
 					</span>
 				</div>
-				<a href="">Modificar</a>
+				<a className="cursor-pointer" onClick={handleOpen}>
+					Modificar
+				</a>
 			</div>
 			<div className="w-8 text-gray-500 m-4">
 				<ChevronUp />
