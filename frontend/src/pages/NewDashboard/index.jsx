@@ -61,7 +61,7 @@ const NewDashboard = () => {
 		},
 		{
 			key: 'droguerias',
-			label: 'Drogerias',
+			label: 'Droguerias',
 			flexGrow: 0.5,
 		},
 		{
@@ -85,7 +85,10 @@ const NewDashboard = () => {
 						...productosUnicos[nombreProducto],
 						droguerias: [
 							...productosUnicos[nombreProducto].droguerias,
-							items.drogueria,
+							{
+								drogueria: items.drogueria,
+								numero_celular: items.numero_celular,
+							},
 						],
 						precios: [
 							...productosUnicos[nombreProducto].precios,
@@ -97,7 +100,12 @@ const NewDashboard = () => {
 						nombre: item.nombre,
 						laboratorio: item.laboratorio,
 						precios: [item.precio],
-						droguerias: [items.drogueria],
+						droguerias: [
+							{
+								drogueria: items.drogueria,
+								numero_celular: items.numero_celular,
+							},
+						],
 					};
 				}
 			});
@@ -106,12 +114,18 @@ const NewDashboard = () => {
 		// Convertir el objeto de productos únicos en un array
 		const productosFinales = Object.values(productosUnicos);
 
+		console.log({ data, productosFinales });
+
 		return productosFinales;
 	};
 	const handleDrugstore = () => {
 		let drugstore = [];
 		arrayBestPrice.forEach((element) => {
-			if (!drugstore.includes(...element.droguerias)) {
+			if (
+				!drugstore
+					.reduce((acc, arr) => [...acc, arr.drogueria], [])
+					.includes(...element.droguerias.map((v) => v.drogueria))
+			) {
 				drugstore = [...drugstore, ...element.droguerias];
 			}
 		});
@@ -266,7 +280,7 @@ const NewDashboard = () => {
 																className="bg-color-fill-low-contrast p-1 rounded-md text-color-text-primary mt-spacing mb-spacing"
 																key={j}
 															>
-																{drug}
+																{drug.drogueria}
 															</div>
 														)
 													)}
@@ -310,7 +324,7 @@ const NewDashboard = () => {
 													className="bg-color-fill-low-contrast p-1 rounded-md text-color-text-primary mt-spacing mb-spacing"
 													key={j}
 												>
-													{drug}
+													{drug.drogueria}
 												</div>
 											))}
 										</td>
@@ -367,7 +381,7 @@ const NewDashboard = () => {
 							{selectDrugstore.map((item, i) => (
 								<CopyCheck
 									key={i}
-									name={item}
+									name={item.drogueria}
 									arrayBestPrice={arrayBestPrice}
 								/>
 							))}

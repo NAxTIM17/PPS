@@ -1,6 +1,3 @@
-import UserIcon from '../../components/Icons/User';
-import InfoIcon from '../../components/Icons/Info';
-import StatsIcon from '../../components/Icons/Stats';
 import {
 	IconUserCircle,
 	IconAlignBoxBottomCenter,
@@ -23,16 +20,6 @@ const Account = () => {
 		session.end();
 		navigate(ROUTES.UNAUTHED_ROUTES.LOGIN);
 	};
-	const [stats, setStats] = useState();
-	const getStats = async () => {
-		try {
-			const { data } = await axiosInstance.get('/history/get');
-			setStats(data);
-		} catch (error) {
-			console.log(error);
-		}
-	};
-	console.log(stats);
 	return (
 		<div className="flex flex-col p-brand-2 gap-4">
 			<h1 className="text-4xl font-extrabold">Cuenta</h1>
