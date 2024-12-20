@@ -26,6 +26,7 @@ export default {
 			colors: {
 				'color-bg': 'var(--background)',
 				'color-bg-surface': 'var(--background-surface)',
+				'color-bg-surface-low': 'var(--rs-primary-100)',
 				'color-border': 'var(--rs-primary-700)',
 				'color-fill-primary': 'var(--rs-primary-500)',
 				'color-fill-secondary': 'var(--rs-primary-200)',

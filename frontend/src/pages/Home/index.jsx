@@ -11,6 +11,7 @@ import CardBento from '../../components/CardBento';
 import New from '../../components/New';
 import BarChart from '../../components/barChart';
 import DropZone from '../../components/DropZone';
+import PieChart from '../../components/pieChart';
 
 const Home = () => {
 	const [openModal, setOpenModal] = useState(false);
@@ -71,6 +72,8 @@ const Home = () => {
 			new Date(next.createdAt).getTime()
 	);
 
+	console.log(arrayDates);
+
 	const barChartAnalysis = () => {
 		const historialsInTheSameDay = Map.groupBy(
 			arrayDates,
@@ -89,12 +92,32 @@ const Home = () => {
 	const analysis = barChartAnalysis(); // """analysis"""
 	const last5DaysAnalysis = analysis.slice(0, 5); // doing this cuz no idea how the graph grows on more bars to show
 
+	function expensiveDrugstore(data) {
+		const droguerias = {};
+
+		data.forEach(({ history }) => {
+			history.forEach(({ drogueria, productos }) => {
+				if (!droguerias[drogueria]) {
+					droguerias[drogueria] = 0;
+				}
+				productos.forEach(({ precio }) => {
+					droguerias[drogueria] += precio;
+				});
+			});
+		});
+
+		return Object.entries(droguerias)
+			.map(([name, value]) => ({ name, value }))
+			.sort((a, b) => b.value - a.value);
+	}
+
 	return (
 		<>
 			<Bentogrid className={'grid-cols-3 grid-rows-8'}>
 				<CardBento className={'col-span-3 row-span-1'}>
 					<New handleOpen={handleOpenModal} />
 				</CardBento>
+
 				<CardBento
 					title={'Historial'}
 					className={'col-span-1 row-span-8 row-start-2 bg-color-bg'}
@@ -102,8 +125,15 @@ const Home = () => {
 					<History arrayDates={arrayDatesSortedByDate} />
 				</CardBento>
 				<CardBento
+					title={'Drogueria más cara'}
+					className={'col-span-2 row-span-3 row-start-2 bg-color-bg'}
+				>
+					<PieChart data={expensiveDrugstore(arrayDates)} />
+				</CardBento>
+
+				<CardBento
 					title={'Consumo'}
-					className={'col-span-2 row-start-2 row-span-8 bg-color-bg'}
+					className={'col-span-2 row-start-5 row-span-5 bg-color-bg'}
 				>
 					<BarChart
 						yAxisData={last5DaysAnalysis.map((v) =>
